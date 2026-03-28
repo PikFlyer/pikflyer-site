@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pik Flyer - GPS Location Tool for Pikmin Bloom</title>
+<meta name="description" content="Pik Flyer lets you explore the world from your desk. Walk routes, collect flowers, and discover landmarks in Pikmin Bloom without leaving home.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--orange:#ff6b35;--dark:#1a1a2e;--gray:#f8f9fa;--text:#333;--muted:#666}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--text);line-height:1.6}
+a{color:var(--orange);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* Nav */
+nav{position:fixed;top:0;width:100%;background:rgba(26,26,46,0.95);backdrop-filter:blur(10px);z-index:100;padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+nav .logo{color:#fff;font-size:1.3rem;font-weight:700}
+nav .logo span{color:var(--orange)}
+nav ul{list-style:none;display:flex;gap:1.5rem}
+nav ul a{color:#ccc;font-size:0.9rem;transition:color 0.2s}
+nav ul a:hover{color:#fff;text-decoration:none}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);color:#fff;padding:8rem 2rem 5rem;text-align:center;min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.hero h1{font-size:3.2rem;margin-bottom:0.5rem;line-height:1.2}
+.hero h1 span{color:var(--orange)}
+.hero .subtitle{font-size:1.3rem;color:#a0b4d0;margin-bottom:0.5rem}
+.hero .tagline{font-size:1.8rem;margin-bottom:2rem}
+.hero .cta{display:inline-block;background:var(--orange);color:#fff;padding:1rem 2.5rem;border-radius:50px;font-size:1.1rem;font-weight:600;transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}
+.hero .cta:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(255,107,53,0.4);text-decoration:none}
+.hero .platforms{margin-top:1.5rem;color:#7a8ba8;font-size:0.95rem}
+
+/* Features */
+.features{padding:5rem 2rem;max-width:1100px;margin:0 auto}
+.features h2{text-align:center;font-size:2.2rem;margin-bottom:3rem}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem}
+.feature-card{background:#fff;border:1px solid #e8e8e8;border-radius:16px;padding:2rem;transition:box-shadow 0.3s}
+.feature-card:hover{box-shadow:0 8px 30px rgba(0,0,0,0.08)}
+.feature-card .icon{font-size:2.5rem;margin-bottom:1rem}
+.feature-card h3{font-size:1.2rem;margin-bottom:0.5rem}
+.feature-card p{color:var(--muted);font-size:0.95rem}
+
+/* How it works */
+.how{background:var(--gray);padding:5rem 2rem}
+.how .inner{max-width:900px;margin:0 auto}
+.how h2{text-align:center;font-size:2.2rem;margin-bottom:3rem}
+.steps{display:flex;flex-direction:column;gap:2rem}
+.step{display:flex;align-items:flex-start;gap:1.5rem}
+.step-num{background:var(--orange);color:#fff;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;font-size:1.1rem}
+.step-text h3{font-size:1.1rem;margin-bottom:0.3rem}
+.step-text p{color:var(--muted);font-size:0.95rem}
+
+/* Pricing */
+.pricing{padding:5rem 2rem;text-align:center}
+.pricing h2{font-size:2.2rem;margin-bottom:1rem}
+.pricing .desc{color:var(--muted);margin-bottom:3rem;font-size:1.05rem}
+.price-card{max-width:400px;margin:0 auto;background:#fff;border:2px solid var(--orange);border-radius:20px;padding:2.5rem;box-shadow:0 8px 30px rgba(255,107,53,0.1)}
+.price-card .badge{background:var(--orange);color:#fff;display:inline-block;padding:0.3rem 1rem;border-radius:50px;font-size:0.85rem;font-weight:600;margin-bottom:1.5rem}
+.price-card .amount{font-size:3rem;font-weight:800;color:var(--dark)}
+.price-card .amount span{font-size:1.1rem;font-weight:400;color:var(--muted)}
+.price-card .perks{list-style:none;text-align:left;margin:1.5rem 0;padding:0}
+.price-card .perks li{padding:0.5rem 0;border-bottom:1px solid #f0f0f0;font-size:0.95rem}
+.price-card .perks li::before{content:"✓ ";color:var(--orange);font-weight:700}
+.price-card .btn{display:inline-block;background:var(--orange);color:#fff;padding:0.9rem 2.5rem;border-radius:50px;font-size:1.05rem;font-weight:600;margin-top:1rem;transition:transform 0.2s;text-decoration:none}
+.price-card .btn:hover{transform:translateY(-2px);text-decoration:none}
+
+/* FAQ */
+.faq{background:var(--gray);padding:5rem 2rem}
+.faq .inner{max-width:800px;margin:0 auto}
+.faq h2{text-align:center;font-size:2.2rem;margin-bottom:3rem}
+.faq-item{margin-bottom:1.5rem}
+.faq-item h3{font-size:1.05rem;margin-bottom:0.4rem;cursor:pointer}
+.faq-item p{color:var(--muted);font-size:0.95rem}
+
+/* Footer */
+footer{background:var(--dark);color:#999;padding:3rem 2rem;text-align:center}
+footer .links{margin-bottom:1rem}
+footer .links a{color:#bbb;margin:0 1rem;font-size:0.9rem}
+footer .links a:hover{color:#fff}
+footer .copy{font-size:0.85rem}
+
+/* Legal pages */
+.legal{max-width:800px;margin:0 auto;padding:7rem 2rem 4rem}
+.legal h1{font-size:2rem;margin-bottom:1.5rem}
+.legal h2{font-size:1.3rem;margin-top:2rem;margin-bottom:0.8rem}
+.legal p,.legal li{color:var(--muted);margin-bottom:0.8rem;font-size:0.95rem}
+.legal ul{padding-left:1.5rem}
+
+/* Responsive */
+@media(max-width:768px){
+  nav{padding:0.8rem 1rem}
+  nav ul{gap:0.8rem}
+  nav ul a{font-size:0.8rem}
+  .hero h1{font-size:2rem}
+  .hero .tagline{font-size:1.3rem}
+  .features-grid{grid-template-columns:1fr}
+  .step{flex-direction:column;align-items:center;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="logo"><span>Pik</span> Flyer</div>
+  <ul>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <h1><span>Pik Flyer</span></h1>
+  <p class="subtitle">GPS Location Tool for Pikmin Bloom</p>
+  <p class="tagline">Walk the world from your desk. Collect flowers everywhere.</p>
+  <a href="#pricing" class="cta">Start Free Trial</a>
+  <p class="platforms">Available for macOS &amp; Windows &bull; Supports iPhone &amp; Android</p>
+</section>
+
+<!-- Features -->
+<section class="features" id="features">
+  <h2>Everything you need to explore</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="icon">🎲</div>
+      <h3>Dice Landmarks</h3>
+      <p>Roll the dice to discover 6,000+ real-world landmarks across 17 categories. Lighthouses, temples, parks, beaches, and more from every continent.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🚶</div>
+      <h3>Auto City Walks</h3>
+      <p>Automated walking routes through real city streets worldwide. Collect flowers and grow your Pikmin while your character walks naturally through Tokyo, Paris, New York, and more.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">⚡</div>
+      <h3>Instant Teleport</h3>
+      <p>Click anywhere on the map and teleport instantly. Visit any coordinate on Earth with a single click.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🗺️</div>
+      <h3>Custom Routes</h3>
+      <p>Draw your own walking paths on the map. Set custom speed, pause, resume, or stop anytime. Create the perfect route for your session.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🕹️</div>
+      <h3>Joystick Control</h3>
+      <p>Move freely in any direction with the virtual joystick. Explore neighborhoods at your own pace with precise control.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🌍</div>
+      <h3>Multi-Language</h3>
+      <p>Full interface in English, 繁體中文, 日本語, and 한국어. Auto-detects your system language.</p>
+    </div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section class="how">
+  <div class="inner">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <h3>Connect your device</h3>
+          <p>Plug in your iPhone or Android via USB. Pik Flyer detects it automatically.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <h3>Choose your destination</h3>
+          <p>Roll the dice for a random landmark, pick a city walk route, or click anywhere on the map.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <h3>Explore and collect</h3>
+          <p>Your phone's GPS updates in real-time. Open Pikmin Bloom and start planting flowers around the world.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="pricing" id="pricing">
+  <h2>Simple pricing</h2>
+  <p class="desc">One plan, everything included. Cancel anytime.</p>
+  <div class="price-card">
+    <div class="badge">MONTHLY</div>
+    <div class="amount">$4.99 <span>/ month</span></div>
+    <ul class="perks">
+      <li>Unlimited teleportation</li>
+      <li>6,000+ worldwide landmarks</li>
+      <li>Auto city walk routes</li>
+      <li>Custom route builder</li>
+      <li>Joystick control</li>
+      <li>iPhone &amp; Android support</li>
+      <li>macOS &amp; Windows</li>
+      <li>All future updates included</li>
+    </ul>
+    <a href="#" class="btn">Coming Soon</a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="inner">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item">
+      <h3>Is Pik Flyer safe to use?</h3>
+      <p>Pik Flyer simulates GPS location at the operating system level. It works with Pikmin Bloom and other location-based apps. As with any location tool, please use responsibly and be aware of each app's terms of service.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What devices are supported?</h3>
+      <p>iPhone (iOS 17+) and Android (5.0+). Your phone connects to Pik Flyer via USB on a Mac or Windows computer.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Can I cancel anytime?</h3>
+      <p>Yes. Your subscription can be cancelled at any time from your account dashboard. You'll retain access until the end of your billing period.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Is there a free trial?</h3>
+      <p>Yes, new users get a 3-day free trial with full access to all features. No credit card required to start.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Do I need to jailbreak my iPhone?</h3>
+      <p>No. Pik Flyer uses Apple's Developer Tools protocol to simulate location. No jailbreak or modifications to your device are needed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="links">
+    <a href="terms.html">Terms of Service</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="refund.html">Refund Policy</a>
+    <a href="mailto:zacjasonr@gmail.com">Contact</a>
+  </div>
+  <p class="copy">&copy; 2026 Pik Flyer. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
