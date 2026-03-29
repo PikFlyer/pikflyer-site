@@ -43,28 +43,69 @@ nav ul a:hover{color:#fff;text-decoration:none}
 .hero-text .platforms{margin-top:1.2rem;color:#7a8ba8;font-size:0.9rem}
 .hero-visual{position:relative}
 
-/* Hero phone mockup */
-.phone-frame{width:280px;margin:0 auto;background:#111;border-radius:36px;padding:12px;box-shadow:0 30px 60px rgba(0,0,0,0.5),0 0 0 2px #333;position:relative}
-.phone-screen{border-radius:26px;overflow:hidden;aspect-ratio:9/19.5;background:#1a2744;position:relative}
-.phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:28px;background:#111;border-radius:0 0 18px 18px;z-index:3}
-.phone-map{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1524661135-423995f22d0b?w=600&q=75') center/cover;opacity:0.7}
-.phone-map-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,39,68,0.3),rgba(26,39,68,0.6))}
-.phone-pikmin{position:absolute;bottom:60px;left:50%;transform:translateX(-50%);display:flex;gap:4px;z-index:2}
-.phone-pikmin span{font-size:1.6rem;animation:pikBounce 0.5s infinite alternate}
+/* Hero device combo: laptop + phone */
+.hero-devices{display:flex;align-items:flex-end;justify-content:center;gap:0;position:relative}
+/* Laptop mockup */
+.laptop-frame{width:380px;position:relative;z-index:2}
+.laptop-screen{background:#1e1e2e;border-radius:10px 10px 0 0;border:2px solid #444;border-bottom:none;overflow:hidden}
+.laptop-titlebar{background:#2a2a3e;padding:0.35rem 0.6rem;display:flex;align-items:center;gap:4px}
+.laptop-titlebar .dot{width:7px;height:7px;border-radius:50%}
+.laptop-titlebar .dot.red{background:#ff5f57}
+.laptop-titlebar .dot.yellow{background:#febc2e}
+.laptop-titlebar .dot.green{background:#28c840}
+.laptop-titlebar .ltitle{color:#666;font-size:0.55rem;margin-left:6px}
+.laptop-body{display:grid;grid-template-columns:130px 1fr;height:220px}
+.laptop-sidebar{background:#252538;padding:0.5rem;display:flex;flex-direction:column;gap:4px;border-right:1px solid #333}
+.lsb-item{background:#2d2d44;border:1px solid #3a3a55;border-radius:5px;padding:3px 6px;color:#ccc;font-size:0.5rem;display:flex;align-items:center;gap:4px}
+.lsb-item .licon{font-size:0.7rem}
+.lsb-item.active{background:#3a2a15;border-color:#ff6b35;color:#ff9a62}
+.lsb-item.walk{background:#1a3a2a;border-color:#2d6b45;color:#5bda8a}
+.lsb-device{background:#1a3a2a;border:1px solid #2d6b45;border-radius:5px;padding:3px 6px;margin-bottom:2px}
+.lsb-device .dname{color:#5bda8a;font-size:0.5rem;font-weight:600}
+.lsb-device .dstatus{color:#3a8a5a;font-size:0.4rem}
+.laptop-map{background:#1a2744;position:relative;overflow:hidden}
+.laptop-map-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1524661135-423995f22d0b?w=600&q=70') center/cover;opacity:0.25}
+.laptop-map .lm-grid{position:absolute;inset:0;opacity:0.05;background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:30px 30px}
+.laptop-map .lm-marker{position:absolute;width:6px;height:6px;border-radius:50%;background:#ff6b35;animation:pulse 2s infinite}
+.laptop-map .lm-marker:nth-child(3){top:40px;left:60px}
+.laptop-map .lm-marker:nth-child(4){top:80px;left:140px;background:#5bda8a}
+.laptop-map .lm-marker:nth-child(5){top:60px;left:180px}
+.laptop-map .lm-marker:nth-child(6){top:130px;left:100px;background:#5bda8a}
+.laptop-map .lm-dice{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(30,30,46,0.92);border:1px solid #ff6b35;border-radius:8px;padding:6px 10px;text-align:center}
+.laptop-map .lm-dice .dice-em{font-size:1.2rem}
+.laptop-map .lm-dice .dice-label{color:#ff9a62;font-size:0.45rem;font-weight:600}
+.laptop-map .lm-dice .dice-loc{color:#fff;font-size:0.55rem;font-weight:700}
+.laptop-base{background:linear-gradient(180deg,#666,#555);height:10px;border-radius:0 0 6px 6px;margin:0 -10px;position:relative}
+.laptop-base::after{content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:120px;height:4px;background:#444;border-radius:0 0 4px 4px}
+/* Connection arrow */
+.hero-connect{display:flex;flex-direction:column;align-items:center;margin:0 -15px;z-index:3;align-self:center}
+.hero-connect .arrow-line{width:50px;height:2px;background:linear-gradient(90deg,#ff6b35,#5bda8a);position:relative}
+.hero-connect .arrow-line::after{content:'▶';position:absolute;right:-10px;top:-8px;color:#5bda8a;font-size:0.8rem}
+.hero-connect .connect-label{color:#a0b4d0;font-size:0.55rem;margin-top:4px;white-space:nowrap}
+/* Phone mockup (smaller, beside laptop) */
+.phone-frame{width:120px;background:#111;border-radius:18px;padding:5px;box-shadow:0 15px 40px rgba(0,0,0,0.5),0 0 0 1px #333;position:relative;z-index:2}
+.phone-screen{border-radius:14px;overflow:hidden;aspect-ratio:9/19.5;background:#1a2744;position:relative}
+.phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:50px;height:14px;background:#111;border-radius:0 0 10px 10px;z-index:3}
+.phone-map{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1524661135-423995f22d0b?w=300&q=70') center/cover;opacity:0.7}
+.phone-map-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,39,68,0.2),rgba(26,39,68,0.5))}
+.phone-pikmin{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;gap:2px;z-index:2}
+.phone-pikmin span{font-size:0.8rem;animation:pikBounce 0.5s infinite alternate}
 .phone-pikmin span:nth-child(2){animation-delay:0.1s}
 .phone-pikmin span:nth-child(3){animation-delay:0.2s}
-.phone-pikmin span:nth-child(4){animation-delay:0.3s}
-@keyframes pikBounce{0%{transform:translateY(0)}100%{transform:translateY(-6px)}}
-.phone-location{position:absolute;top:40px;left:50%;transform:translateX(-50%);z-index:2;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);border-radius:12px;padding:0.4rem 0.8rem;text-align:center;border:1px solid rgba(255,107,53,0.3)}
-.phone-location .loc-name{color:#ff9a62;font-size:0.7rem;font-weight:600}
-.phone-location .loc-coords{color:#5bda8a;font-family:monospace;font-size:0.6rem}
-.phone-walk-indicator{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);z-index:2;background:rgba(45,107,69,0.9);border:1px solid #5bda8a;border-radius:20px;padding:0.3rem 0.8rem;display:flex;align-items:center;gap:0.4rem}
-.phone-walk-indicator .walk-dot{width:6px;height:6px;border-radius:50%;background:#5bda8a;animation:blink 1s infinite}
+@keyframes pikBounce{0%{transform:translateY(0)}100%{transform:translateY(-4px)}}
+.phone-location{position:absolute;top:20px;left:50%;transform:translateX(-50%);z-index:2;background:rgba(0,0,0,0.7);border-radius:6px;padding:2px 6px;text-align:center;border:1px solid rgba(255,107,53,0.3)}
+.phone-location .loc-name{color:#ff9a62;font-size:0.4rem;font-weight:600}
+.phone-location .loc-coords{color:#5bda8a;font-family:monospace;font-size:0.35rem}
+.phone-walk-indicator{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);z-index:2;background:rgba(45,107,69,0.9);border:1px solid #5bda8a;border-radius:10px;padding:2px 6px;display:flex;align-items:center;gap:3px}
+.phone-walk-indicator .walk-dot{width:4px;height:4px;border-radius:50%;background:#5bda8a;animation:blink 1s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
-.phone-walk-indicator span{color:#5bda8a;font-size:0.65rem;font-weight:600}
-/* Pin on map */
-.map-pin{position:absolute;top:45%;left:55%;z-index:2;font-size:2rem;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.5));animation:pinDrop 2s ease infinite}
-@keyframes pinDrop{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.phone-walk-indicator span{color:#5bda8a;font-size:0.4rem;font-weight:600}
+.map-pin{position:absolute;top:40%;left:50%;z-index:2;font-size:0.9rem;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.5));animation:pinDrop 2s ease infinite}
+@keyframes pinDrop{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+/* Device labels */
+.device-label{text-align:center;margin-top:8px;font-size:0.7rem;font-weight:600}
+.device-label.desktop{color:#ff9a62}
+.device-label.mobile{color:#5bda8a}
 
 /* ===== STATS BAR ===== */
 .stats-bar{background:linear-gradient(90deg,#ff6b35,#ff8c42);padding:2.5rem 2rem;color:#fff;text-align:center}
@@ -201,7 +242,8 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
 @media(max-width:900px){
   .hero-content{grid-template-columns:1fr;text-align:center}
   .hero-visual{order:-1}
-  .phone-frame{width:220px}
+  .hero-devices{transform:scale(0.85)}
+  .laptop-frame{width:300px}
   .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
   .gallery-item:nth-child(1){grid-column:1/3}
   .gallery-item:nth-child(5){grid-column:1/3}
@@ -272,27 +314,72 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
       </p>
     </div>
     <div class="hero-visual">
-      <!-- Phone mockup -->
-      <div class="phone-frame">
-        <div class="phone-screen">
-          <div class="phone-notch"></div>
-          <div class="phone-map"></div>
-          <div class="phone-map-overlay"></div>
-          <div class="phone-location">
-            <div class="loc-name">
-              <span data-lang-en>Tokyo Tower, Japan</span>
-              <span data-lang-zh>東京鐵塔，日本</span>
+      <div class="hero-devices">
+        <!-- Laptop (desktop app) -->
+        <div>
+          <div class="laptop-frame">
+            <div class="laptop-screen">
+              <div class="laptop-titlebar">
+                <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                <span class="ltitle">Pik Flyer v1.0</span>
+              </div>
+              <div class="laptop-body">
+                <div class="laptop-sidebar">
+                  <div class="lsb-device">
+                    <div class="dname">📱 iPhone 15 Pro</div>
+                    <div class="dstatus"><span data-lang-en>● Connected</span><span data-lang-zh>● 已連接</span></div>
+                  </div>
+                  <div class="lsb-item active"><span class="licon">🎲</span> <span data-lang-en>Dice (6,129)</span><span data-lang-zh>骰子 (6,129)</span></div>
+                  <div class="lsb-item walk"><span class="licon">🚶</span> <span data-lang-en>Auto Walk ●</span><span data-lang-zh>自動走路 ●</span></div>
+                  <div class="lsb-item"><span class="licon">⚡</span> <span data-lang-en>Teleport</span><span data-lang-zh>傳送</span></div>
+                  <div class="lsb-item"><span class="licon">🕹️</span> <span data-lang-en>Joystick</span><span data-lang-zh>搖桿</span></div>
+                </div>
+                <div class="laptop-map">
+                  <div class="laptop-map-bg"></div>
+                  <div class="lm-grid"></div>
+                  <div class="lm-marker"></div>
+                  <div class="lm-marker"></div>
+                  <div class="lm-marker"></div>
+                  <div class="lm-marker"></div>
+                  <div class="lm-dice">
+                    <div class="dice-em">🎲</div>
+                    <div class="dice-label"><span data-lang-en>ROLLED!</span><span data-lang-zh>擲出！</span></div>
+                    <div class="dice-loc">🗼 <span data-lang-en>Tokyo Tower</span><span data-lang-zh>東京鐵塔</span></div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="loc-coords">35.6586° N, 139.7454° E</div>
+            <div class="laptop-base"></div>
           </div>
-          <div class="map-pin">📍</div>
-          <div class="phone-pikmin">
-            <span>🌱</span><span>🌿</span><span>🌸</span><span>🌺</span>
+          <div class="device-label desktop"><span data-lang-en>Desktop App</span><span data-lang-zh>電腦端操作</span></div>
+        </div>
+        <!-- Arrow -->
+        <div class="hero-connect">
+          <div class="arrow-line"></div>
+          <div class="connect-label">USB</div>
+        </div>
+        <!-- Phone (receives GPS) -->
+        <div>
+          <div class="phone-frame">
+            <div class="phone-screen">
+              <div class="phone-notch"></div>
+              <div class="phone-map"></div>
+              <div class="phone-map-overlay"></div>
+              <div class="phone-location">
+                <div class="loc-name"><span data-lang-en>Tokyo Tower</span><span data-lang-zh>東京鐵塔</span></div>
+                <div class="loc-coords">35.6586°N, 139.7454°E</div>
+              </div>
+              <div class="map-pin">📍</div>
+              <div class="phone-pikmin">
+                <span>🌱</span><span>🌿</span><span>🌸</span>
+              </div>
+              <div class="phone-walk-indicator">
+                <div class="walk-dot"></div>
+                <span>3.2 km/h</span>
+              </div>
+            </div>
           </div>
-          <div class="phone-walk-indicator">
-            <div class="walk-dot"></div>
-            <span><span data-lang-en>Walking 3.2 km/h</span><span data-lang-zh>步行中 3.2 km/h</span></span>
-          </div>
+          <div class="device-label mobile"><span data-lang-en>Phone GPS</span><span data-lang-zh>手機定位</span></div>
         </div>
       </div>
     </div>
