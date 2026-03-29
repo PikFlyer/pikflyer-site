@@ -78,8 +78,8 @@ document.addEventListener('DOMContentLoaded', function() {
     setLang(savedLang);
   } else {
     const browserLang = navigator.language.toLowerCase();
-    const pikflyer-lang = browserLang.startsWith('zh') ? 'zh' : 'en';
-    setLang(pikflyer-lang);
+    const lang = browserLang.startsWith('zh') ? 'zh' : 'en';
+    setLang(lang);
   }
 });
 </script>
