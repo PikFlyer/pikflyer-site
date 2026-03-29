@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pik Flyer - 今晚飛哪裡？ | GPS Location Tool for Pikmin Bloom</title>
-<meta name="description" content="Pik Flyer - GPS location tool for Pikmin Bloom. 6,129 worldwide landmarks, auto-walk, and instant teleport.">
+<meta name="description" content="Pik Flyer - GPS location tool for Pikmin Bloom. 10,085 worldwide landmarks, auto-walk, and instant teleport.">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--orange:#ff6b35;--dark:#1a1a2e;--gray:#f8f9fa;--text:#333;--muted:#666;--accent:#0f3460}
@@ -46,7 +46,7 @@ nav ul a:hover{color:#fff;text-decoration:none}
 /* Hero device combo: laptop + phone */
 .hero-devices{display:flex;align-items:flex-end;justify-content:center;gap:0;position:relative}
 /* Laptop mockup */
-.laptop-frame{width:380px;position:relative;z-index:2}
+.laptop-frame{width:460px;position:relative;z-index:2}
 .laptop-screen{background:#1e1e2e;border-radius:10px 10px 0 0;border:2px solid #444;border-bottom:none;overflow:hidden}
 .laptop-titlebar{background:#2a2a3e;padding:0.35rem 0.6rem;display:flex;align-items:center;gap:4px}
 .laptop-titlebar .dot{width:7px;height:7px;border-radius:50%}
@@ -54,7 +54,7 @@ nav ul a:hover{color:#fff;text-decoration:none}
 .laptop-titlebar .dot.yellow{background:#febc2e}
 .laptop-titlebar .dot.green{background:#28c840}
 .laptop-titlebar .ltitle{color:#666;font-size:0.55rem;margin-left:6px}
-.laptop-body{display:grid;grid-template-columns:130px 1fr;height:220px}
+.laptop-body{display:grid;grid-template-columns:140px 1fr;height:270px}
 .laptop-sidebar{background:#252538;padding:0.5rem;display:flex;flex-direction:column;gap:4px;border-right:1px solid #333}
 .lsb-item{background:#2d2d44;border:1px solid #3a3a55;border-radius:5px;padding:3px 6px;color:#ccc;font-size:0.5rem;display:flex;align-items:center;gap:4px}
 .lsb-item .licon{font-size:0.7rem}
@@ -83,7 +83,7 @@ nav ul a:hover{color:#fff;text-decoration:none}
 .hero-connect .arrow-line::after{content:'▶';position:absolute;right:-10px;top:-8px;color:#5bda8a;font-size:0.8rem}
 .hero-connect .connect-label{color:#a0b4d0;font-size:0.55rem;margin-top:4px;white-space:nowrap}
 /* Phone mockup (smaller, beside laptop) */
-.phone-frame{width:120px;background:#111;border-radius:18px;padding:5px;box-shadow:0 15px 40px rgba(0,0,0,0.5),0 0 0 1px #333;position:relative;z-index:2}
+.phone-frame{width:150px;background:#111;border-radius:20px;padding:6px;box-shadow:0 15px 40px rgba(0,0,0,0.5),0 0 0 1px #333;position:relative;z-index:2}
 .phone-screen{border-radius:14px;overflow:hidden;aspect-ratio:9/19.5;background:#1a2744;position:relative}
 .phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:50px;height:14px;background:#111;border-radius:0 0 10px 10px;z-index:3}
 .phone-map{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1524661135-423995f22d0b?w=300&q=70') center/cover;opacity:0.7}
@@ -222,6 +222,29 @@ nav ul a:hover{color:#fff;text-decoration:none}
 .price-card .btn{display:inline-block;background:var(--orange);color:#fff;padding:0.9rem 2.5rem;border-radius:50px;font-size:1.05rem;font-weight:600;margin-top:1rem;transition:transform 0.2s;text-decoration:none}
 .price-card .btn:hover{transform:translateY(-2px);text-decoration:none}
 
+/* ===== SETUP GUIDE ===== */
+.setup-guide{padding:5rem 2rem;background:#fff}
+.setup-guide .inner{max-width:900px;margin:0 auto}
+.setup-guide h2{text-align:center;font-size:2.2rem;margin-bottom:0.5rem}
+.setup-guide .section-desc{text-align:center;color:var(--muted);font-size:1.05rem;margin-bottom:2rem}
+.setup-tabs{display:flex;justify-content:center;gap:0.5rem;margin-bottom:2rem;flex-wrap:wrap}
+.setup-tab{background:#f0f0f0;border:2px solid transparent;border-radius:50px;padding:0.55rem 1.4rem;font-size:0.95rem;font-weight:600;cursor:pointer;transition:all 0.2s;color:var(--muted)}
+.setup-tab:hover{border-color:#ddd}
+.setup-tab.active{background:var(--orange);color:#fff;border-color:var(--orange)}
+.setup-panel{display:none}
+.setup-panel.active{display:block}
+.setup-card{background:var(--gray);border-radius:14px;padding:1.8rem 2rem;margin-bottom:1.2rem;border:1px solid #e8e8e8}
+.setup-card h3{font-size:1.1rem;margin-bottom:0.3rem;color:var(--dark)}
+.setup-card h3 .step-badge{display:inline-block;background:var(--orange);color:#fff;width:26px;height:26px;border-radius:50%;text-align:center;line-height:26px;font-size:0.8rem;margin-right:0.5rem;vertical-align:middle}
+.setup-card p{color:var(--muted);font-size:0.95rem;line-height:1.7}
+.setup-card code{background:#e8e8e8;padding:0.15rem 0.5rem;border-radius:4px;font-size:0.85rem;color:#c7254e;font-family:'SF Mono',Monaco,monospace}
+.setup-card .warn{color:#e67e22;font-weight:600;font-size:0.9rem;margin-top:0.5rem}
+.prereq-box{background:#fff3ee;border:1px solid #ffe0cc;border-radius:10px;padding:1.2rem 1.5rem;margin-bottom:1.5rem}
+.prereq-box h4{color:var(--orange);font-size:1rem;margin-bottom:0.5rem}
+.prereq-box ul{list-style:none;padding:0;margin:0}
+.prereq-box ul li{padding:0.3rem 0;font-size:0.92rem;color:var(--text)}
+.prereq-box ul li::before{content:"📦 ";font-size:0.9rem}
+
 /* ===== FAQ ===== */
 .faq{background:var(--gray);padding:5rem 2rem}
 .faq .inner{max-width:800px;margin:0 auto}
@@ -243,7 +266,7 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
   .hero-content{grid-template-columns:1fr;text-align:center}
   .hero-visual{order:-1}
   .hero-devices{transform:scale(0.85)}
-  .laptop-frame{width:300px}
+  .laptop-frame{width:340px}
   .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
   .gallery-item:nth-child(1){grid-column:1/3}
   .gallery-item:nth-child(5){grid-column:1/3}
@@ -285,6 +308,7 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
   <ul>
     <li><a href="#features"><span data-lang-en>Features</span><span data-lang-zh>功能</span></a></li>
     <li><a href="#pricing"><span data-lang-en>Pricing</span><span data-lang-zh>價格</span></a></li>
+    <li><a href="#setup"><span data-lang-en>Setup</span><span data-lang-zh>教學</span></a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
 </nav>
@@ -301,8 +325,8 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
         <span data-lang-zh>Pikmin Bloom GPS 定位工具</span>
       </p>
       <p class="tagline">
-        <span data-lang-en>Walk the world from your desk. Collect flowers, fight mushrooms, grab postcards.</span>
-        <span data-lang-zh>今晚飛哪裡？在家環遊世界種花。打菇拿明信片。</span>
+        <span data-lang-en>Explore the world from home!<br>Plant flowers, fight mushrooms, collect rare postcards.<br>The most affordable spoofer — fly your friends in one click!</span>
+        <span data-lang-zh>今晚飛哪裡？在家環遊世界！<br>種花、打菇、再拿特殊明信片！<br>最便宜的飛人程式，內建超多景點，一秒帶飛朋友！</span>
       </p>
       <a href="#pricing" class="cta">
         <span data-lang-en>Get Started</span>
@@ -329,7 +353,7 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
                     <div class="dname">📱 iPhone 15 Pro</div>
                     <div class="dstatus"><span data-lang-en>● Connected</span><span data-lang-zh>● 已連接</span></div>
                   </div>
-                  <div class="lsb-item active"><span class="licon">🎲</span> <span data-lang-en>Dice (6,129)</span><span data-lang-zh>骰子 (6,129)</span></div>
+                  <div class="lsb-item active"><span class="licon">🎲</span> <span data-lang-en>Dice (10,085)</span><span data-lang-zh>骰子 (10,085)</span></div>
                   <div class="lsb-item walk"><span class="licon">🚶</span> <span data-lang-en>Auto Walk ●</span><span data-lang-zh>自動走路 ●</span></div>
                   <div class="lsb-item"><span class="licon">⚡</span> <span data-lang-en>Teleport</span><span data-lang-zh>傳送</span></div>
                   <div class="lsb-item"><span class="licon">🕹️</span> <span data-lang-en>Joystick</span><span data-lang-zh>搖桿</span></div>
@@ -390,14 +414,14 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
 <section class="stats-bar">
   <div class="inner">
     <div class="stat-item">
-      <div class="stat-num" id="poi-counter">6,129</div>
+      <div class="stat-num" id="poi-counter">10,085</div>
       <div class="stat-label">
         <span data-lang-en>Worldwide Landmarks</span>
         <span data-lang-zh>全球地標景點</span>
       </div>
     </div>
     <div class="stat-item">
-      <div class="stat-num">17</div>
+      <div class="stat-num">27</div>
       <div class="stat-label">
         <span data-lang-en>POI Categories</span>
         <span data-lang-zh>地標分類</span>
@@ -423,12 +447,12 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
 <!-- ===== LANDMARK GALLERY ===== -->
 <section class="gallery" id="landmarks">
   <h2>
-    <span data-lang-en>Explore 6,129 Landmarks Worldwide</span>
-    <span data-lang-zh>探索全球 6,129 個地標景點</span>
+    <span data-lang-en>Explore 10,085 Landmarks Worldwide</span>
+    <span data-lang-zh>探索全球 10,085 個地標景點</span>
   </h2>
   <p class="section-desc">
-    <span data-lang-en>Roll the dice and fly to a random landmark. Temples, lighthouses, hot springs, castles, beaches — 17 categories across 6 continents.</span>
-    <span data-lang-zh>擲骰子隨機飛往世界各地。寺廟、燈塔、溫泉、城堡、海灘 — 17 種分類，橫跨六大洲。</span>
+    <span data-lang-en>Roll the dice and fly to a random landmark. Temples, lighthouses, hot springs, castles, beaches — 27 categories across 6 continents.</span>
+    <span data-lang-zh>擲骰子隨機飛往世界各地。寺廟、燈塔、城堡、瀑布、火山、恐龍、洞穴、沉船 — 27 種分類，橫跨六大洲。</span>
   </p>
   <div class="gallery-grid">
     <div class="gallery-item">
@@ -501,7 +525,7 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
         <span data-lang-en>Roll the dice and instantly fly to a random landmark from our massive database. Lighthouses, temples, hot springs, castles, beaches, observatories — real places across 6 continents.</span>
         <span data-lang-zh>擲骰子瞬間飛往隨機地標。燈塔、寺廟、溫泉、城堡、海灘、天文台 — 六大洲的真實景點，讓每次探索都充滿驚喜。</span>
       </p>
-      <div class="feature-stat">🌍 <span data-lang-en>6,129 landmarks across 17 categories</span><span data-lang-zh>6,129 筆地標，17 種分類</span></div>
+      <div class="feature-stat">🌍 <span data-lang-en>10,085 landmarks across 27 categories</span><span data-lang-zh>10,085 筆地標，27 種分類</span></div>
     </div>
   </div>
 
@@ -597,8 +621,8 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
             <div class="sidebar-label"><span data-lang-en>Controls</span><span data-lang-zh>控制</span></div>
             <div class="sidebar-btn active">
               <span class="btn-icon">🎲</span>
-              <span data-lang-en>Dice Landmark (6,129)</span>
-              <span data-lang-zh>骰子地標 (6,129)</span>
+              <span data-lang-en>Dice Landmark (10,085)</span>
+              <span data-lang-zh>骰子地標 (10,085)</span>
             </div>
             <div class="sidebar-btn walk-active">
               <span class="btn-icon">🚶</span>
@@ -675,6 +699,138 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
   </div>
 </section>
 
+<!-- ===== SETUP GUIDE ===== -->
+<section class="setup-guide" id="setup">
+  <div class="inner">
+    <h2><span data-lang-en>First-Time Setup Guide</span><span data-lang-zh>首次連線教學</span></h2>
+    <p class="section-desc"><span data-lang-en>Follow these steps for your platform to get started.</span><span data-lang-zh>根據你的平台，按照以下步驟開始使用。</span></p>
+
+    <div class="setup-tabs">
+      <button class="setup-tab active" onclick="showSetup('mac-ios')"><span data-lang-en>Mac + iPhone</span><span data-lang-zh>Mac + iPhone</span></button>
+      <button class="setup-tab" onclick="showSetup('mac-android')"><span data-lang-en>Mac + Android</span><span data-lang-zh>Mac + Android</span></button>
+      <button class="setup-tab" onclick="showSetup('win-ios')"><span data-lang-en>Windows + iPhone</span><span data-lang-zh>Windows + iPhone</span></button>
+      <button class="setup-tab" onclick="showSetup('win-android')"><span data-lang-en>Windows + Android</span><span data-lang-zh>Windows + Android</span></button>
+    </div>
+
+    <!-- Mac + iPhone -->
+    <div class="setup-panel active" id="panel-mac-ios">
+      <div class="prereq-box">
+        <h4><span data-lang-en>Prerequisites</span><span data-lang-zh>事前準備</span></h4>
+        <ul>
+          <li><span data-lang-en>macOS 13 (Ventura) or later</span><span data-lang-zh>macOS 13 (Ventura) 或更新版本</span></li>
+          <li><span data-lang-en>Xcode Command Line Tools — open Terminal and run: <code>xcode-select --install</code></span><span data-lang-zh>Xcode 命令列工具 — 打開終端機執行：<code>xcode-select --install</code></span></li>
+          <li><span data-lang-en>Python 3.9+ (comes with macOS or install via Homebrew)</span><span data-lang-zh>Python 3.9+（macOS 內建，或透過 Homebrew 安裝）</span></li>
+          <li><span data-lang-en>pymobiledevice3 — run: <code>pip3 install pymobiledevice3</code></span><span data-lang-zh>pymobiledevice3 — 執行：<code>pip3 install pymobiledevice3</code></span></li>
+        </ul>
+      </div>
+      <div class="setup-card">
+        <h3><span class="step-badge">1</span> <span data-lang-en>Enable Developer Mode on iPhone</span><span data-lang-zh>開啟 iPhone 開發者模式</span></h3>
+        <p><span data-lang-en>Go to <strong>Settings &gt; Privacy &amp; Security &gt; Developer Mode</strong>. Toggle it on and restart your iPhone when prompted.</span><span data-lang-zh>前往 <strong>設定 &gt; 隱私與安全性 &gt; 開發者模式</strong>，開啟後依提示重新啟動 iPhone。</span></p>
+      </div>
+      <div class="setup-card">
+        <h3><span class="step-badge">2</span> <span data-lang-en>Start tunneld service</span><span data-lang-zh>啟動 tunneld 服務</span></h3>
+        <p><span data-lang-en>Open Terminal and run: <code>sudo pymobiledevice3 remote tunneld</code>. Keep this window open. This creates a secure tunnel to your device.</span><span data-lang-zh>打開終端機執行：<code>sudo pymobiledevice3 remote tunneld</code>，保持視窗開啟。此服務建立與裝置的安全通道。</span></p>
+      </div>
+      <div class="setup-card">
+        <h3><span class="step-badge">3</span> <span data-lang-en>Connect via USB</span><span data-lang-zh>USB 連接</span></h3>
+        <p><span data-lang-en>Plug your iPhone into your Mac with a Lightning or USB-C cable. When prompted on your phone, tap <strong>"Trust"</strong>.</span><span data-lang-zh>用 Lightning 或 USB-C 線將 iPhone 插上 Mac。手機彈出提示時點選<strong>「信任」</strong>。</span></p>
+        <p class="warn"><span data-lang-en>⚠️ USB connection is required. WiFi mode is too slow for GPS simulation.</span><span data-lang-zh>⚠️ 必須使用 USB 連接。WiFi 模式太慢，不適合 GPS 模擬。</span></p>
+      </div>
+      <div class="setup-card">
+        <h3><span class="step-badge">4</span> <span data-lang-en>Launch Pik Flyer and connect</span><span data-lang-zh>啟動 Pik Flyer 並連接</span></h3>
+        <p><span data-lang-en>Open Pik Flyer, click <strong>"Connect Device"</strong>. Your iPhone should appear. Click it to start GPS simulation.</span><span data-lang-zh>開啟 Pik Flyer，點擊<strong>「連接裝置」</strong>，iPhone 會自動出現，點選即可開始 GPS 模擬。</span></p>
+      </div>
+    </div>
+
+    <!-- Mac + Android -->
+    <div class="setup-panel" id="panel-mac-android">
+      <div class="prereq-box">
+        <h4><span data-lang-en>Prerequisites</span><span data-lang-zh>事前準備</span></h4>
+        <ul>
+          <li><span data-lang-en>macOS 12 or later</span><span data-lang-zh>macOS 12 或更新版本</span></li>
+          <li><span data-lang-en>Android Platform Tools (ADB) — install via Homebrew: <code>brew install android-platform-tools</code></span><span data-lang-zh>Android Platform Tools (ADB) — 透過 Homebrew 安裝：<code>brew install android-platform-tools</code></span></li>
+          <li><span data-lang-en>A mock location app on your phone (e.g. "Fake GPS Location" from Play Store)</span><span data-lang-zh>手機上的模擬位置 App（例如 Play Store 上的「Fake GPS Location」）</span></li>
+        </ul>
+      </div>
+      <div class="setup-card">
+        <h3><span class="step-badge">1</span> <span data-lang-en>Enable Developer Options</span><span data-lang-zh>開啟開發者選項</span></h3>
+        <p><span data-lang-en>Go to <strong>Settings &gt; About Phone</strong>, tap <strong>"Build Number"</strong> 7 times until you see "You are now a developer!"</span><span data-lang-zh>前往<strong>設定 &gt; 關於手機</strong>，連續點擊<strong>「版本號碼」</strong> 7 次，直到看到「您現在是開發者了！」</span></p>
+      </div>
+      <div class="setup-card">
+        <h3><span class="step-badge">2</span> <span data-lang-en>Enable USB Debugging &amp; Mock Location</span><span data-lang-zh>開啟 USB 偵錯 &amp; 模擬位置</span></h3>
+        <p><span data-lang-en>Go to <strong>Settings &gt; Developer Options</strong>. Enable <strong>"USB Debugging"</strong>. Then set <strong>"Select mock location app"</strong> to your chosen mock GPS app.</span><span data-lang-zh>前往<strong>設定 &gt; 開發者選項</strong>，開啟<strong>「USB 偵錯」</strong>，並將<strong>「選取模擬位置應用程式」</strong>設為你安裝的 GPS 模擬 App。</span></p>
+      </div>
+      <div class="setup-card">
+        <h3><span class="step-badge">3</span> <span data-lang-en>Connect via USB</span><span data-lang-zh>USB 連接</span></h3>
+        <p><span data-lang-en>Plug your Android phone into your Mac with a USB cable. When prompted, allow <strong>"USB Debugging"</strong> and check "Always allow from this computer".</span><span data-lang-zh>用 USB 線將 Android 手機插上 Mac。彈出提示時允許<strong>「USB 偵錯」</strong>並勾選「一律允許這台電腦」。</span></p>
+      </div>
+      <div class="setup-card">
+        <h3><span class="step-badge">4</span> <span data-lang-en>Launch Pik Flyer and connect</span><span data-lang-zh>啟動 Pik Flyer 並連接</span></h3>
+        <p><span data-lang-en>Open Pik Flyer, click <strong>"Connect Device"</strong>. Your Android phone should appear. Select it and start exploring!</span><span data-lang-zh>開啟 Pik Flyer，點擊<strong>「連接裝置」</strong>，Android 手機會自動出現，選擇後即可開始探索！</span></p>
+      </div>
+    </div>
+
+    <!-- Windows + iPhone -->
+    <div class="setup-panel" id="panel-win-ios">
+      <div class="prereq-box">
+        <h4><span data-lang-en>Prerequisites</span><span data-lang-zh>事前準備</span></h4>
+        <ul>
+          <li><span data-lang-en>Windows 10/11 (64-bit)</span><span data-lang-zh>Windows 10/11（64 位元）</span></li>
+          <li><span data-lang-en>iTunes (Microsoft Store or Apple website) — required for Apple device drivers</span><span data-lang-zh>iTunes（Microsoft Store 或 Apple 官網下載）— 必須安裝，用於 Apple 裝置驅動程式</span></li>
+          <li><span data-lang-en>Python 3.9+ — download from <code>python.org</code></span><span data-lang-zh>Python 3.9+ — 從 <code>python.org</code> 下載安裝</span></li>
+          <li><span data-lang-en>pymobiledevice3 — run in CMD: <code>pip install pymobiledevice3</code></span><span data-lang-zh>pymobiledevice3 — 在 CMD 執行：<code>pip install pymobiledevice3</code></span></li>
+        </ul>
+      </div>
+      <div class="setup-card">
+        <h3><span class="step-badge">1</span> <span data-lang-en>Install iTunes first!</span><span data-lang-zh>先安裝 iTunes！</span></h3>
+        <p><span data-lang-en>iTunes installs the Apple Mobile Device USB drivers that Windows needs to communicate with your iPhone. Without it, your phone won't be detected.</span><span data-lang-zh>iTunes 會安裝 Windows 所需的 Apple 行動裝置 USB 驅動程式。沒有它，電腦無法偵測到你的 iPhone。</span></p>
+        <p class="warn"><span data-lang-en>⚠️ This is the most common issue on Windows. Install iTunes even if you don't plan to use it.</span><span data-lang-zh>⚠️ 這是 Windows 上最常見的問題。即使不使用 iTunes，也必須安裝。</span></p>
+      </div>
+      <div class="setup-card">
+        <h3><span class="step-badge">2</span> <span data-lang-en>Enable Developer Mode on iPhone</span><span data-lang-zh>開啟 iPhone 開發者模式</span></h3>
+        <p><span data-lang-en>Go to <strong>Settings &gt; Privacy &amp; Security &gt; Developer Mode</strong>. Toggle it on and restart.</span><span data-lang-zh>前往 <strong>設定 &gt; 隱私與安全性 &gt; 開發者模式</strong>，開啟後重新啟動。</span></p>
+      </div>
+      <div class="setup-card">
+        <h3><span class="step-badge">3</span> <span data-lang-en>Start tunneld service</span><span data-lang-zh>啟動 tunneld 服務</span></h3>
+        <p><span data-lang-en>Open <strong>Command Prompt as Administrator</strong> and run: <code>pymobiledevice3 remote tunneld</code>. Keep this window open.</span><span data-lang-zh>以<strong>系統管理員身分</strong>打開命令提示字元，執行：<code>pymobiledevice3 remote tunneld</code>，保持視窗開啟。</span></p>
+      </div>
+      <div class="setup-card">
+        <h3><span class="step-badge">4</span> <span data-lang-en>Connect via USB and launch</span><span data-lang-zh>USB 連接並啟動</span></h3>
+        <p><span data-lang-en>Plug your iPhone in via USB, tap <strong>"Trust"</strong> on the phone, then open Pik Flyer and click <strong>"Connect Device"</strong>.</span><span data-lang-zh>用 USB 線插上 iPhone，手機上點選<strong>「信任」</strong>，然後開啟 Pik Flyer 點擊<strong>「連接裝置」</strong>。</span></p>
+      </div>
+    </div>
+
+    <!-- Windows + Android -->
+    <div class="setup-panel" id="panel-win-android">
+      <div class="prereq-box">
+        <h4><span data-lang-en>Prerequisites</span><span data-lang-zh>事前準備</span></h4>
+        <ul>
+          <li><span data-lang-en>Windows 10/11 (64-bit)</span><span data-lang-zh>Windows 10/11（64 位元）</span></li>
+          <li><span data-lang-en>Android Platform Tools (ADB) — download from <code>developer.android.com/tools/releases/platform-tools</code>, extract and add to PATH</span><span data-lang-zh>Android Platform Tools (ADB) — 從 <code>developer.android.com/tools/releases/platform-tools</code> 下載，解壓後加入 PATH</span></li>
+          <li><span data-lang-en>A mock location app on your phone (e.g. "Fake GPS Location" from Play Store)</span><span data-lang-zh>手機上的模擬位置 App（例如 Play Store 上的「Fake GPS Location」）</span></li>
+        </ul>
+      </div>
+      <div class="setup-card">
+        <h3><span class="step-badge">1</span> <span data-lang-en>Enable Developer Options</span><span data-lang-zh>開啟開發者選項</span></h3>
+        <p><span data-lang-en>Go to <strong>Settings &gt; About Phone</strong>, tap <strong>"Build Number"</strong> 7 times.</span><span data-lang-zh>前往<strong>設定 &gt; 關於手機</strong>，連續點擊<strong>「版本號碼」</strong> 7 次。</span></p>
+      </div>
+      <div class="setup-card">
+        <h3><span class="step-badge">2</span> <span data-lang-en>Enable USB Debugging &amp; Mock Location</span><span data-lang-zh>開啟 USB 偵錯 &amp; 模擬位置</span></h3>
+        <p><span data-lang-en>In <strong>Developer Options</strong>, enable <strong>"USB Debugging"</strong> and set <strong>"Select mock location app"</strong> to your mock GPS app.</span><span data-lang-zh>在<strong>開發者選項</strong>中，開啟<strong>「USB 偵錯」</strong>，並將<strong>「選取模擬位置應用程式」</strong>設為 GPS 模擬 App。</span></p>
+      </div>
+      <div class="setup-card">
+        <h3><span class="step-badge">3</span> <span data-lang-en>Install OEM USB driver (if needed)</span><span data-lang-zh>安裝 OEM USB 驅動程式（如需要）</span></h3>
+        <p><span data-lang-en>Some brands (Samsung, Xiaomi) require a specific USB driver. Samsung users: install <strong>Samsung USB Driver</strong> from Samsung's website. Others: try the universal Google USB Driver included in Platform Tools.</span><span data-lang-zh>部分品牌（三星、小米）需要安裝專屬 USB 驅動程式。三星用戶：從三星官網安裝 <strong>Samsung USB Driver</strong>。其他品牌：嘗試 Platform Tools 中的通用 Google USB Driver。</span></p>
+      </div>
+      <div class="setup-card">
+        <h3><span class="step-badge">4</span> <span data-lang-en>Connect via USB and launch</span><span data-lang-zh>USB 連接並啟動</span></h3>
+        <p><span data-lang-en>Plug your Android phone in, allow <strong>"USB Debugging"</strong> when prompted. Open Pik Flyer and click <strong>"Connect Device"</strong>.</span><span data-lang-zh>插上 Android 手機，允許<strong>「USB 偵錯」</strong>，開啟 Pik Flyer 點擊<strong>「連接裝置」</strong>。</span></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ===== PRICING ===== -->
 <section class="pricing" id="pricing">
   <h2><span data-lang-en>Simple pricing</span><span data-lang-zh>簡單定價</span></h2>
@@ -684,7 +840,7 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
     <div class="amount">$4.99 <span>USD / <span data-lang-en>month</span><span data-lang-zh>月</span></span></div>
     <ul class="perks">
       <li><span data-lang-en>Unlimited teleportation</span><span data-lang-zh>無限傳送</span></li>
-      <li><span data-lang-en>6,129 worldwide landmarks</span><span data-lang-zh>6,129 筆全球地標</span></li>
+      <li><span data-lang-en>10,085 worldwide landmarks</span><span data-lang-zh>10,085 筆全球地標</span></li>
       <li><span data-lang-en>Smart auto walk routes</span><span data-lang-zh>智慧自動走路</span></li>
       <li><span data-lang-en>Custom route builder</span><span data-lang-zh>自訂路線繪製</span></li>
       <li><span data-lang-en>Joystick control</span><span data-lang-zh>虛擬搖桿</span></li>
@@ -720,6 +876,30 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
       <h3><span data-lang-en>Can I cancel anytime?</span><span data-lang-zh>可以隨時取消嗎？</span></h3>
       <p><span data-lang-en>Yes. Cancel anytime, keep access until billing period ends.</span><span data-lang-zh>可以，隨時取消，使用至帳單週期結束。</span></p>
     </div>
+    <div class="faq-item">
+      <h3><span data-lang-en>My iPhone is not detected — what should I do?</span><span data-lang-zh>我的 iPhone 偵測不到怎麼辦？</span></h3>
+      <p><span data-lang-en>Make sure you: (1) have iTunes installed (Windows), (2) Developer Mode is on, (3) tunneld is running (<code>sudo pymobiledevice3 remote tunneld</code>), (4) you're using a USB cable (not WiFi), and (5) you tapped "Trust" on the phone.</span><span data-lang-zh>請確認：(1) 已安裝 iTunes（Windows）、(2) 開發者模式已開啟、(3) tunneld 正在執行（<code>sudo pymobiledevice3 remote tunneld</code>）、(4) 使用 USB 連接（非 WiFi）、(5) 手機上已點選「信任」。</span></p>
+    </div>
+    <div class="faq-item">
+      <h3><span data-lang-en>My Android phone is not detected</span><span data-lang-zh>我的 Android 手機偵測不到</span></h3>
+      <p><span data-lang-en>Ensure USB Debugging is enabled in Developer Options. When you plug in, select "File Transfer" mode (not "Charging Only"). Some brands need an OEM USB driver — Samsung users should install Samsung USB Driver from Samsung's website.</span><span data-lang-zh>確認已在開發者選項開啟 USB 偵錯。插入時選擇「檔案傳輸」模式（非「僅充電」）。部分品牌需安裝 OEM USB 驅動程式 — 三星用戶請從三星官網安裝 Samsung USB Driver。</span></p>
+    </div>
+    <div class="faq-item">
+      <h3><span data-lang-en>Auto walk is stuttering / flowers are sparse</span><span data-lang-zh>自動走路卡頓 / 花很稀疏</span></h3>
+      <p><span data-lang-en>This usually happens with WiFi connections. Always use a USB cable for smooth GPS. Also make sure tunneld is running — it enables the high-speed persistent GPS mode.</span><span data-lang-zh>這通常是因為使用 WiFi 連接。請務必使用 USB 線以確保 GPS 平滑。同時確認 tunneld 正在執行 — 它啟用高速持續 GPS 模式。</span></p>
+    </div>
+    <div class="faq-item">
+      <h3><span data-lang-en>What is tunneld and why do I need it?</span><span data-lang-zh>什麼是 tunneld？為什麼需要它？</span></h3>
+      <p><span data-lang-en>tunneld is a background service from pymobiledevice3 that creates a secure tunnel to your iPhone. It allows Pik Flyer to send GPS coordinates directly and instantly (every 0.3s) instead of through slow subprocess calls. This is what makes auto walk ultra-smooth.</span><span data-lang-zh>tunneld 是 pymobiledevice3 的背景服務，會建立與 iPhone 的安全通道。它讓 Pik Flyer 能直接即時發送 GPS 座標（每 0.3 秒），而非透過緩慢的子程序呼叫。這就是自動走路超平滑的關鍵。</span></p>
+    </div>
+    <div class="faq-item">
+      <h3><span data-lang-en>Does GPS spoofing work over WiFi?</span><span data-lang-zh>WiFi 可以用 GPS 模擬嗎？</span></h3>
+      <p><span data-lang-en>Technically yes, but it's much slower and causes jerky movement. We strongly recommend USB for the best experience, especially for flower planting.</span><span data-lang-zh>技術上可以，但速度會慢很多，走路會卡頓。我們強烈建議使用 USB 以獲得最佳體驗，特別是種花時。</span></p>
+    </div>
+    <div class="faq-item">
+      <h3><span data-lang-en>Does it work with other games besides Pikmin Bloom?</span><span data-lang-zh>除了 Pikmin Bloom 還能用在其他遊戲嗎？</span></h3>
+      <p><span data-lang-en>Pik Flyer simulates GPS at the OS level, so it works with any location-based app. However, it's specifically optimized for Pikmin Bloom's walking and flower-planting mechanics.</span><span data-lang-zh>Pik Flyer 在作業系統層級模擬 GPS，因此任何定位 App 都能使用。但我們特別針對 Pikmin Bloom 的散步和種花機制進行了優化。</span></p>
+    </div>
   </div>
 </section>
 
@@ -749,6 +929,15 @@ function setLang(lang){
   setLang(n.startsWith('zh')?'zh':'en');
 })();
 
+// Setup guide tabs
+function showSetup(id){
+  document.querySelectorAll('.setup-panel').forEach(function(p){p.classList.remove('active')});
+  document.querySelectorAll('.setup-tab').forEach(function(t){t.classList.remove('active')});
+  var panel=document.getElementById('panel-'+id);
+  if(panel)panel.classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
 // Counter animation
 function animateCounter(el,target,dur){
   var st=null;
@@ -763,7 +952,7 @@ function animateCounter(el,target,dur){
 }
 var obs=new IntersectionObserver(function(entries){
   entries.forEach(function(en){
-    if(en.isIntersecting){animateCounter(en.target,6129,2000);obs.unobserve(en.target)}
+    if(en.isIntersecting){animateCounter(en.target,10085,2000);obs.unobserve(en.target)}
   });
 },{threshold:0.5});
 var c=document.getElementById('poi-counter');
