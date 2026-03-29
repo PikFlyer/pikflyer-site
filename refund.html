@@ -57,12 +57,12 @@ footer{background:var(--dark);color:#999;padding:2rem;text-align:center;font-siz
 <p><span data-lang-en>For refund requests or billing questions, contact us at <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a>.</span><span data-lang-zh>退款請求或帳單問題請聯絡 <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a>。</span></p>
 </div>
 
-<footer><span data-lang-en>&copy; 2026 Pik Flyer. All rights reserved.</span><span data-lang-zh">&copy; 2026 Pik Flyer. 版權所有。</span></footer>
+<footer><span data-lang-en>&copy; 2026 Pik Flyer. All rights reserved.</span><span data-lang-zh>&copy; 2026 Pik Flyer. 版權所有。</span></footer>
 
 <script>
 function setLang(lang) {
   document.documentElement.lang = lang;
-  localStorage.setItem('preferredLang', lang);
+  localStorage.setItem('pikflyer-lang', lang);
 }
 
 function toggleLang() {
@@ -73,13 +73,13 @@ function toggleLang() {
 
 // Auto-detect language on page load
 document.addEventListener('DOMContentLoaded', function() {
-  const savedLang = localStorage.getItem('preferredLang');
+  const savedLang = localStorage.getItem('pikflyer-lang');
   if (savedLang) {
     setLang(savedLang);
   } else {
     const browserLang = navigator.language.toLowerCase();
-    const preferredLang = browserLang.startsWith('zh') ? 'zh' : 'en';
-    setLang(preferredLang);
+    const pikflyer-lang = browserLang.startsWith('zh') ? 'zh' : 'en';
+    setLang(pikflyer-lang);
   }
 });
 </script>
