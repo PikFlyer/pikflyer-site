@@ -4,84 +4,334 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Refund Policy - Pik Flyer</title>
+<meta name="description" content="Pik Flyer Refund Policy - 7-day refund guarantee, free 5-day trial, and easy cancellation.">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--orange:#ff6b35;--dark:#1a1a2e;--text:#333;--muted:#666}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Noto Sans TC',sans-serif;color:var(--text);line-height:1.7}
-a{color:var(--orange)}
-nav{position:fixed;top:0;width:100%;background:rgba(26,26,46,0.95);backdrop-filter:blur(10px);z-index:100;padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
-nav .logo{color:#fff;font-size:1.3rem;font-weight:700;text-decoration:none}
-nav .logo span{color:var(--orange)}
-nav a.back{color:#ccc;font-size:0.9rem}
-nav .lang-toggle{position:fixed;top:1rem;right:2rem;z-index:101;background:var(--orange);color:#fff;border:none;padding:0.5rem 1rem;border-radius:4px;cursor:pointer;font-size:0.9rem;font-weight:600}
-nav .lang-toggle:hover{opacity:0.9}
-[data-lang-en],[data-lang-zh]{display:none}
+:root{--orange:#ff6b35;--dark:#1a1a2e;--gray:#f8f9fa;--text:#333;--muted:#666;--accent:#0f3460}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Noto Sans TC','Noto Sans JP','Noto Sans KR',sans-serif;color:var(--text);line-height:1.6;background:#fff}
+a{color:var(--orange);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* Language toggle */
+.lang-toggle{position:fixed;top:0.7rem;right:1rem;z-index:200;display:flex;background:rgba(255,255,255,0.95);border:1px solid #ddd;border-radius:50px;overflow:hidden}
+.lang-toggle button{background:none;border:none;color:#666;padding:0.35rem 0.9rem;font-size:0.8rem;cursor:pointer;transition:all 0.2s;font-weight:500}
+.lang-toggle button.active{background:var(--orange);color:#fff}
+.lang-toggle button:hover:not(.active){color:#333}
+[data-lang-en],[data-lang-zh],[data-lang-ja],[data-lang-ko]{display:none}
 html[lang="en"] [data-lang-en]{display:inline}
 html[lang="zh"] [data-lang-zh]{display:inline}
-.legal{max-width:800px;margin:0 auto;padding:7rem 2rem 4rem}
-.legal h1{font-size:2rem;margin-bottom:0.5rem}
-.legal .date{color:var(--muted);margin-bottom:2rem;font-size:0.9rem}
-.legal h2{font-size:1.2rem;margin-top:2rem;margin-bottom:0.8rem;color:var(--dark)}
-.legal p{color:var(--muted);margin-bottom:1rem;font-size:0.95rem}
-footer{background:var(--dark);color:#999;padding:2rem;text-align:center;font-size:0.85rem;margin-top:3rem}
+html[lang="ja"] [data-lang-ja]{display:inline}
+html[lang="ko"] [data-lang-ko]{display:inline}
+
+/* Nav */
+nav{position:fixed;top:0;width:100%;background:rgba(26,26,46,0.95);backdrop-filter:blur(10px);z-index:100;padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+nav .logo{color:#fff;font-size:1.3rem;font-weight:700}
+nav .logo span{color:var(--orange)}
+nav ul{list-style:none;display:flex;gap:1.5rem;margin-right:5rem}
+nav ul a{color:#ccc;font-size:0.9rem;transition:color 0.2s}
+nav ul a:hover{color:#fff;text-decoration:none}
+nav .back-link{color:#ccc;font-size:0.9rem;transition:color 0.2s}
+nav .back-link:hover{color:#fff;text-decoration:none}
+
+/* Main content */
+main{max-width:800px;margin:0 auto;padding:8rem 2rem 4rem;min-height:calc(100vh - 400px)}
+h1{font-size:2.5rem;color:var(--dark);margin-bottom:0.5rem;font-weight:700}
+.subtitle{font-size:1rem;color:var(--muted);margin-bottom:2rem}
+.last-updated{font-size:0.85rem;color:#aaa;margin-bottom:3rem}
+
+.policy-section{margin-bottom:3rem;padding:1.5rem;background:var(--gray);border-radius:8px;border-left:4px solid var(--orange)}
+.policy-section h2{font-size:1.4rem;color:var(--dark);margin-bottom:0.8rem;display:flex;align-items:center}
+.policy-section h2::before{content:'';display:inline-block;width:8px;height:8px;background:var(--orange);border-radius:50%;margin-right:0.8rem}
+.policy-section p{color:var(--text);margin-bottom:0.8rem}
+.policy-section ul{margin-left:1.5rem;margin-bottom:0.8rem}
+.policy-section li{margin-bottom:0.5rem;color:var(--text)}
+
+.highlight{background:#fffcf0;border:1px solid #ffe0b2;padding:1rem;border-radius:6px;margin:1rem 0}
+.highlight strong{color:var(--orange)}
+
+.contact-box{background:#e8f4f8;border:1px solid #b3e5fc;padding:1.5rem;border-radius:8px;margin:2rem 0;text-align:center}
+.contact-box p{margin-bottom:0.5rem}
+.contact-box a{color:var(--orange);font-weight:600}
+
+/* Footer */
+footer{background:var(--dark);color:#999;padding:3rem 2rem;text-align:center;margin-top:4rem}
+footer .links{margin-bottom:1rem}
+footer .links a{color:#bbb;margin:0 1rem;font-size:0.9rem}
+footer .links a:hover{color:#fff;text-decoration:none}
+footer .copy{font-size:0.85rem}
+footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
+
+/* Responsive */
+@media(max-width:768px){
+  main{padding:7rem 1rem 4rem}
+  h1{font-size:1.8rem}
+  nav ul{gap:1rem;margin-right:2rem}
+  nav ul a,nav .back-link{font-size:0.8rem}
+  .lang-toggle{top:0.5rem;right:0.5rem}
+  .lang-toggle button{padding:0.3rem 0.7rem;font-size:0.7rem}
+  .policy-section h2{font-size:1.2rem}
+}
 </style>
 </head>
 <body>
-<nav>
-  <a href="index.html" class="logo"><span>Pik</span> Flyer</a>
-  <a href="index.html" class="back"><span data-lang-en>&larr; Back to Home</span><span data-lang-zh>&larr; 返回首頁</span></a>
-</nav>
 
-<button class="lang-toggle" onclick="toggleLang()"><span data-lang-en>中文</span><span data-lang-zh>English</span></button>
-
-<div class="legal">
-<h1><span data-lang-en>Refund Policy</span><span data-lang-zh>退款政策</span></h1>
-<p class="date"><span data-lang-en>Last updated: March 29, 2026</span><span data-lang-zh>最後更新：2026 年 3 月 29 日</span></p>
-
-<h2><span data-lang-en>Free Trial</span><span data-lang-zh>免費試用</span></h2>
-<p><span data-lang-en>Pik Flyer offers a free trial period for new users. During the trial, you have full access to all features at no cost. If the Software does not meet your needs, simply cancel before the trial ends and you will not be charged.</span><span data-lang-zh>Pik Flyer 為新用戶提供免費試用期。試用期間可免費使用所有功能。若軟體不符合您的需求，只需在試用結束前取消即可，不會被收費。</span></p>
-
-<h2><span data-lang-en>Subscription Refunds</span><span data-lang-zh>訂閱退款</span></h2>
-<p><span data-lang-en>If you are unsatisfied with Pik Flyer after subscribing, you may request a full refund within 7 days of your payment date. To request a refund, email us at <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a> with your license key or the email address associated with your purchase.</span><span data-lang-zh>訂閱後若不滿意，可在付款日起 7 天內申請全額退款。請發送電子郵件至 <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a>，附上您的授權金鑰或購買時使用的電子郵件地址。</span></p>
-
-<h2><span data-lang-en>Refund Process</span><span data-lang-zh>退款流程</span></h2>
-<p><span data-lang-en>Refund requests are processed within 5-7 business days. Once approved, the refund will be issued to the original payment method through Lemon Squeezy. Your license will be deactivated upon refund.</span><span data-lang-zh>退款申請將在 5-7 個工作天內處理。核准後，退款將透過 Lemon Squeezy 退至原付款方式。退款後您的授權將被停用。</span></p>
-
-<h2><span data-lang-en>After 7 Days</span><span data-lang-zh>7 天後</span></h2>
-<p><span data-lang-en>Refund requests made after the 7-day window are evaluated on a case-by-case basis. We want every customer to be satisfied, so please reach out and we will do our best to help.</span><span data-lang-zh>超過 7 天退款窗口的申請將逐案評估。我們希望每位客戶都滿意，請隨時聯繫我們，我們會盡力協助。</span></p>
-
-<h2><span data-lang-en>Cancellation</span><span data-lang-zh>取消訂閱</span></h2>
-<p><span data-lang-en>You may cancel your subscription at any time. After cancellation, you will retain access to Pik Flyer until the end of your current billing period. No partial refunds are given for unused time within a billing cycle.</span><span data-lang-zh>您可隨時取消訂閱。取消後，您仍可使用 Pik Flyer 直到目前帳單週期結束。未使用的時間不提供部分退款。</span></p>
-
-<h2><span data-lang-en>Contact</span><span data-lang-zh>聯絡方式</span></h2>
-<p><span data-lang-en>For refund requests or billing questions, contact us at <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a>.</span><span data-lang-zh>退款請求或帳單問題請聯絡 <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a>。</span></p>
+<!-- Language toggle -->
+<div class="lang-toggle">
+  <button class="lang-btn active" data-lang="en">EN</button>
+  <button class="lang-btn" data-lang="zh">中文</button>
+  <button class="lang-btn" data-lang="ja">日本語</button>
+  <button class="lang-btn" data-lang="ko">한국어</button>
 </div>
 
-<footer><span data-lang-en>&copy; 2026 Pik Flyer. All rights reserved.</span><span data-lang-zh>&copy; 2026 Pik Flyer. 版權所有。</span></footer>
+<!-- Nav -->
+<nav>
+  <div class="logo">Pik <span>Flyer</span></div>
+  <a href="index.html" class="back-link">← <span data-lang-en>Back</span><span data-lang-zh>返回</span><span data-lang-ja>戻る</span><span data-lang-ko>뒤로</span></a>
+</nav>
 
+<!-- Main content -->
+<main>
+  <h1 data-lang-en>Refund Policy</h1>
+  <h1 data-lang-zh>退款政策</h1>
+  <h1 data-lang-ja>返金ポリシー</h1>
+  <h1 data-lang-ko>환불 정책</h1>
+
+  <p class="subtitle" data-lang-en>Simple, transparent, and customer-friendly</p>
+  <p class="subtitle" data-lang-zh>简单、透明、以客户为中心</p>
+  <p class="subtitle" data-lang-ja>シンプルで透明性が高く、カスタマーフレンドリー</p>
+  <p class="subtitle" data-lang-ko>간단하고 투명하며 고객 친화적입니다</p>
+
+  <p class="last-updated" data-lang-en>Last updated: March 2026</p>
+  <p class="last-updated" data-lang-zh>最后更新：2026 年 3 月</p>
+  <p class="last-updated" data-lang-ja>最終更新：2026 年 3 月</p>
+  <p class="last-updated" data-lang-ko>마지막 업데이트: 2026년 3월</p>
+
+  <!-- Section 1: Free Trial -->
+  <div class="policy-section">
+    <h2 data-lang-en>Free 5-Day Trial</h2>
+    <h2 data-lang-zh>免费 5 天试用</h2>
+    <h2 data-lang-ja>5日間の無料トライアル</h2>
+    <h2 data-lang-ko>5일 무료 체험</h2>
+
+    <p data-lang-en>All new users get a <strong>5-day free trial</strong> of Pik Flyer with full access to all features. You won't be charged during the trial period.</p>
+    <p data-lang-zh>所有新用户都可以获得 Pik Flyer 的 <strong>5 天免费试用</strong>，并可以完整访问所有功能。在试用期间，您不会被收费。</p>
+    <p data-lang-ja><strong>5日間の無料トライアル</strong>で、すべての機能に完全にアクセスできます。試用期間中は料金は発生しません。</p>
+    <p data-lang-ko>모든 새로운 사용자는 모든 기능에 완전히 액세스할 수 있는 Pik Flyer의 <strong>5일 무료 체험</strong>을 받습니다. 시험 기간 동안은 요금이 청구되지 않습니다.</p>
+
+    <div class="highlight">
+      <p data-lang-en><strong>Cancel anytime:</strong> You can cancel your trial at any point without any charge or obligation.</p>
+      <p data-lang-zh><strong>随时取消：</strong> 您可以随时取消试用，无需任何费用或义务。</p>
+      <p data-lang-ja><strong>いつでもキャンセル：</strong>料金や義務なしにいつでもトライアルをキャンセルできます。</p>
+      <p data-lang-ko><strong>언제든지 취소:</strong> 비용이나 의무 없이 언제든지 체험을 취소할 수 있습니다.</p>
+    </div>
+  </div>
+
+  <!-- Section 2: 7-Day Refund -->
+  <div class="policy-section">
+    <h2 data-lang-en>7-Day Refund Guarantee</h2>
+    <h2 data-lang-zh>7 天退款保证</h2>
+    <h2 data-lang-ja>7日間の返金保証</h2>
+    <h2 data-lang-ko>7일 환불 보장</h2>
+
+    <p data-lang-en>After your trial ends and you make your first purchase, we offer a <strong>full refund within 7 days, no questions asked</strong>. This gives you a full week to try Pik Flyer risk-free.</p>
+    <p data-lang-zh>试用期结束并进行首次购买后，我们提供 <strong>7 天内全额退款，无需任何问题</strong>。这给您整整一周的时间来无风险地尝试 Pik Flyer。</p>
+    <p data-lang-ja>トライアル終了後に初回購入した場合、<strong>7日以内に全額返金し、質問は一切ありません</strong>。これで1週間かけてPik Flyerをリスクなく試すことができます。</p>
+    <p data-lang-ko>체험 기간이 끝나고 첫 구매를 한 후, 우리는 <strong>7일 이내에 전액 환불을 제공하며 질문이 없습니다</strong>. 이는 Pik Flyer를 위험 부담 없이 시도할 수 있는 전체 일주일을 제공합니다.</p>
+
+    <div class="highlight">
+      <p data-lang-en><strong>No hassle:</strong> We trust you. You don't need to explain why—just ask and we'll process it.</p>
+      <p data-lang-zh><strong>没有麻烦：</strong>我们信任您。您不需要解释原因，只需要求，我们就会处理。</p>
+      <p data-lang-ja><strong>手間がかかりません：</strong>あなたを信頼しています。理由を説明する必要はありません。求めるだけで処理します。</p>
+      <p data-lang-ko><strong>번거로움이 없습니다:</strong> 우리는 당신을 믿습니다. 이유를 설명할 필요가 없습니다. 요청하기만 하면 처리됩니다.</p>
+    </div>
+  </div>
+
+  <!-- Section 3: How to Request -->
+  <div class="policy-section">
+    <h2 data-lang-en>How to Request a Refund</h2>
+    <h2 data-lang-zh>如何申请退款</h2>
+    <h2 data-lang-ja>返金をリクエストする方法</h2>
+    <h2 data-lang-ko>환불을 요청하는 방법</h2>
+
+    <p data-lang-en>Requesting a refund is simple:</p>
+    <p data-lang-zh>申请退款很简单：</p>
+    <p data-lang-ja>返金をリクエストするのは簡単です：</p>
+    <p data-lang-ko>환불을 요청하는 것은 간단합니다:</p>
+
+    <ul>
+      <li data-lang-en>Send an email to <strong>zacjasonr@gmail.com</strong></li>
+      <li data-lang-zh>发送电子邮件至 <strong>zacjasonr@gmail.com</strong></li>
+      <li data-lang-ja><strong>zacjasonr@gmail.com</strong> にメールを送信</li>
+      <li data-lang-ko><strong>zacjasonr@gmail.com</strong>으로 이메일 보내기</li>
+    </ul>
+
+    <ul>
+      <li data-lang-en>Include your order number in the email</li>
+      <li data-lang-zh>在电子邮件中包含您的订单号</li>
+      <li data-lang-ja>メールに注文番号を含める</li>
+      <li data-lang-ko>이메일에 주문 번호 포함</li>
+    </ul>
+
+    <ul>
+      <li data-lang-en>We'll process your refund within <strong>3-5 business days</strong></li>
+      <li data-lang-zh>我们将在 <strong>3-5 个工作日内</strong>处理您的退款</li>
+      <li data-lang-ja><strong>3～5営業日内に</strong>返金を処理します</li>
+      <li data-lang-ko><strong>3-5 영업일 이내에</strong> 환불을 처리하겠습니다</li>
+    </ul>
+
+    <div class="highlight">
+      <p data-lang-en><strong>Payment processor:</strong> Refunds are handled by Lemon Squeezy, our merchant of record. The refund will be credited back to your original payment method.</p>
+      <p data-lang-zh><strong>支付处理器：</strong>我们的商业记录 Lemon Squeezy 处理退款。退款将退回到您的原始付款方式。</p>
+      <p data-lang-ja><strong>決済処理者：</strong>当社の商人である Lemon Squeezy が返金を処理します。払い戻しは元のお支払い方法にクレジットされます。</p>
+      <p data-lang-ko><strong>결제 프로세서:</strong>당사 판매자인 Lemon Squeezy에서 환불을 처리합니다. 환불은 원래 결제 방법으로 다시 적립됩니다.</p>
+    </div>
+  </div>
+
+  <!-- Section 4: After 7 Days -->
+  <div class="policy-section">
+    <h2 data-lang-en>After the 7-Day Window</h2>
+    <h2 data-lang-zh>7 天窗口后</h2>
+    <h2 data-lang-ja>7日間のウィンドウの後</h2>
+    <h2 data-lang-ko>7일 기간 이후</h2>
+
+    <p data-lang-en>Once the 7-day refund period has passed, we're unable to offer refunds. However, you can still <strong>cancel your subscription anytime</strong> to stop future charges—see the Cancellation section below.</p>
+    <p data-lang-zh>一旦 7 天退款期限过期，我们将无法提供退款。但是，您仍然可以 <strong>随时取消订阅</strong>来停止将来的费用——请参阅下面的"取消"部分。</p>
+    <p data-lang-ja>7日間の返金期間が経過すると、返金を提供することができません。ただし、今後の料金を停止するために、いつでも <strong>サブスクリプションをキャンセル</strong>できます（以下の「キャンセル」セクションを参照してください）。</p>
+    <p data-lang-ko>7일 환불 기간이 지나면 환불을 제공할 수 없습니다. 그러나 향후 요금을 중지하기 위해 언제든지 <strong>구독을 취소</strong>할 수 있습니다. 아래의 "취소" 섹션을 참조하세요.</p>
+  </div>
+
+  <!-- Section 5: Cancellation -->
+  <div class="policy-section">
+    <h2 data-lang-en>How to Cancel Your Subscription</h2>
+    <h2 data-lang-zh>如何取消您的订阅</h2>
+    <h2 data-lang-ja>サブスクリプションをキャンセルする方法</h2>
+    <h2 data-lang-ko>구독을 취소하는 방법</h2>
+
+    <p data-lang-en>You can cancel your Pik Flyer subscription at any time through your Lemon Squeezy account. Here's what happens:</p>
+    <p data-lang-zh>您可以随时通过您的 Lemon Squeezy 账户取消 Pik Flyer 订阅。以下是发生的情况：</p>
+    <p data-lang-ja>Lemon Squeezy アカウントを通じていつでも Pik Flyer サブスクリプションをキャンセルできます。以下のようになります：</p>
+    <p data-lang-ko>Lemon Squeezy 계정을 통해 언제든지 Pik Flyer 구독을 취소할 수 있습니다. 다음과 같이 됩니다:</p>
+
+    <ul>
+      <li data-lang-en><strong>Immediate cancellation:</strong> Your subscription is canceled right away</li>
+      <li data-lang-zh><strong>立即取消：</strong>您的订阅立即取消</li>
+      <li data-lang-ja><strong>即座にキャンセル：</strong>サブスクリプションはすぐにキャンセルされます</li>
+      <li data-lang-ko><strong>즉시 취소:</strong> 구독이 즉시 취소됩니다</li>
+    </ul>
+
+    <ul>
+      <li data-lang-en><strong>Access continues:</strong> You keep full access to Pik Flyer until the end of your current billing period</li>
+      <li data-lang-zh><strong>访问继续：</strong>您可以在当前计费周期结束之前继续完整访问 Pik Flyer</li>
+      <li data-lang-ja><strong>アクセスは継続：</strong>現在の請求期間の終了まで Pik Flyer に完全にアクセスできます</li>
+      <li data-lang-ko><strong>액세스 계속:</strong> 현재 청구 기간이 끝날 때까지 Pik Flyer에 완전히 액세스할 수 있습니다</li>
+    </ul>
+
+    <ul>
+      <li data-lang-en><strong>No future charges:</strong> You won't be charged after your billing period ends</li>
+      <li data-lang-zh><strong>不收取未来费用：</strong>您的账单周期结束后不会被收费</li>
+      <li data-lang-ja><strong>今後の料金なし：</strong>請求期間終了後は料金が発生しません</li>
+      <li data-lang-ko><strong>향후 요금 없음:</strong> 청구 기간이 끝난 후에는 요금이 청구되지 않습니다</li>
+    </ul>
+
+    <div class="highlight">
+      <p data-lang-en><strong>Change your mind?</strong> You can reactivate your subscription anytime during or after your access period.</p>
+      <p data-lang-zh><strong>改变主意？</strong>您可以在访问期间或之后的任何时间重新激活您的订阅。</p>
+      <p data-lang-ja><strong>考え直しました？</strong>アクセス期間中またはその後いつでもサブスクリプションを再度有効にできます。</p>
+      <p data-lang-ko><strong>생각이 바뀌셨나요?</strong> 액세스 기간 중 또는 후에 언제든지 구독을 다시 활성화할 수 있습니다.</p>
+    </div>
+  </div>
+
+  <!-- Section 6: Questions -->
+  <div class="policy-section">
+    <h2 data-lang-en>Questions?</h2>
+    <h2 data-lang-zh>有疑问吗？</h2>
+    <h2 data-lang-ja>ご質問があればください?</h2>
+    <h2 data-lang-ko>질문이 있으신가요?</h2>
+
+    <p data-lang-en>We're here to help. If you have any questions about our refund policy or anything else, please reach out:</p>
+    <p data-lang-zh>我们很乐意帮忙。如果您对我们的退款政策或其他任何问题有疑问，请联系我们：</p>
+    <p data-lang-ja>お手伝いします。返金ポリシーまたは他のご不明な点がございましたら、お気軽にお問い合わせください：</p>
+    <p data-lang-ko>도움을 드리겠습니다. 환불 정책이나 기타 질문이 있으시면 언제든지 연락주세요:</p>
+  </div>
+
+  <!-- Contact box -->
+  <div class="contact-box">
+    <p data-lang-en><strong>Email:</strong> <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a></p>
+    <p data-lang-zh><strong>电子邮件：</strong> <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a></p>
+    <p data-lang-ja><strong>メール：</strong> <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a></p>
+    <p data-lang-ko><strong>이메일:</strong> <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a></p>
+
+    <p data-lang-en style="margin-top:0.8rem"><em>We usually respond within 24 hours.</em></p>
+    <p data-lang-zh style="margin-top:0.8rem"><em>我们通常在 24 小时内回复。</em></p>
+    <p data-lang-ja style="margin-top:0.8rem"><em>通常 24 時間以内にご返信します。</em></p>
+    <p data-lang-ko style="margin-top:0.8rem"><em>일반적으로 24시간 이내에 회신합니다.</em></p>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="links">
+    <a href="index.html" data-lang-en>Home</a>
+    <a href="index.html" data-lang-zh>主页</a>
+    <a href="index.html" data-lang-ja>ホーム</a>
+    <a href="index.html" data-lang-ko>홈</a>
+
+    <a href="privacy.html" data-lang-en>Privacy</a>
+    <a href="privacy.html" data-lang-zh>隐私</a>
+    <a href="privacy.html" data-lang-ja>プライバシー</a>
+    <a href="privacy.html" data-lang-ko>개인정보보호</a>
+
+    <a href="refund.html" data-lang-en>Refunds</a>
+    <a href="refund.html" data-lang-zh>退款</a>
+    <a href="refund.html" data-lang-ja>返金</a>
+    <a href="refund.html" data-lang-ko>환불</a>
+  </div>
+  <p class="copy" data-lang-en>&copy; 2026 Pik Flyer. All rights reserved.</p>
+  <p class="copy" data-lang-zh>&copy; 2026 Pik Flyer。版权所有。</p>
+  <p class="copy" data-lang-ja>&copy; 2026 Pik Flyer。すべての権利は保有されています。</p>
+  <p class="copy" data-lang-ko>&copy; 2026 Pik Flyer. 판권 소유.</p>
+</footer>
+
+<!-- Language switching script -->
 <script>
-function setLang(lang) {
-  document.documentElement.lang = lang;
-  localStorage.setItem('pikflyer-lang', lang);
+// Auto-detect browser language
+function getInitialLanguage() {
+  const browserLang = navigator.language.toLowerCase();
+  if (browserLang.startsWith('zh')) return 'zh';
+  if (browserLang.startsWith('ja')) return 'ja';
+  if (browserLang.startsWith('ko')) return 'ko';
+  return 'en';
 }
 
-function toggleLang() {
-  const currentLang = document.documentElement.lang;
-  const newLang = currentLang === 'en' ? 'zh' : 'en';
-  setLang(newLang);
-}
+// Set initial language
+const initialLang = getInitialLanguage();
+document.documentElement.lang = initialLang;
+document.querySelector(`[data-lang="${initialLang}"]`).classList.add('active');
 
-// Auto-detect language on page load
-document.addEventListener('DOMContentLoaded', function() {
-  const savedLang = localStorage.getItem('pikflyer-lang');
-  if (savedLang) {
-    setLang(savedLang);
-  } else {
-    const browserLang = navigator.language.toLowerCase();
-    const lang = browserLang.startsWith('zh') ? 'zh' : 'en';
-    setLang(lang);
-  }
+// Language toggle handlers
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const lang = btn.dataset.lang;
+    document.documentElement.lang = lang;
+
+    // Update active state
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Save preference
+    localStorage.setItem('pikflyer-lang', lang);
+  });
 });
+
+// Restore saved language preference if exists
+const savedLang = localStorage.getItem('pikflyer-lang');
+if (savedLang && ['en', 'zh', 'ja', 'ko'].includes(savedLang)) {
+  document.documentElement.lang = savedLang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`[data-lang="${savedLang}"]`).classList.add('active');
+}
 </script>
+
 </body>
 </html>

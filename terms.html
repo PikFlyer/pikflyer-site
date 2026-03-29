@@ -6,9 +6,10 @@
 <title>Terms of Service - Pik Flyer</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--orange:#ff6b35;--dark:#1a1a2e;--text:#333;--muted:#666}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Noto Sans TC','Noto Sans SC',sans-serif;color:var(--text);line-height:1.7}
-a{color:var(--orange)}
+:root{--orange:#ff6b35;--dark:#1a1a2e;--gray:#f8f9fa;--text:#333;--muted:#666}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Noto Sans TC','Noto Sans JP','Noto Sans KR',sans-serif;color:var(--text);line-height:1.7;background:#fff}
+a{color:var(--orange);text-decoration:none}
+a:hover{text-decoration:underline}
 
 /* Language toggle */
 .lang-toggle{position:fixed;top:0.7rem;right:1rem;z-index:200;display:flex;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);border-radius:50px;overflow:hidden;backdrop-filter:blur(8px)}
@@ -16,29 +17,44 @@ a{color:var(--orange)}
 .lang-toggle button.active{background:var(--orange);color:#fff;border-radius:50px}
 .lang-toggle button:hover:not(.active){color:#fff}
 
-/* Bilingual text */
-[data-lang-en],[data-lang-zh]{display:none}
+/* Multilingual text */
+[data-lang-en],[data-lang-zh],[data-lang-ja],[data-lang-ko]{display:none}
 html[lang="en"] [data-lang-en]{display:inline}
 html[lang="en"] [data-lang-en-block]{display:block}
-html[lang="en"] [data-lang-en-flex]{display:flex}
-html[lang="en"] [data-lang-en-grid]{display:grid}
-html[lang="en"] [data-lang-en-iblock]{display:inline-block}
 html[lang="zh"] [data-lang-zh]{display:inline}
 html[lang="zh"] [data-lang-zh-block]{display:block}
-html[lang="zh"] [data-lang-zh-flex]{display:flex}
-html[lang="zh"] [data-lang-zh-grid]{display:grid}
-html[lang="zh"] [data-lang-zh-iblock]{display:inline-block}
+html[lang="ja"] [data-lang-ja]{display:inline}
+html[lang="ja"] [data-lang-ja-block]{display:block}
+html[lang="ko"] [data-lang-ko]{display:inline}
+html[lang="ko"] [data-lang-ko-block]{display:block}
 
-nav{position:fixed;top:0;width:100%;background:rgba(26,26,46,0.95);backdrop-filter:blur(10px);z-index:100;padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+nav{position:fixed;top:0;width:100%;background:rgba(26,26,46,0.95);backdrop-filter:blur(10px);z-index:100;padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.1)}
 nav .logo{color:#fff;font-size:1.3rem;font-weight:700;text-decoration:none}
 nav .logo span{color:var(--orange)}
-nav a.back{color:#ccc;font-size:0.9rem}
-.legal{max-width:800px;margin:0 auto;padding:7rem 2rem 4rem}
-.legal h1{font-size:2rem;margin-bottom:0.5rem}
+nav a.back{color:#ccc;font-size:0.9rem;transition:color 0.2s}
+nav a.back:hover{color:#fff;text-decoration:none}
+
+.legal{max-width:900px;margin:0 auto;padding:7rem 2rem 4rem}
+.legal h1{font-size:2.2rem;margin-bottom:0.5rem;color:var(--dark);font-weight:700}
 .legal .date{color:var(--muted);margin-bottom:2rem;font-size:0.9rem}
-.legal h2{font-size:1.2rem;margin-top:2rem;margin-bottom:0.8rem;color:var(--dark)}
-.legal p{color:var(--muted);margin-bottom:1rem;font-size:0.95rem}
-footer{background:var(--dark);color:#999;padding:2rem;text-align:center;font-size:0.85rem;margin-top:3rem}
+.legal h2{font-size:1.3rem;margin-top:2.5rem;margin-bottom:1rem;color:var(--dark);font-weight:600;border-left:4px solid var(--orange);padding-left:1rem}
+.legal h3{font-size:1.05rem;margin-top:1.5rem;margin-bottom:0.8rem;color:var(--text);font-weight:600}
+.legal p{color:var(--text);margin-bottom:1rem;font-size:0.95rem;line-height:1.8}
+.legal ul{margin-left:1.5rem;margin-bottom:1rem}
+.legal li{margin-bottom:0.5rem;color:var(--text)}
+.legal strong{color:var(--dark);font-weight:600}
+
+footer{background:var(--dark);color:#999;padding:3rem 2rem;text-align:center;font-size:0.85rem;margin-top:4rem;border-top:1px solid rgba(255,255,255,0.1)}
+footer a{color:var(--orange)}
+
+/* Responsive */
+@media (max-width:768px){
+  .legal{padding:6rem 1.5rem 3rem}
+  .legal h1{font-size:1.8rem}
+  .legal h2{font-size:1.1rem}
+  nav{padding:0.8rem 1rem}
+  .lang-toggle{top:0.5rem;right:0.5rem}
+}
 </style>
 </head>
 <body>
@@ -47,49 +63,245 @@ footer{background:var(--dark);color:#999;padding:2rem;text-align:center;font-siz
 <div class="lang-toggle">
   <button id="btn-en" onclick="setLang('en')">EN</button>
   <button id="btn-zh" onclick="setLang('zh')">中文</button>
+  <button id="btn-ja" onclick="setLang('ja')">日本語</button>
+  <button id="btn-ko" onclick="setLang('ko')">한국어</button>
 </div>
 
 <nav>
   <a href="index.html" class="logo"><span>Pik</span> Flyer</a>
-  <a href="index.html" class="back"><span data-lang-en>← Back to Home</span><span data-lang-zh>← 返回首頁</span></a>
+  <a href="index.html" class="back">
+    <span data-lang-en>← Back to Home</span>
+    <span data-lang-zh>← 返回首頁</span>
+    <span data-lang-ja>← ホームに戻る</span>
+    <span data-lang-ko>← 홈으로 돌아가기</span>
+  </a>
 </nav>
 
 <div class="legal">
-<h1><span data-lang-en>Terms of Service</span><span data-lang-zh>服務條款</span></h1>
-<p class="date"><span data-lang-en>Last updated: March 29, 2026</span><span data-lang-zh>最後更新：2026 年 3 月 29 日</span></p>
+<h1>
+  <span data-lang-en>Terms of Service</span>
+  <span data-lang-zh>服務條款</span>
+  <span data-lang-ja>利用規約</span>
+  <span data-lang-ko>서비스 이용약관</span>
+</h1>
+<p class="date">
+  <span data-lang-en>Last updated: March 2026</span>
+  <span data-lang-zh>最後更新：2026 年 3 月</span>
+  <span data-lang-ja>最終更新：2026年3月</span>
+  <span data-lang-ko>최종 업데이트: 2026년 3월</span>
+</p>
 
-<h2><span data-lang-en>1. Acceptance of Terms</span><span data-lang-zh>1. 接受條款</span></h2>
-<p><span data-lang-en>By accessing or using Pik Flyer ("the Software"), you agree to be bound by these Terms of Service. If you do not agree, do not use the Software.</span><span data-lang-zh>使用 Pik Flyer（以下稱「本軟體」）即表示您同意本服務條款。若不同意，請勿使用本軟體。</span></p>
+<h2>
+  <span data-lang-en>1. Acceptance of Terms</span>
+  <span data-lang-zh>1. 接受條款</span>
+  <span data-lang-ja>1. 利用規約への同意</span>
+  <span data-lang-ko>1. 약관 동의</span>
+</h2>
+<p>
+  <span data-lang-en>By downloading, installing, or using Pik Flyer ("the Software"), you agree to be bound by these Terms of Service. If you do not agree to these terms, you may not use the Software.</span>
+  <span data-lang-zh>下載、安裝或使用 Pik Flyer（以下稱「本軟體」）即表示您同意本服務條款。若不同意，請勿使用本軟體。</span>
+  <span data-lang-ja>Pik Flyer（「本ソフトウェア」）をダウンロード、インストール、または使用することにより、あなたは本利用規約に拘束されることに同意するものとします。同意しない場合は、本ソフトウェアを使用することはできません。</span>
+  <span data-lang-ko>Pik Flyer(이하 "본 소프트웨어")를 다운로드, 설치 또는 사용함으로써 귀하는 본 서비스 이용약관에 동의하는 것으로 간주됩니다. 동의하지 않으시면 본 소프트웨어를 사용할 수 없습니다.</span>
+</p>
 
-<h2><span data-lang-en>2. Description of Service</span><span data-lang-zh>2. 服務說明</span></h2>
-<p><span data-lang-en>Pik Flyer is a desktop application that provides GPS location simulation for mobile devices connected via USB. The Software is provided as a monthly subscription service.</span><span data-lang-zh>Pik Flyer 是一款桌面應用程式，透過 USB 連接提供手機 GPS 定位模擬功能。本軟體以月費訂閱方式提供。</span></p>
+<h2>
+  <span data-lang-en>2. Description of Service</span>
+  <span data-lang-zh>2. 服務說明</span>
+  <span data-lang-ja>2. サービスの説明</span>
+  <span data-lang-ko>2. 서비스 설명</span>
+</h2>
+<p>
+  <span data-lang-en>Pik Flyer is a desktop application (macOS & Windows) that simulates GPS locations for use with the Pikmin Bloom mobile game. The Software is <strong>not affiliated with, endorsed by, or connected to Niantic, Nintendo</strong>, or Pokémon Company. The Software is provided as a monthly subscription service.</span>
+  <span data-lang-zh>Pik Flyer 是一款桌面應用程式（macOS 和 Windows），用於模擬 Pikmin Bloom 手機遊戲的 GPS 定位。本軟體<strong>與 Niantic、任天堂或寶可夢公司無關、未經認可且無任何關聯</strong>。本軟體以月費訂閱方式提供。</span>
+  <span data-lang-ja>Pik Flyer はデスクトップアプリケーション（macOS および Windows）であり、Pikmin Bloom モバイルゲームで使用するための GPS 位置情報をシミュレートします。本ソフトウェアは <strong>Niantic、任天堂、またはポケモンカンパニーと提携、推奨、または関連していません</strong>。本ソフトウェアは月額サブスクリプション サービスとして提供されています。</span>
+  <span data-lang-ko>Pik Flyer는 Pikmin Bloom 모바일 게임에 사용할 GPS 위치를 시뮬레이션하는 데스크톱 애플리케이션(macOS 및 Windows)입니다. 본 소프트웨어는 <strong>Niantic, Nintendo 또는 Pokémon Company와 제휴, 승인 또는 연관되지 않습니다</strong>. 본 소프트웨어는 월간 구독 서비스로 제공됩니다.</span>
+</p>
 
-<h2><span data-lang-en>3. Subscription and Payment</span><span data-lang-zh>3. 訂閱與付款</span></h2>
-<p><span data-lang-en>Access to Pik Flyer requires a paid monthly subscription at $4.99/month. Payment is processed through our payment partner, Lemon Squeezy. Your subscription automatically renews each month unless cancelled. You may cancel at any time through your account dashboard.</span><span data-lang-zh>使用 Pik Flyer 需支付每月 $4.99 的訂閱費用。付款由我們的支付夥伴 Lemon Squeezy 處理。訂閱每月自動續約，您可隨時取消。</span></p>
+<h2>
+  <span data-lang-en>3. Subscription & Billing</span>
+  <span data-lang-zh>3. 訂閱與計費</span>
+  <span data-lang-ja>3. サブスクリプションと課金</span>
+  <span data-lang-ko>3. 구독 및 결제</span>
+</h2>
+<p>
+  <span data-lang-en><strong>Price:</strong> $4.99 USD per month</span>
+  <span data-lang-zh><strong>價格：</strong>每月 $4.99 美元</span>
+  <span data-lang-ja><strong>価格:</strong> 月額 $4.99 USD</span>
+  <span data-lang-ko><strong>가격:</strong> 월 $4.99 USD</span>
+</p>
+<p>
+  <span data-lang-en><strong>Billing:</strong> Payment is processed through Lemon Squeezy, our payment processor and merchant of record. Your payment method will be charged automatically each month on the anniversary of your subscription start date.</span>
+  <span data-lang-zh><strong>計費：</strong>付款由我們的支付處理商和記錄商人 Lemon Squeezy 處理。您的付款方式將在訂閱開始日期的每個月週年日自動扣款。</span>
+  <span data-lang-ja><strong>課金:</strong> 支払いは当社の支払い処理業者および記録商人である Lemon Squeezy を通じて処理されます。お客様の支払い方法は、サブスクリプション開始日の毎月の記念日に自動的に請求されます。</span>
+  <span data-lang-ko><strong>결제:</strong> 결제는 당사의 결제 처리업체이자 기록상 판매자인 Lemon Squeezy를 통해 처리됩니다. 귀하의 결제 방법은 구독 시작 날짜의 매월 기념일에 자동으로 청구됩니다.</span>
+</p>
+<p>
+  <span data-lang-en><strong>Auto-Renewal:</strong> Your subscription will automatically renew each billing period. You may cancel your subscription at any time through your Lemon Squeezy account dashboard or by contacting us. Cancellation takes effect at the end of your current billing period.</span>
+  <span data-lang-zh><strong>自動續約：</strong>您的訂閱將在每個計費週期自動續約。您可隨時透過 Lemon Squeezy 帳戶儀表板取消訂閱或聯絡我們。取消在目前計費週期結束時生效。</span>
+  <span data-lang-ja><strong>自動更新:</strong> ご利用のサブスクリプションは各請求期間ごとに自動的に更新されます。Lemon Squeezy アカウント ダッシュボードからいつでも、またはお問い合わせいただいて、サブスクリプションをキャンセルできます。キャンセルは現在の請求期間終了時に有効になります。</span>
+  <span data-lang-ko><strong>자동 갱신:</strong> 귀하의 구독은 각 청구 기간마다 자동으로 갱신됩니다. Lemon Squeezy 계정 대시보드를 통해 또는 당사에 문의하여 언제든지 구독을 취소할 수 있습니다. 취소는 현재 청구 기간이 종료될 때 적용됩니다.</span>
+</p>
 
-<h2><span data-lang-en>4. Free Trial</span><span data-lang-zh>4. 免費試用</span></h2>
-<p><span data-lang-en>New users may be offered a free trial period. At the end of the trial, your subscription will begin automatically unless you cancel before the trial ends.</span><span data-lang-zh>新用戶可能獲得免費試用期。試用期結束後，除非您在試用結束前取消，否則訂閱將自動開始。</span></p>
+<h2>
+  <span data-lang-en>4. Free Trial</span>
+  <span data-lang-zh>4. 免費試用</span>
+  <span data-lang-ja>4. 無料試用</span>
+  <span data-lang-ko>4. 무료 평가판</span>
+</h2>
+<p>
+  <span data-lang-en>We offer a <strong>5-day free trial</strong> for new users. At the end of the trial period, your subscription will automatically convert to a paid subscription unless you cancel before the trial expires. You will not be charged during the trial period.</span>
+  <span data-lang-zh>我們為新用戶提供 <strong>5 天免費試用期</strong>。試用期結束時，除非您在試用期過期前取消，否則您的訂閱將自動轉換為付費訂閱。試用期間不收費。</span>
+  <span data-lang-ja>新規ユーザーには<strong>5日間の無料試用</strong>を提供しています。試用期間終了時に、試用の有効期限が切れる前にキャンセルしない限り、サブスクリプションは自動的に有料サブスクリプションに変換されます。試用期間中は料金は発生しません。</span>
+  <span data-lang-ko>신규 사용자에게는 <strong>5일 무료 평가판</strong>을 제공합니다. 평가판 기간이 종료될 때, 평가판이 만료되기 전에 취소하지 않으면 구독이 자동으로 유료 구독으로 전환됩니다. 평가판 기간 동안에는 요금이 청구되지 않습니다.</span>
+</p>
 
-<h2><span data-lang-en>5. License</span><span data-lang-zh>5. 授權</span></h2>
-<p><span data-lang-en>We grant you a limited, non-exclusive, non-transferable, revocable license to use the Software for personal purposes during your active subscription. You may not redistribute, resell, reverse-engineer, or modify the Software.</span><span data-lang-zh>在有效訂閱期間，我們授予您有限的、非獨占的、不可轉讓的、可撤銷的個人使用授權。您不得重新分發、轉售、反向工程或修改本軟體。</span></p>
+<h2>
+  <span data-lang-en>5. Refund Policy</span>
+  <span data-lang-zh>5. 退款政策</span>
+  <span data-lang-ja>5. 払い戻しポリシー</span>
+  <span data-lang-ko>5. 환불 정책</span>
+</h2>
+<p>
+  <span data-lang-en>We offer a <strong>7-day no-questions-asked refund policy</strong> for all purchases. If you are not satisfied with Pik Flyer, you may request a full refund within 7 days of your purchase. Refunds are processed through Lemon Squeezy. Please contact us at <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a> to request a refund, and include your order information.</span>
+  <span data-lang-zh>我們為所有購買提供 <strong>7 天無需提問的退款保證</strong>。如果您對 Pik Flyer 不滿意，可在購買後 7 天內申請全額退款。退款通過 Lemon Squeezy 處理。請聯絡 <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a> 申請退款，並提供您的訂單資訊。</span>
+  <span data-lang-ja><strong>7日間の返金ポリシー</strong>をすべての購入に提供しています。Pik Flyer にご満足いただけない場合は、購入後 7 日以内に全額払い戻しをリクエストできます。払い戻しは Lemon Squeezy を通じて処理されます。払い戻しをリクエストするには、<a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a> にお問い合わせください。注文情報を含めてください。</span>
+  <span data-lang-ko>모든 구매에 대해 <strong>7일 환불 보장</strong>을 제공합니다. Pik Flyer에 만족하지 않으시면 구매 후 7일 이내에 전액 환불을 요청할 수 있습니다. 환불은 Lemon Squeezy를 통해 처리됩니다. 환불을 요청하려면 <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a>으로 문의하고 주문 정보를 포함하세요.</span>
+</p>
 
-<h2><span data-lang-en>6. Acceptable Use</span><span data-lang-zh>6. 合理使用</span></h2>
-<p><span data-lang-en>You agree to use Pik Flyer responsibly and at your own risk. You are solely responsible for how you use GPS simulation and for complying with the terms of service of any third-party applications. We do not encourage or endorse violating any third-party terms.</span><span data-lang-zh>您同意負責任地使用 Pik Flyer，風險自負。您對 GPS 模擬的使用方式以及遵守任何第三方應用程式的服務條款負全責。我們不鼓勵或認可違反任何第三方條款的行為。</span></p>
+<h2>
+  <span data-lang-en>6. Acceptable Use</span>
+  <span data-lang-zh>6. 可接受的使用</span>
+  <span data-lang-ja>6. 許容される使用</span>
+  <span data-lang-ko>6. 허용되는 사용</span>
+</h2>
+<p>
+  <span data-lang-en>You agree to use Pik Flyer responsibly and at your own risk. Specifically:</span>
+  <span data-lang-zh>您同意負責任地使用 Pik Flyer，風險自負。具體地說：</span>
+  <span data-lang-ja>あなたは Pik Flyer を責任を持って自己責任で使用することに同意します。具体的には：</span>
+  <span data-lang-ko>귀하는 Pik Flyer를 책임감 있게 자신의 위험 하에 사용하기로 동의합니다. 구체적으로:</span>
+</p>
+<ul>
+  <li><span data-lang-en>This Software is intended for personal use with the Pikmin Bloom game only</span><span data-lang-zh>本軟體僅供個人在 Pikmin Bloom 遊戲中使用</span><span data-lang-ja>本ソフトウェアはPikmin Bloomゲームでの個人的な使用のみを目的としています</span><span data-lang-ko>본 소프트웨어는 Pikmin Bloom 게임에서만 개인적으로 사용하기 위한 것입니다</span></li>
+  <li><span data-lang-en>You are solely responsible for your use of GPS simulation and any consequences that may result from using Pik Flyer with third-party applications</span><span data-lang-zh>您對 GPS 模擬的使用及在第三方應用程式中使用 Pik Flyer 可能造成的任何後果負全責</span><span data-lang-ja>GPS シミュレーションの使用と、サードパーティ アプリケーションで Pik Flyer を使用することから生じる可能性のある結果については、あなたが全責任を負うものとします</span><span data-lang-ko>GPS 시뮬레이션 사용 및 서드파티 애플리케이션과 함께 Pik Flyer 사용으로 인해 발생할 수 있는 결과에 대해 귀하는 전적인 책임을 집니다</span></li>
+  <li><span data-lang-en>You assume all risks associated with using this Software, including but not limited to account suspension or termination by Niantic/Pokemon Company</span><span data-lang-zh>您承擔使用本軟體的所有風險，包括但不限於 Niantic/寶可夢公司帳戶暫停或終止</span><span data-lang-ja>本ソフトウェアの使用に関連するすべてのリスク (Niantic/ポケモンカンパニーによるアカウント停止または終了を含むがこれに限定されない) を引き受けるものとします</span><span data-lang-ko>본 소프트웨어 사용과 관련된 모든 위험 (Niantic/Pokemon Company의 계정 정지 또는 종료 포함)을 가정합니다</span></li>
+</ul>
 
-<h2><span data-lang-en>7. Disclaimer of Warranties</span><span data-lang-zh>7. 免責聲明</span></h2>
-<p><span data-lang-en>The Software is provided "as is" without warranties of any kind, express or implied. We do not guarantee that the Software will be error-free, uninterrupted, or compatible with all devices or operating systems.</span><span data-lang-zh>本軟體按「現狀」提供，不附帶任何明示或暗示的保證。我們不保證軟體無錯誤、不中斷或與所有裝置或作業系統相容。</span></p>
+<h2>
+  <span data-lang-en>7. Disclaimer of Warranties</span>
+  <span data-lang-zh>7. 免責聲明</span>
+  <span data-lang-ja>7. 保証の免責事項</span>
+  <span data-lang-ko>7. 보증 부인</span>
+</h2>
+<p>
+  <span data-lang-en>THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. WE MAKE NO WARRANTY THAT:</span>
+  <span data-lang-zh>本軟體按「現狀」和「現有狀態」提供，不附帶任何明示或暗示的保證。我們不保證：</span>
+  <span data-lang-ja>本ソフトウェアは「現状」および「利用可能な状態」で提供されており、明示的または黙示的ないかなる種類の保証もありません。当社は以下を保証しません:</span>
+  <span data-lang-ko>본 소프트웨어는 어떤 종류의 명시적 또는 묵시적 보증도 없이 "있는 그대로" 및 "이용 가능한 그대로" 제공됩니다. 당사는 다음을 보증하지 않습니다:</span>
+</p>
+<ul>
+  <li><span data-lang-en>The Software will be error-free, uninterrupted, or secure</span><span data-lang-zh>本軟體無錯誤、不中斷或安全</span><span data-lang-ja>ソフトウェアはエラーフリー、中断されない、またはセキュアであることを</span><span data-lang-ko>소프트웨어가 오류 없고, 중단되지 않으며, 안전할 것을</span></li>
+  <li><span data-lang-en>The Software will be compatible with all devices, operating systems, or versions</span><span data-lang-zh>本軟體與所有裝置、作業系統或版本相容</span><span data-lang-ja>ソフトウェアがすべてのデバイス、オペレーティング システム、またはバージョンと互換性があることを</span><span data-lang-ko>소프트웨어가 모든 장치, 운영 체제 또는 버전과 호환될 것을</span></li>
+  <li><span data-lang-en>The Software will work with Pikmin Bloom or other games in any specific manner</span><span data-lang-zh>本軟體將以任何特定方式與 Pikmin Bloom 或其他遊戲配合使用</span><span data-lang-ja>ソフトウェアが Pikmin Bloom または他のゲームと特定の方法で機能することを</span><span data-lang-ko>소프트웨어가 Pikmin Bloom 또는 다른 게임과 특정 방식으로 작동할 것을</span></li>
+</ul>
 
-<h2><span data-lang-en>8. Limitation of Liability</span><span data-lang-zh>8. 責任限制</span></h2>
-<p><span data-lang-en>In no event shall Pik Flyer or its creators be liable for any indirect, incidental, special, or consequential damages arising from the use or inability to use the Software, including but not limited to any actions taken by third-party applications as a result of GPS simulation.</span><span data-lang-zh>Pik Flyer 或其創建者不對因使用或無法使用本軟體而產生的任何間接、附帶、特殊或衍生性損害承擔責任。</span></p>
+<h2>
+  <span data-lang-en>8. Limitation of Liability</span>
+  <span data-lang-zh>8. 責任限制</span>
+  <span data-lang-ja>8. 責任の制限</span>
+  <span data-lang-ko>8. 책임의 제한</span>
+</h2>
+<p>
+  <span data-lang-en>TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL PIK FLYER, ITS CREATOR, OR ANY ASSOCIATED PARTIES BE LIABLE FOR:</span>
+  <span data-lang-zh>在法律允許的最大範圍內，Pik Flyer、其創建者或任何相關方不對以下事項承擔責任：</span>
+  <span data-lang-ja>法律が許可する最大限の範囲で、Pik Flyer、その作成者、または関連する当事者は以下について責任を負いません:</span>
+  <span data-lang-ko>법律이 허용하는 최대 범위 내에서 Pik Flyer, 그 작성자 또는 관련 당사자는 다음에 대해 책임을 지지 않습니다:</span>
+</p>
+<ul>
+  <li><span data-lang-en>Any indirect, incidental, special, consequential, or punitive damages</span><span data-lang-zh>任何間接、附帶、特殊、衍生或懲罰性損害</span><span data-lang-ja>間接的、偶発的、特別な、結果的、または懲罰的損害賠償</span><span data-lang-ko>간접적, 부수적, 특별한, 결과적 또는 징벌적 손해배상</span></li>
+  <li><span data-lang-en>Loss of data, profits, or game accounts</span><span data-lang-zh>數據、利潤或遊戲帳戶的損失</span><span data-lang-ja>データ、利益、またはゲーム アカウントの損失</span><span data-lang-ko>데이터, 이익 또는 게임 계정의 손실</span></li>
+  <li><span data-lang-en>Account suspension or bans from Niantic, Nintendo, or Pokemon Company</span><span data-lang-zh>Niantic、任天堂或寶可夢公司的帳戶暫停或禁止</span><span data-lang-ja>Niantic、任天堂、またはポケモンカンパニーからのアカウント停止またはバン</span><span data-lang-ko>Niantic, Nintendo 또는 Pokemon Company의 계정 정지 또는 금지</span></li>
+  <li><span data-lang-en>Any actions or inactions of third-party applications, services, or companies</span><span data-lang-zh>任何第三方應用程式、服務或公司的行為或不作為</span><span data-lang-ja>サードパーティのアプリケーション、サービス、または企業の行為または不作為</span><span data-lang-ko>서드파티 애플리케이션, 서비스 또는 회사의 행동 또는 불행동</span></li>
+</ul>
+<p>
+  <span data-lang-en>This limitation applies even if Pik Flyer has been advised of the possibility of such damages.</span>
+  <span data-lang-zh>即使 Pik Flyer 已被告知此類損害的可能性，本限制仍然適用。</span>
+  <span data-lang-ja>Pik Flyer がそのような損害の可能性について助言された場合でも、この制限は適用されます。</span>
+  <span data-lang-ko>Pik Flyer가 그러한 손해의 가능성에 대해 통보받은 경우에도 이 제한이 적용됩니다.</span>
+</p>
 
-<h2><span data-lang-en>9. Changes to Terms</span><span data-lang-zh>9. 條款變更</span></h2>
-<p><span data-lang-en>We reserve the right to update these Terms at any time. Changes will be posted on this page with an updated date. Continued use of the Software after changes constitutes acceptance of the new Terms.</span><span data-lang-zh>我們保留隨時更新本條款的權利。變更將在本頁面公佈並更新日期。繼續使用本軟體即表示接受新條款。</span></p>
+<h2>
+  <span data-lang-en>9. Termination</span>
+  <span data-lang-zh>9. 終止</span>
+  <span data-lang-ja>9. 終了</span>
+  <span data-lang-ko>9. 종료</span>
+</h2>
+<p>
+  <span data-lang-en>Your license to use Pik Flyer terminates automatically if you violate these Terms. We also reserve the right to terminate or suspend your access to the Software at any time, with or without cause, with or without notice. Upon termination, your right to use the Software ceases immediately.</span>
+  <span data-lang-zh>如果您違反本條款，您使用 Pik Flyer 的授權將自動終止。我們亦保留隨時以任何原因或無任何原因、有或無通知終止或暫停您對本軟體的存取權利的權利。終止後，您使用本軟體的權利立即終止。</span>
+  <span data-lang-ja>これらの利用規約に違反した場合、Pik Flyer を使用するライセンスは自動的に終了します。また、当社は理由の有無を問わず、通知の有無を問わず、いつでもソフトウェアへのアクセスを終了または停止する権利を留保します。終了時に、ソフトウェアを使用する権利は直ちに終了します。</span>
+  <span data-lang-ko>본 약관을 위반하는 경우 Pik Flyer 사용 라이선스는 자동으로 종료됩니다. 당사는 또한 이유의 유무를 막론하고 통지의 유무를 막론하고 언제든지 소프트웨어에 대한 액세스를 종료 또는 일시 중단할 수 있는 권리를 보유합니다. 종료 시 소프트웨어 사용 권한은 즉시 종료됩니다.</span>
+</p>
 
-<h2><span data-lang-en>10. Contact</span><span data-lang-zh>10. 聯絡方式</span></h2>
-<p><span data-lang-en>For questions about these Terms, contact us at </span><span data-lang-zh>如有疑問，請聯絡 </span><a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a>.</p>
+<h2>
+  <span data-lang-en>10. Changes to Terms</span>
+  <span data-lang-zh>10. 條款變更</span>
+  <span data-lang-ja>10. 利用規約の変更</span>
+  <span data-lang-ko>10. 약관 변경</span>
+</h2>
+<p>
+  <span data-lang-en>We reserve the right to modify these Terms at any time. We will post the updated Terms on this page with an updated "Last updated" date. Your continued use of the Software after such modifications constitutes your acceptance of the updated Terms. It is your responsibility to review these Terms periodically.</span>
+  <span data-lang-zh>我們保留隨時修改本條款的權利。我們將在本頁面發佈更新的條款，並更新「最後更新」日期。在此類修改後繼續使用本軟體即表示您接受更新的條款。定期審查本條款是您的責任。</span>
+  <span data-lang-ja>当社は、いつでも本利用規約を修正する権利を留保します。更新された利用規約は、「最終更新」日付を更新して、このページに掲載されます。そのような変更後の本ソフトウェアの継続的な使用は、更新された利用規約への承認を意味します。これらの利用規約を定期的に確認することはあなたの責任です。</span>
+  <span data-lang-ko>당사는 언제든지 본 약관을 수정할 수 있는 권리를 보유합니다. 업데이트된 약관은 "최종 업데이트" 날짜와 함께 이 페이지에 게시됩니다. 그러한 수정 후 본 소프트웨어를 계속 사용하면 업데이트된 약관에 동의하는 것으로 간주됩니다. 이 약관을 정기적으로 검토하는 것은 귀하의 책임입니다.</span>
+</p>
+
+<h2>
+  <span data-lang-en>11. Contact Information</span>
+  <span data-lang-zh>11. 聯絡資訊</span>
+  <span data-lang-ja>11. 連絡先情報</span>
+  <span data-lang-ko>11. 연락처 정보</span>
+</h2>
+<p>
+  <span data-lang-en>For questions, concerns, or requests regarding these Terms of Service, please contact:</span>
+  <span data-lang-zh>如對本服務條款有任何疑問、關切或要求，請聯絡：</span>
+  <span data-lang-ja>本利用規約に関するご質問、ご不明な点、またはご要望については、以下までお問い合わせください:</span>
+  <span data-lang-ko>본 서비스 이용약관에 대한 질문, 우려사항 또는 요청이 있으시면 다음으로 문의하세요:</span>
+</p>
+<p>
+  <strong>Pik Flyer</strong><br>
+  <span data-lang-en>Developer: Individual</span><span data-lang-zh>開發者：個人</span><span data-lang-ja>開発者：個人</span><span data-lang-ko>개발자: 개인</span><br>
+  <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a>
+</p>
+
+<h2>
+  <span data-lang-en>12. Entire Agreement</span>
+  <span data-lang-zh>12. 完整協議</span>
+  <span data-lang-ja>12. 完全な契約</span>
+  <span data-lang-ko>12. 전체 계약</span>
+</h2>
+<p>
+  <span data-lang-en>These Terms of Service, together with our Privacy Policy and Refund Policy, constitute the entire agreement between you and Pik Flyer regarding the use of the Software. If any provision of these Terms is found to be invalid, the remaining provisions shall continue in full force and effect.</span>
+  <span data-lang-zh>本服務條款連同我們的隱私政策和退款政策，構成您與 Pik Flyer 之間關於本軟體使用的完整協議。如本條款的任何條款被發現無效，其餘條款應繼續完全有效。</span>
+  <span data-lang-ja>本利用規約は、当社のプライバシー ポリシーと払い戻しポリシーとともに、本ソフトウェアの使用に関するあなたと Pik Flyer 間の完全な契約を構成します。これらの利用規約のいずれかの条項が無効であることが判明した場合、残りの条項は完全に有効なままとします。</span>
+  <span data-lang-ko>본 이용약관은 당사의 개인정보보호정책 및 환불정책과 함께 본 소프트웨어 사용과 관련한 귀하와 Pik Flyer 간의 전체 계약을 구성합니다. 본 약관의 어떤 조항도 무효인 것으로 판명된 경우, 나머지 조항은 완전히 유효한 상태로 유지됩니다.</span>
+</p>
+
 </div>
 
-<footer><span data-lang-en>&copy; 2026 Pik Flyer. All rights reserved.</span><span data-lang-zh>&copy; 2026 Pik Flyer。版權所有。</span></footer>
+<footer>
+  <p>
+    <span data-lang-en>&copy; 2026 Pik Flyer. All rights reserved.</span>
+    <span data-lang-zh>&copy; 2026 Pik Flyer。版權所有。</span>
+    <span data-lang-ja>&copy; 2026 Pik Flyer。すべての権利を保有しています。</span>
+    <span data-lang-ko>&copy; 2026 Pik Flyer。著作権所有。</span>
+  </p>
+  <p style="margin-top:1rem;font-size:0.8rem">
+    <span data-lang-en>Questions? Contact us at <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a></span>
+    <span data-lang-zh>有疑問？請聯絡 <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a></span>
+    <span data-lang-ja>ご質問がありますか？<a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a> までお問い合わせください</span>
+    <span data-lang-ko>궁금한 점이 있으신가요? <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a>에 문의하세요</span>
+  </p>
+</footer>
 
 <script>
 // Language detection and toggle
@@ -103,6 +315,8 @@ function updateLangButtons() {
   const lang = document.documentElement.lang;
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
   document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+  document.getElementById('btn-ja').classList.toggle('active', lang === 'ja');
+  document.getElementById('btn-ko').classList.toggle('active', lang === 'ko');
 }
 
 // Initialize language
@@ -112,7 +326,17 @@ function updateLangButtons() {
   if (!lang) {
     // Auto-detect based on browser language
     const browserLang = navigator.language || navigator.userLanguage;
-    lang = (browserLang.startsWith('zh') || browserLang.startsWith('yue')) ? 'zh' : 'en';
+    const langPrefix = browserLang.split('-')[0].toLowerCase();
+
+    if (langPrefix === 'zh' || langPrefix === 'yue') {
+      lang = 'zh';
+    } else if (langPrefix === 'ja') {
+      lang = 'ja';
+    } else if (langPrefix === 'ko') {
+      lang = 'ko';
+    } else {
+      lang = 'en';
+    }
   }
 
   document.documentElement.lang = lang;

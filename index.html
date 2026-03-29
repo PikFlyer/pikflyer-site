@@ -8,7 +8,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--orange:#ff6b35;--dark:#1a1a2e;--gray:#f8f9fa;--text:#333;--muted:#666;--accent:#0f3460}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Noto Sans TC',sans-serif;color:var(--text);line-height:1.6}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Noto Sans TC','Noto Sans JP','Noto Sans KR',sans-serif;color:var(--text);line-height:1.6}
 a{color:var(--orange);text-decoration:none}
 a:hover{text-decoration:underline}
 
@@ -17,9 +17,11 @@ a:hover{text-decoration:underline}
 .lang-toggle button{background:none;border:none;color:#ccc;padding:0.35rem 0.9rem;font-size:0.8rem;cursor:pointer;transition:all 0.2s;font-weight:500}
 .lang-toggle button.active{background:var(--orange);color:#fff;border-radius:50px}
 .lang-toggle button:hover:not(.active){color:#fff}
-[data-lang-en],[data-lang-zh]{display:none}
+[data-lang-en],[data-lang-zh],[data-lang-ja],[data-lang-ko]{display:none}
 html[lang="en"] [data-lang-en]{display:inline}
 html[lang="zh"] [data-lang-zh]{display:inline}
+html[lang="ja"] [data-lang-ja]{display:inline}
+html[lang="ko"] [data-lang-ko]{display:inline}
 
 /* Nav */
 nav{position:fixed;top:0;width:100%;background:rgba(26,26,46,0.95);backdrop-filter:blur(10px);z-index:100;padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
@@ -300,15 +302,17 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
 <div class="lang-toggle">
   <button id="btn-en" onclick="setLang('en')">EN</button>
   <button id="btn-zh" onclick="setLang('zh')">中文</button>
+  <button id="btn-ja" onclick="setLang('ja')">日本語</button>
+  <button id="btn-ko" onclick="setLang('ko')">한국어</button>
 </div>
 
 <!-- Navigation -->
 <nav>
   <div class="logo"><span>Pik</span> Flyer</div>
   <ul>
-    <li><a href="#features"><span data-lang-en>Features</span><span data-lang-zh>功能</span></a></li>
-    <li><a href="#pricing"><span data-lang-en>Pricing</span><span data-lang-zh>價格</span></a></li>
-    <li><a href="#setup"><span data-lang-en>Setup</span><span data-lang-zh>教學</span></a></li>
+    <li><a href="#features"><span data-lang-en>Features</span><span data-lang-zh>功能</span><span data-lang-ja>機能</span><span data-lang-ko>기능</span></a></li>
+    <li><a href="#pricing"><span data-lang-en>Pricing</span><span data-lang-zh>價格</span><span data-lang-ja>料金</span><span data-lang-ko>가격</span></a></li>
+    <li><a href="#setup"><span data-lang-en>Setup</span><span data-lang-zh>教學</span><span data-lang-ja>セットアップ</span><span data-lang-ko>설정</span></a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
 </nav>
@@ -323,18 +327,26 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
       <p class="subtitle">
         <span data-lang-en>GPS Location Tool for Pikmin Bloom</span>
         <span data-lang-zh>Pikmin Bloom GPS 定位工具</span>
+        <span data-lang-ja>ピクミン ブルーム向けGPS位置情報ツール</span>
+        <span data-lang-ko>피크민 블룸을 위한 GPS 위치 도구</span>
       </p>
       <p class="tagline">
         <span data-lang-en>Explore the world from home!<br>Plant flowers, fight mushrooms, collect rare postcards.<br>The most affordable spoofer — fly your friends in one click!</span>
         <span data-lang-zh>今晚飛哪裡？在家環遊世界！<br>種花、打菇、再拿特殊明信片！<br>最便宜的飛人程式，內建超多景點，一秒帶飛朋友！</span>
+        <span data-lang-ja>自宅で世界を探検！<br>花を植え、キノコと戦い、レアなポストカードを集めよう。<br>最も手頃な位置情報ツール — ワンクリックで友達をどこへでも送ろう！</span>
+        <span data-lang-ko>집에서 세계를 탐험하세요!<br>꽃을 심고, 버섯과 싸우고, 희귀 엽서를 모으세요.<br>가장 저렴한 스푸퍼 — 한 번의 클릭으로 친구를 어디든지 보내세요!</span>
       </p>
       <a href="#pricing" class="cta">
         <span data-lang-en>Get Started</span>
         <span data-lang-zh>立即開始</span>
+        <span data-lang-ja>はじめましょう</span>
+        <span data-lang-ko>시작하기</span>
       </a>
       <p class="platforms">
         <span data-lang-en>macOS &amp; Windows &bull; iPhone &amp; Android</span>
         <span data-lang-zh>支援 macOS &amp; Windows &bull; iPhone &amp; Android</span>
+        <span data-lang-ja>macOS &amp; Windows &bull; iPhone &amp; Android対応</span>
+        <span data-lang-ko>macOS &amp; Windows &bull; iPhone &amp; Android 지원</span>
       </p>
     </div>
     <div class="hero-visual">
@@ -351,12 +363,12 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
                 <div class="laptop-sidebar">
                   <div class="lsb-device">
                     <div class="dname">📱 iPhone 15 Pro</div>
-                    <div class="dstatus"><span data-lang-en>● Connected</span><span data-lang-zh>● 已連接</span></div>
+                    <div class="dstatus"><span data-lang-en>● Connected</span><span data-lang-zh>● 已連接</span><span data-lang-ja>● 接続済み</span><span data-lang-ko>● 연결됨</span></div>
                   </div>
-                  <div class="lsb-item active"><span class="licon">🎲</span> <span data-lang-en>Dice (4,879)</span><span data-lang-zh>骰子 (4,879)</span></div>
-                  <div class="lsb-item walk"><span class="licon">🚶</span> <span data-lang-en>Auto Walk ●</span><span data-lang-zh>自動走路 ●</span></div>
-                  <div class="lsb-item"><span class="licon">⚡</span> <span data-lang-en>Teleport</span><span data-lang-zh>傳送</span></div>
-                  <div class="lsb-item"><span class="licon">🕹️</span> <span data-lang-en>Joystick</span><span data-lang-zh>搖桿</span></div>
+                  <div class="lsb-item active"><span class="licon">🎲</span> <span data-lang-en>Dice (4,879)</span><span data-lang-zh>骰子 (4,879)</span><span data-lang-ja>ダイス (4,879)</span><span data-lang-ko>주사위 (4,879)</span></div>
+                  <div class="lsb-item walk"><span class="licon">🚶</span> <span data-lang-en>Auto Walk ●</span><span data-lang-zh>自動走路 ●</span><span data-lang-ja>自動ウォーク ●</span><span data-lang-ko>자동 보행 ●</span></div>
+                  <div class="lsb-item"><span class="licon">⚡</span> <span data-lang-en>Teleport</span><span data-lang-zh>傳送</span><span data-lang-ja>テレポート</span><span data-lang-ko>텔레포트</span></div>
+                  <div class="lsb-item"><span class="licon">🕹️</span> <span data-lang-en>Joystick</span><span data-lang-zh>搖桿</span><span data-lang-ja>ジョイスティック</span><span data-lang-ko>조이스틱</span></div>
                 </div>
                 <div class="laptop-map">
                   <div class="laptop-map-bg"></div>
@@ -367,15 +379,15 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
                   <div class="lm-marker"></div>
                   <div class="lm-dice">
                     <div class="dice-em">🎲</div>
-                    <div class="dice-label"><span data-lang-en>ROLLED!</span><span data-lang-zh>擲出！</span></div>
-                    <div class="dice-loc">🗼 <span data-lang-en>Tokyo Tower</span><span data-lang-zh>東京鐵塔</span></div>
+                    <div class="dice-label"><span data-lang-en>ROLLED!</span><span data-lang-zh>擲出！</span><span data-lang-ja>成功！</span><span data-lang-ko>성공!</span></div>
+                    <div class="dice-loc">🗼 <span data-lang-en>Tokyo Tower</span><span data-lang-zh>東京鐵塔</span><span data-lang-ja>東京タワー</span><span data-lang-ko>도쿄 타워</span></div>
                   </div>
                 </div>
               </div>
             </div>
             <div class="laptop-base"></div>
           </div>
-          <div class="device-label desktop"><span data-lang-en>Desktop App</span><span data-lang-zh>電腦端操作</span></div>
+          <div class="device-label desktop"><span data-lang-en>Desktop App</span><span data-lang-zh>電腦端操作</span><span data-lang-ja>デスクトップアプリ</span><span data-lang-ko>데스크톱 앱</span></div>
         </div>
         <!-- Arrow -->
         <div class="hero-connect">
@@ -390,7 +402,7 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
               <div class="phone-map"></div>
               <div class="phone-map-overlay"></div>
               <div class="phone-location">
-                <div class="loc-name"><span data-lang-en>Tokyo Tower</span><span data-lang-zh>東京鐵塔</span></div>
+                <div class="loc-name"><span data-lang-en>Tokyo Tower</span><span data-lang-zh>東京鐵塔</span><span data-lang-ja>東京タワー</span><span data-lang-ko>도쿄 타워</span></div>
                 <div class="loc-coords">35.6586°N, 139.7454°E</div>
               </div>
               <div class="map-pin">📍</div>
@@ -403,7 +415,7 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
               </div>
             </div>
           </div>
-          <div class="device-label mobile"><span data-lang-en>Phone GPS</span><span data-lang-zh>手機定位</span></div>
+          <div class="device-label mobile"><span data-lang-en>Phone GPS</span><span data-lang-zh>手機定位</span><span data-lang-ja>スマートフォン GPS</span><span data-lang-ko>휴대폰 GPS</span></div>
         </div>
       </div>
     </div>
@@ -418,13 +430,17 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
       <div class="stat-label">
         <span data-lang-en>Worldwide Landmarks</span>
         <span data-lang-zh>全球地標景點</span>
+        <span data-lang-ja>世界中の名所</span>
+        <span data-lang-ko>전 세계 명소</span>
       </div>
     </div>
     <div class="stat-item">
-      <div class="stat-num">10</div>
+      <div class="stat-num">13</div>
       <div class="stat-label">
         <span data-lang-en>POI Categories</span>
         <span data-lang-zh>地標分類</span>
+        <span data-lang-ja>POI カテゴリー</span>
+        <span data-lang-ko>POI 카테고리</span>
       </div>
     </div>
     <div class="stat-item">
@@ -432,6 +448,8 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
       <div class="stat-label">
         <span data-lang-en>Auto Walk</span>
         <span data-lang-zh>全天候自動走路</span>
+        <span data-lang-ja>自動ウォーク</span>
+        <span data-lang-ko>자동 보행</span>
       </div>
     </div>
     <div class="stat-item">
@@ -439,6 +457,8 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
       <div class="stat-label">
         <span data-lang-en>Teleport Anywhere</span>
         <span data-lang-zh>無限傳送</span>
+        <span data-lang-ja>どこへでもテレポート</span>
+        <span data-lang-ko>어디든지 텔레포트</span>
       </div>
     </div>
   </div>
@@ -449,10 +469,14 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
   <h2>
     <span data-lang-en>Explore 4,879 Landmarks Worldwide</span>
     <span data-lang-zh>探索全球 4,879 個地標景點</span>
+    <span data-lang-ja>世界中の 4,879 の名所を探検</span>
+    <span data-lang-ko>전 세계 4,879개의 명소를 탐험하세요</span>
   </h2>
   <p class="section-desc">
     <span data-lang-en>Roll the dice and fly to a random landmark. Cities, temples, heritage sites, museums, nature — 13 categories across 6 continents. Every POI manually verified.</span>
     <span data-lang-zh>擲骰子隨機飛往世界各地。城市漫遊、古蹟遺跡、宗教聖地、博物館、自然景觀 — 13 種分類，橫跨六大洲。每筆地標皆人工驗證。</span>
+    <span data-lang-ja>サイコロを振ってランダムな名所へ移動。都市、寺院、文化遺産、博物館、自然 — 6大陸にわたる13のカテゴリー。すべてのPOIは手動で検証されています。</span>
+    <span data-lang-ko>주사위를 던져 랜덤한 명소로 이동하세요. 도시, 사찰, 문화유산, 박물관, 자연 — 6대륙에 걸친 13개 카테고리. 모든 POI는 수동으로 검증됩니다.</span>
   </p>
   <div class="gallery-grid">
     <div class="gallery-item">
@@ -460,7 +484,9 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
       <div class="gallery-label">
         <span data-lang-en>Tokyo Tower, Japan</span>
         <span data-lang-zh>東京鐵塔，日本</span>
-        <small><span data-lang-en>Category: Observation Tower</span><span data-lang-zh>分類：觀景塔</span></small>
+        <span data-lang-ja>東京タワー、日本</span>
+        <span data-lang-ko>도쿄 타워, 일본</span>
+        <small><span data-lang-en>Category: Observation Tower</span><span data-lang-zh>分類：觀景塔</span><span data-lang-ja>カテゴリー：展望塔</span><span data-lang-ko>카테고리: 전망탑</span></small>
       </div>
     </div>
     <div class="gallery-item">
@@ -468,7 +494,9 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
       <div class="gallery-label">
         <span data-lang-en>Eiffel Tower, Paris</span>
         <span data-lang-zh>巴黎鐵塔，法國</span>
-        <small><span data-lang-en>Category: Landmark</span><span data-lang-zh>分類：地標</span></small>
+        <span data-lang-ja>エッフェル塔、パリ</span>
+        <span data-lang-ko>에펠탑, 파리</span>
+        <small><span data-lang-en>Category: Landmark</span><span data-lang-zh>分類：地標</span><span data-lang-ja>カテゴリー：ランドマーク</span><span data-lang-ko>카테고리: 랜드마크</span></small>
       </div>
     </div>
     <div class="gallery-item">
@@ -476,7 +504,9 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
       <div class="gallery-label">
         <span data-lang-en>Fushimi Inari Shrine, Kyoto</span>
         <span data-lang-zh>伏見稻荷大社，京都</span>
-        <small><span data-lang-en>Category: Temple</span><span data-lang-zh>分類：寺廟</span></small>
+        <span data-lang-ja>伏見稲荷大社、京都</span>
+        <span data-lang-ko>후시미 이나리 신사, 교토</span>
+        <small><span data-lang-en>Category: Temple</span><span data-lang-zh>分類：寺廟</span><span data-lang-ja>カテゴリー：神社</span><span data-lang-ko>카테고리: 신사</span></small>
       </div>
     </div>
     <div class="gallery-item">
@@ -484,7 +514,9 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
       <div class="gallery-label">
         <span data-lang-en>Maldives Beach</span>
         <span data-lang-zh>馬爾地夫海灘</span>
-        <small><span data-lang-en>Category: Beach</span><span data-lang-zh>分類：海灘</span></small>
+        <span data-lang-ja>モルディブ ビーチ</span>
+        <span data-lang-ko>몰디브 해변</span>
+        <small><span data-lang-en>Category: Beach</span><span data-lang-zh>分類：海灘</span><span data-lang-ja>カテゴリー：ビーチ</span><span data-lang-ko>카테고리: 해변</span></small>
       </div>
     </div>
     <div class="gallery-item">
@@ -492,7 +524,9 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
       <div class="gallery-label">
         <span data-lang-en>Swiss Alps, Switzerland</span>
         <span data-lang-zh>瑞士阿爾卑斯山</span>
-        <small><span data-lang-en>Category: Mountain</span><span data-lang-zh>分類：山岳</span></small>
+        <span data-lang-ja>スイス アルプス、スイス</span>
+        <span data-lang-ko>스위스 알프스, 스위스</span>
+        <small><span data-lang-en>Category: Mountain</span><span data-lang-zh>分類：山岳</span><span data-lang-ja>カテゴリー：山</span><span data-lang-ko>카테고리: 산</span></small>
       </div>
     </div>
   </div>
@@ -503,10 +537,14 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
   <h2>
     <span data-lang-en>Packed with powerful features</span>
     <span data-lang-zh>滿載強大功能</span>
+    <span data-lang-ja>強力な機能が満載</span>
+    <span data-lang-ko>강력한 기능이 가득</span>
   </h2>
   <p class="section-desc">
     <span data-lang-en>Built for Pikmin Bloom players who want to explore the world.</span>
     <span data-lang-zh>專為想環遊世界的皮克敏玩家打造。</span>
+    <span data-lang-ja>世界を探検したいピクミン ブルームプレイヤーのために構築されています。</span>
+    <span data-lang-ko>세계를 탐험하고 싶은 피크민 블룸 플레이어를 위해 만들어졌습니다.</span>
   </p>
 
   <!-- Feature 1: Dice Landmarks -->
@@ -519,13 +557,17 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
       <h3>
         <span data-lang-en>Dice Landmarks</span>
         <span data-lang-zh>骰子地標</span>
+        <span data-lang-ja>ダイス ランドマーク</span>
+        <span data-lang-ko>주사위 명소</span>
         <span class="badge-hot">HOT</span>
       </h3>
       <p>
         <span data-lang-en>Roll the dice and instantly fly to a random landmark from our massive database. Lighthouses, temples, hot springs, castles, beaches, observatories — real places across 6 continents.</span>
         <span data-lang-zh>擲骰子瞬間飛往隨機地標。燈塔、寺廟、溫泉、城堡、海灘、天文台 — 六大洲的真實景點，讓每次探索都充滿驚喜。</span>
+        <span data-lang-ja>サイコロを振って、私たちの膨大なデータベースからランダムな名所へ瞬間移動。灯台、寺院、温泉、城、ビーチ、天文台 — 6大陸にわたる実在の場所。</span>
+        <span data-lang-ko>주사위를 던져 우리의 거대한 데이터베이스에서 무작위 명소로 순간 이동합니다. 등대, 사찰, 온천, 성, 해변, 천문대 — 6대륙에 걸친 실제 장소.</span>
       </p>
-      <div class="feature-stat">🌍 <span data-lang-en>4,879 landmarks across 13 categories</span><span data-lang-zh>4,879 筆地標，13 種分類</span></div>
+      <div class="feature-stat">🌍 <span data-lang-en>4,879 landmarks across 13 categories</span><span data-lang-zh>4,879 筆地標，13 種分類</span><span data-lang-ja>13のカテゴリーにわたる4,879の名所</span><span data-lang-ko>13개 카테고리에 걸친 4,879개의 명소</span></div>
     </div>
   </div>
 
@@ -539,13 +581,17 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
       <h3>
         <span data-lang-en>Smart Auto Walk</span>
         <span data-lang-zh>智慧自動走路</span>
+        <span data-lang-ja>スマート自動ウォーク</span>
+        <span data-lang-ko>스마트 자동 보행</span>
         <span class="badge-hot">HOT</span>
       </h3>
       <p>
         <span data-lang-en>Ultra-smooth continuous GPS movement with our dual-thread engine. No jerky stops, no position drift. Walk through real city streets at natural speed — perfect for planting flowers 24/7.</span>
         <span data-lang-zh>雙線程引擎驅動的超平滑連續 GPS 移動。不再走走停停、不再定位飄移。沿真實街道自然行走，完美適合全天候種花。</span>
+        <span data-lang-ja>デュアルスレッドエンジンによるウルトラスムーズな連続GPS移動。ぎくしゃくした停止がなく、位置ドリフトもありません。自然な速度で実際の街路を歩く — 24時間花を植えるのに最適です。</span>
+        <span data-lang-ko>듀얼 스레드 엔진의 초극세 연속 GPS 이동. 경직된 정지가 없고 위치 드리프트도 없습니다. 자연 속도로 실제 거리를 걷기 — 24시간 꽃을 심기에 완벽합니다.</span>
       </p>
-      <div class="feature-stat">🌸 <span data-lang-en>Continuous smooth movement, 24/7</span><span data-lang-zh>持續平滑移動，全天候運行</span></div>
+      <div class="feature-stat">🌸 <span data-lang-en>Continuous smooth movement, 24/7</span><span data-lang-zh>持續平滑移動，全天候運行</span><span data-lang-ja>継続的なスムーズな移動、24時間体制</span><span data-lang-ko>지속적인 부드러운 이동, 24시간</span></div>
     </div>
   </div>
 
@@ -559,10 +605,14 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
       <h3>
         <span data-lang-en>Instant Teleport</span>
         <span data-lang-zh>一鍵傳送</span>
+        <span data-lang-ja>インスタント テレポート</span>
+        <span data-lang-ko>인스턴트 텔레포트</span>
       </h3>
       <p>
         <span data-lang-en>Click anywhere on the interactive map and teleport your phone's GPS instantly. Jump between continents, visit any coordinate on Earth with a single click.</span>
         <span data-lang-zh>在互動地圖上點擊任意位置，手機 GPS 即刻傳送。跨越大陸、一鍵飛抵地球上任何座標。</span>
+        <span data-lang-ja>インタラクティブマップ上のどこかをクリックして、スマートフォンのGPSを瞬時にテレポートさせます。大陸間をジャンプし、ワンクリックで地球上のあらゆる座標にアクセスします。</span>
+        <span data-lang-ko>인터랙티브 지도의 어느 곳이든 클릭하여 휴대폰의 GPS를 즉시 텔레포트하세요. 대륙 간 이동, 한 번의 클릭으로 지구상의 모든 좌표에 방문합니다.</span>
       </p>
     </div>
   </div>
@@ -571,18 +621,18 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
   <div class="features-grid" style="margin-top:3rem">
     <div class="feature-card">
       <div class="icon">🗺️</div>
-      <h3><span data-lang-en>Custom Routes</span><span data-lang-zh>自訂路線</span></h3>
-      <p><span data-lang-en>Draw your own walking paths on the map. Set speed, pause, resume anytime.</span><span data-lang-zh>在地圖上畫出散步路線，自由調整速度、暫停、繼續。</span></p>
+      <h3><span data-lang-en>Custom Routes</span><span data-lang-zh>自訂路線</span><span data-lang-ja>カスタムルート</span><span data-lang-ko>사용자 정의 경로</span></h3>
+      <p><span data-lang-en>Draw your own walking paths on the map. Set speed, pause, resume anytime.</span><span data-lang-zh>在地圖上畫出散步路線，自由調整速度、暫停、繼續。</span><span data-lang-ja>地図に独自のウォーキング パスを描きます。速度を設定し、いつでも一時停止、再開できます。</span><span data-lang-ko>지도에 자신만의 보행 경로를 그리세요. 속도를 설정하고 언제든지 일시 중지, 재개할 수 있습니다.</span></p>
     </div>
     <div class="feature-card">
       <div class="icon">🕹️</div>
-      <h3><span data-lang-en>Joystick Control</span><span data-lang-zh>虛擬搖桿</span></h3>
-      <p><span data-lang-en>Move freely in any direction with precise virtual joystick control.</span><span data-lang-zh>虛擬搖桿精準控制，自由朝任何方向移動。</span></p>
+      <h3><span data-lang-en>Joystick Control</span><span data-lang-zh>虛擬搖桿</span><span data-lang-ja>ジョイスティック コントロール</span><span data-lang-ko>조이스틱 제어</span></h3>
+      <p><span data-lang-en>Move freely in any direction with precise virtual joystick control.</span><span data-lang-zh>虛擬搖桿精準控制，自由朝任何方向移動。</span><span data-lang-ja>正確な仮想ジョイスティック制御でどの方向にも自由に移動できます。</span><span data-lang-ko>정밀한 가상 조이스틱 제어로 어느 방향이든 자유롭게 이동하세요.</span></p>
     </div>
     <div class="feature-card">
       <div class="icon">📱</div>
-      <h3><span data-lang-en>iPhone + Android</span><span data-lang-zh>雙平台支援</span></h3>
-      <p><span data-lang-en>Works with iOS 17+ and Android 5.0+. No jailbreak or root required.</span><span data-lang-zh>支援 iOS 17+ 和 Android 5.0+，無需越獄或 Root。</span></p>
+      <h3><span data-lang-en>iPhone + Android</span><span data-lang-zh>雙平台支援</span><span data-lang-ja>iPhone + Android</span><span data-lang-ko>iPhone + Android</span></h3>
+      <p><span data-lang-en>Works with iOS 17+ and Android 5.0+. No jailbreak or root required.</span><span data-lang-zh>支援 iOS 17+ 和 Android 5.0+，無需越獄或 Root。</span><span data-lang-ja>iOS 17+ および Android 5.0+ で動作します。脱獄またはルート化は不要です。</span><span data-lang-ko>iOS 17+ 및 Android 5.0+와 호환됩니다. 탈옥이나 루팅이 필요하지 않습니다.</span></p>
     </div>
   </div>
 </section>
@@ -592,10 +642,14 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
   <h2>
     <span data-lang-en>Clean, Powerful Interface</span>
     <span data-lang-zh>簡潔而強大的介面</span>
+    <span data-lang-ja>クリーンで強力なインターフェース</span>
+    <span data-lang-ko>깔끔하고 강력한 인터페이스</span>
   </h2>
   <p class="desc">
     <span data-lang-en>All features in one intuitive desktop app. Connect, click, explore.</span>
     <span data-lang-zh>所有功能集於一個直覺的桌面應用程式。連接、點擊、探索。</span>
+    <span data-lang-ja>すべての機能が1つの直感的なデスクトップアプリに。接続、クリック、探索。</span>
+    <span data-lang-ko>모든 기능이 하나의 직관적인 데스크톱 앱에 있습니다. 연결, 클릭, 탐색합니다.</span>
   </p>
   <div class="mockup-container">
     <div class="app-window">
@@ -715,30 +769,31 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
     <!-- Mac + iPhone -->
     <div class="setup-panel active" id="panel-mac-ios">
       <div class="prereq-box">
-        <h4><span data-lang-en>Prerequisites</span><span data-lang-zh>事前準備</span></h4>
+        <h4><span data-lang-en>Prerequisites</span><span data-lang-zh>事前準備</span><span data-lang-ja>前提条件</span><span data-lang-ko>필수 조건</span></h4>
         <ul>
-          <li><span data-lang-en>macOS 13 (Ventura) or later</span><span data-lang-zh>macOS 13 (Ventura) 或更新版本</span></li>
-          <li><span data-lang-en>Xcode Command Line Tools — open Terminal and run: <code>xcode-select --install</code></span><span data-lang-zh>Xcode 命令列工具 — 打開終端機執行：<code>xcode-select --install</code></span></li>
-          <li><span data-lang-en>Python 3.9+ (comes with macOS or install via Homebrew)</span><span data-lang-zh>Python 3.9+（macOS 內建，或透過 Homebrew 安裝）</span></li>
-          <li><span data-lang-en>pymobiledevice3 — run: <code>pip3 install pymobiledevice3</code></span><span data-lang-zh>pymobiledevice3 — 執行：<code>pip3 install pymobiledevice3</code></span></li>
+          <li><span data-lang-en>macOS 13+</span><span data-lang-zh>macOS 13 或更新版本</span><span data-lang-ja>macOS 13 以上</span><span data-lang-ko>macOS 13 이상</span></li>
+          <li><span data-lang-en>iPhone with iOS 17+</span><span data-lang-zh>iPhone（iOS 17 或更新版本）</span><span data-lang-ja>iPhone（iOS 17 以上）</span><span data-lang-ko>iPhone(iOS 17 이상)</span></li>
         </ul>
       </div>
       <div class="setup-card">
-        <h3><span class="step-badge">1</span> <span data-lang-en>Enable Developer Mode on iPhone</span><span data-lang-zh>開啟 iPhone 開發者模式</span></h3>
-        <p><span data-lang-en>Go to <strong>Settings &gt; Privacy &amp; Security &gt; Developer Mode</strong>. Toggle it on and restart your iPhone when prompted.</span><span data-lang-zh>前往 <strong>設定 &gt; 隱私與安全性 &gt; 開發者模式</strong>，開啟後依提示重新啟動 iPhone。</span></p>
+        <h3><span class="step-badge">1</span> <span data-lang-en>Download Pik Flyer .dmg</span><span data-lang-zh>下載 Pik Flyer .dmg</span><span data-lang-ja>Pik Flyer .dmg をダウンロード</span><span data-lang-ko>Pik Flyer .dmg 다운로드</span></h3>
+        <p><span data-lang-en>Download the .dmg installer from our website.</span><span data-lang-zh>從我們的網站下載 .dmg 安裝程式。</span><span data-lang-ja>当社のウェブサイトから .dmg インストーラーをダウンロードしてください。</span><span data-lang-ko>당사 웹사이트에서 .dmg 설치 관리자를 다운로드하세요.</span></p>
       </div>
       <div class="setup-card">
-        <h3><span class="step-badge">2</span> <span data-lang-en>Start tunneld service</span><span data-lang-zh>啟動 tunneld 服務</span></h3>
-        <p><span data-lang-en>Open Terminal and run: <code>sudo pymobiledevice3 remote tunneld</code>. Keep this window open. This creates a secure tunnel to your device.</span><span data-lang-zh>打開終端機執行：<code>sudo pymobiledevice3 remote tunneld</code>，保持視窗開啟。此服務建立與裝置的安全通道。</span></p>
+        <h3><span class="step-badge">2</span> <span data-lang-en>Install: Open .dmg, drag Pik Flyer to Applications</span><span data-lang-zh>安裝：打開 .dmg，拖動 Pik Flyer 到應用程式資料夾</span><span data-lang-ja>インストール: .dmg を開き、Pik Flyer をアプリケーションにドラッグ</span><span data-lang-ko>설치: .dmg를 열고 Pik Flyer를 응용 프로그램으로 드래그</span></h3>
+        <p><span data-lang-en>Double-click the .dmg file, then drag the Pik Flyer icon to your Applications folder.</span><span data-lang-zh>按兩下 .dmg 檔案，然後將 Pik Flyer 圖示拖到應用程式資料夾。</span><span data-lang-ja>.dmg ファイルをダブルクリックして、Pik Flyer アイコンをアプリケーション フォルダーにドラッグします。</span><span data-lang-ko>.dmg 파일을 두 번 클릭한 다음 Pik Flyer 아이콘을 응용 프로그램 폴더로 드래그합니다.</span></p>
       </div>
       <div class="setup-card">
-        <h3><span class="step-badge">3</span> <span data-lang-en>Connect via USB</span><span data-lang-zh>USB 連接</span></h3>
-        <p><span data-lang-en>Plug your iPhone into your Mac with a Lightning or USB-C cable. When prompted on your phone, tap <strong>"Trust"</strong>.</span><span data-lang-zh>用 Lightning 或 USB-C 線將 iPhone 插上 Mac。手機彈出提示時點選<strong>「信任」</strong>。</span></p>
-        <p class="warn"><span data-lang-en>⚠️ USB connection is required. WiFi mode is too slow for GPS simulation.</span><span data-lang-zh>⚠️ 必須使用 USB 連接。WiFi 模式太慢，不適合 GPS 模擬。</span></p>
+        <h3><span class="step-badge">3</span> <span data-lang-en>Enable Developer Mode on iPhone</span><span data-lang-zh>開啟 iPhone 開發者模式</span><span data-lang-ja>iPhone で開発者モードを有効にする</span><span data-lang-ko>iPhone에서 개발자 모드 활성화</span></h3>
+        <p><span data-lang-en>Go to <strong>Settings &gt; Privacy &amp; Security &gt; Developer Mode</strong>. Toggle it on and restart when prompted.</span><span data-lang-zh>前往 <strong>設定 &gt; 隱私與安全性 &gt; 開發者模式</strong>，開啟後依提示重新啟動。</span><span data-lang-ja><strong>設定 &gt; プライバシーとセキュリティ &gt; 開発者モード</strong>に移動します。切り替えてプロンプトが表示されたら再起動します。</span><span data-lang-ko><strong>설정 &gt; 개인정보 보호 및 보안 &gt; 개발자 모드</strong>로 이동합니다. 토글하고 표시될 때 재시작합니다.</span></p>
       </div>
       <div class="setup-card">
-        <h3><span class="step-badge">4</span> <span data-lang-en>Launch Pik Flyer and connect</span><span data-lang-zh>啟動 Pik Flyer 並連接</span></h3>
-        <p><span data-lang-en>Open Pik Flyer, click <strong>"Connect Device"</strong>. Your iPhone should appear. Click it to start GPS simulation.</span><span data-lang-zh>開啟 Pik Flyer，點擊<strong>「連接裝置」</strong>，iPhone 會自動出現，點選即可開始 GPS 模擬。</span></p>
+        <h3><span class="step-badge">4</span> <span data-lang-en>Connect iPhone via USB cable and tap "Trust"</span><span data-lang-zh>用 USB 線連接 iPhone，點選「信任」</span><span data-lang-ja>USB ケーブルで iPhone を接続し、「信頼」をタップ</span><span data-lang-ko>USB 케이블로 iPhone을 연결하고 "신뢰"를 누르세요</span></h3>
+        <p><span data-lang-en>Plug your iPhone into your Mac with a USB cable. When prompted on your phone, tap <strong>"Trust"</strong>.</span><span data-lang-zh>用 USB 線將 iPhone 插上 Mac。手機彈出提示時點選<strong>「信任」</strong>。</span><span data-lang-ja>USB ケーブルで iPhone を Mac に接続します。電話で求められたら、<strong>「信頼」</strong>をタップします。</span><span data-lang-ko>USB 케이블로 iPhone을 Mac에 연결합니다. 전화에서 메시지가 표시되면 <strong>"신뢰"</strong>를 누릅니다.</span></p>
+      </div>
+      <div class="setup-card">
+        <h3><span class="step-badge">5</span> <span data-lang-en>Open Pik Flyer, your iPhone appears automatically — start exploring!</span><span data-lang-zh>打開 Pik Flyer，iPhone 會自動出現 — 開始探索！</span><span data-lang-ja>Pik Flyer を開くと、iPhone が自動的に表示されます — 探索を開始してください！</span><span data-lang-ko>Pik Flyer를 열면 iPhone이 자동으로 나타납니다 — 탐색을 시작하세요!</span></h3>
+        <p><span data-lang-en>Launch the app from Applications. Your phone will be detected automatically. Click it to start GPS simulation.</span><span data-lang-zh>從應用程式中啟動應用程式。手機會自動被偵測到。點擊即可開始 GPS 模擬。</span><span data-lang-ja>アプリケーションからアプリを起動します。電話は自動的に検出されます。クリックして GPS シミュレーションを開始します。</span><span data-lang-ko>응용 프로그램에서 앱을 시작합니다. 전화가 자동으로 감지됩니다. GPS 시뮬레이션을 시작하려면 클릭하세요.</span></p>
       </div>
     </div>
 
@@ -773,30 +828,36 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
     <!-- Windows + iPhone -->
     <div class="setup-panel" id="panel-win-ios">
       <div class="prereq-box">
-        <h4><span data-lang-en>Prerequisites</span><span data-lang-zh>事前準備</span></h4>
+        <h4><span data-lang-en>Prerequisites</span><span data-lang-zh>事前準備</span><span data-lang-ja>前提条件</span><span data-lang-ko>필수 조건</span></h4>
         <ul>
-          <li><span data-lang-en>Windows 10/11 (64-bit)</span><span data-lang-zh>Windows 10/11（64 位元）</span></li>
-          <li><span data-lang-en>iTunes (Microsoft Store or Apple website) — required for Apple device drivers</span><span data-lang-zh>iTunes（Microsoft Store 或 Apple 官網下載）— 必須安裝，用於 Apple 裝置驅動程式</span></li>
-          <li><span data-lang-en>Python 3.9+ — download from <code>python.org</code></span><span data-lang-zh>Python 3.9+ — 從 <code>python.org</code> 下載安裝</span></li>
-          <li><span data-lang-en>pymobiledevice3 — run in CMD: <code>pip install pymobiledevice3</code></span><span data-lang-zh>pymobiledevice3 — 在 CMD 執行：<code>pip install pymobiledevice3</code></span></li>
+          <li><span data-lang-en>Windows 10/11 64-bit</span><span data-lang-zh>Windows 10/11（64 位元）</span><span data-lang-ja>Windows 10/11 64 ビット</span><span data-lang-ko>Windows 10/11 64비트</span></li>
+          <li><span data-lang-en>iPhone with iOS 17+</span><span data-lang-zh>iPhone（iOS 17 或更新版本）</span><span data-lang-ja>iPhone（iOS 17 以上）</span><span data-lang-ko>iPhone(iOS 17 이상)</span></li>
+          <li><span data-lang-en>iTunes installed (for Apple device drivers)</span><span data-lang-zh>iTunes 已安裝（用於 Apple 裝置驅動程式）</span><span data-lang-ja>iTunes がインストール済み（Apple デバイス ドライバー用）</span><span data-lang-ko>iTunes 설치됨(Apple 기기 드라이버용)</span></li>
         </ul>
       </div>
       <div class="setup-card">
-        <h3><span class="step-badge">1</span> <span data-lang-en>Install iTunes first!</span><span data-lang-zh>先安裝 iTunes！</span></h3>
-        <p><span data-lang-en>iTunes installs the Apple Mobile Device USB drivers that Windows needs to communicate with your iPhone. Without it, your phone won't be detected.</span><span data-lang-zh>iTunes 會安裝 Windows 所需的 Apple 行動裝置 USB 驅動程式。沒有它，電腦無法偵測到你的 iPhone。</span></p>
-        <p class="warn"><span data-lang-en>⚠️ This is the most common issue on Windows. Install iTunes even if you don't plan to use it.</span><span data-lang-zh>⚠️ 這是 Windows 上最常見的問題。即使不使用 iTunes，也必須安裝。</span></p>
+        <h3><span class="step-badge">1</span> <span data-lang-en>Download Pik Flyer installer (.exe)</span><span data-lang-zh>下載 Pik Flyer 安裝程式 (.exe)</span><span data-lang-ja>Pik Flyer インストーラー (.exe) をダウンロード</span><span data-lang-ko>Pik Flyer 설치 프로그램 (.exe) 다운로드</span></h3>
+        <p><span data-lang-en>Download the .exe installer from our website.</span><span data-lang-zh>從我們的網站下載 .exe 安裝程式。</span><span data-lang-ja>当社のウェブサイトから .exe インストーラーをダウンロードしてください。</span><span data-lang-ko>당사 웹사이트에서 .exe 설치 프로그램을 다운로드하세요.</span></p>
       </div>
       <div class="setup-card">
-        <h3><span class="step-badge">2</span> <span data-lang-en>Enable Developer Mode on iPhone</span><span data-lang-zh>開啟 iPhone 開發者模式</span></h3>
-        <p><span data-lang-en>Go to <strong>Settings &gt; Privacy &amp; Security &gt; Developer Mode</strong>. Toggle it on and restart.</span><span data-lang-zh>前往 <strong>設定 &gt; 隱私與安全性 &gt; 開發者模式</strong>，開啟後重新啟動。</span></p>
+        <h3><span class="step-badge">2</span> <span data-lang-en>Run installer and follow the prompts</span><span data-lang-zh>執行安裝程式並依照提示</span><span data-lang-ja>インストーラーを実行してプロンプトに従う</span><span data-lang-ko>설치 프로그램을 실행하고 지시를 따르세요</span></h3>
+        <p><span data-lang-en>Double-click the .exe file and complete the installation wizard.</span><span data-lang-zh>按兩下 .exe 檔案並完成安裝精靈。</span><span data-lang-ja>.exe ファイルをダブルクリックしてインストール ウィザードを完了します。</span><span data-lang-ko>.exe 파일을 두 번 클릭하고 설치 마법사를 완료합니다.</span></p>
       </div>
       <div class="setup-card">
-        <h3><span class="step-badge">3</span> <span data-lang-en>Start tunneld service</span><span data-lang-zh>啟動 tunneld 服務</span></h3>
-        <p><span data-lang-en>Open <strong>Command Prompt as Administrator</strong> and run: <code>pymobiledevice3 remote tunneld</code>. Keep this window open.</span><span data-lang-zh>以<strong>系統管理員身分</strong>打開命令提示字元，執行：<code>pymobiledevice3 remote tunneld</code>，保持視窗開啟。</span></p>
+        <h3><span class="step-badge">3</span> <span data-lang-en>Install iTunes if not already installed</span><span data-lang-zh>如未安裝，請先安裝 iTunes</span><span data-lang-ja>まだインストールされていない場合は iTunes をインストール</span><span data-lang-ko>아직 설치되지 않았다면 iTunes를 설치하세요</span></h3>
+        <p><span data-lang-en>iTunes provides the Apple device drivers Windows needs. Download from Microsoft Store or Apple's website.</span><span data-lang-zh>iTunes 提供 Windows 所需的 Apple 設備驅動程式。從 Microsoft Store 或 Apple 官網下載。</span><span data-lang-ja>iTunes は Windows に必要な Apple デバイス ドライバーを提供します。Microsoft Store または Apple の Web サイトからダウンロードしてください。</span><span data-lang-ko>iTunes는 Windows에 필요한 Apple 기기 드라이버를 제공합니다. Microsoft Store 또는 Apple 웹사이트에서 다운로드하세요.</span></p>
       </div>
       <div class="setup-card">
-        <h3><span class="step-badge">4</span> <span data-lang-en>Connect via USB and launch</span><span data-lang-zh>USB 連接並啟動</span></h3>
-        <p><span data-lang-en>Plug your iPhone in via USB, tap <strong>"Trust"</strong> on the phone, then open Pik Flyer and click <strong>"Connect Device"</strong>.</span><span data-lang-zh>用 USB 線插上 iPhone，手機上點選<strong>「信任」</strong>，然後開啟 Pik Flyer 點擊<strong>「連接裝置」</strong>。</span></p>
+        <h3><span class="step-badge">4</span> <span data-lang-en>Enable Developer Mode on iPhone</span><span data-lang-zh>開啟 iPhone 開發者模式</span><span data-lang-ja>iPhone で開発者モードを有効にする</span><span data-lang-ko>iPhone에서 개발자 모드 활성화</span></h3>
+        <p><span data-lang-en>Go to <strong>Settings &gt; Privacy & Security &gt; Developer Mode</strong>. Toggle it on and restart.</span><span data-lang-zh>前往 <strong>設定 &gt; 隱私與安全性 &gt; 開發者模式</strong>，開啟後重新啟動。</span><span data-lang-ja><strong>設定 &gt; プライバシーとセキュリティ &gt; 開發者モード</strong>に移動します。切り替えて再起動します。</span><span data-lang-ko><strong>설정 &gt; 개인정보 보호 및 보안 &gt; 개발자 모드</strong>로 이동합니다. 토글하고 재시작합니다.</span></p>
+      </div>
+      <div class="setup-card">
+        <h3><span class="step-badge">5</span> <span data-lang-en>Connect iPhone via USB cable and tap "Trust"</span><span data-lang-zh>用 USB 線連接 iPhone，點選「信任」</span><span data-lang-ja>USB ケーブルで iPhone を接続し、「信頼」をタップ</span><span data-lang-ko>USB 케이블로 iPhone을 연결하고 "신뢰"를 누르세요</span></h3>
+        <p><span data-lang-en>Plug your iPhone into your Windows PC with a USB cable. When prompted on your phone, tap <strong>"Trust"</strong>.</span><span data-lang-zh>用 USB 線將 iPhone 插上 Windows PC。手機彈出提示時點選<strong>「信任」</strong>。</span><span data-lang-ja>USB ケーブルで iPhone を Windows PC に接続します。電話で求められたら、<strong>「信頼」</strong>をタップします。</span><span data-lang-ko>USB 케이블로 iPhone을 Windows PC에 연결합니다. 전화에서 메시지가 표시되면 <strong>"신뢰"</strong>를 누릅니다.</span></p>
+      </div>
+      <div class="setup-card">
+        <h3><span class="step-badge">6</span> <span data-lang-en>Open Pik Flyer — your iPhone appears automatically!</span><span data-lang-zh>打開 Pik Flyer — iPhone 會自動出現！</span><span data-lang-ja>Pik Flyer を開く — iPhone が自動的に表示されます！</span><span data-lang-ko>Pik Flyer를 열기 — iPhone이 자동으로 나타납니다!</span></h3>
+        <p><span data-lang-en>Launch Pik Flyer from your Start menu. Your phone will be detected automatically. Click it to start GPS simulation.</span><span data-lang-zh>從開始功能表啟動 Pik Flyer。手機會自動被偵測到。點擊即可開始 GPS 模擬。</span><span data-lang-ja>スタート メニューから Pik Flyer を起動します。電話は自動的に検出されます。GPS シミュレーションを開始するにはクリックします。</span><span data-lang-ko>시작 메뉴에서 Pik Flyer를 시작합니다. 전화가 자동으로 감지됩니다. GPS 시뮬레이션을 시작하려면 클릭하세요.</span></p>
       </div>
     </div>
 
@@ -833,72 +894,68 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
 
 <!-- ===== PRICING ===== -->
 <section class="pricing" id="pricing">
-  <h2><span data-lang-en>Simple pricing</span><span data-lang-zh>簡單定價</span></h2>
-  <p class="desc"><span data-lang-en>One plan, everything included. Cancel anytime.</span><span data-lang-zh>一個方案，全部功能。隨時取消。</span></p>
+  <h2><span data-lang-en>Simple pricing</span><span data-lang-zh>簡單定價</span><span data-lang-ja>シンプルな価格設定</span><span data-lang-ko>간단한 가격 책정</span></h2>
+  <p class="desc"><span data-lang-en>One plan, everything included. Cancel anytime.</span><span data-lang-zh>一個方案，全部功能。隨時取消。</span><span data-lang-ja>1 つのプラン、すべてが含まれています。いつでもキャンセル可能です。</span><span data-lang-ko>하나의 계획으로 모든 것이 포함됩니다. 언제든지 취소할 수 있습니다.</span></p>
   <div class="price-card">
-    <div class="badge"><span data-lang-en>MONTHLY</span><span data-lang-zh>月費</span></div>
-    <div class="amount">$4.99 <span>USD / <span data-lang-en>month</span><span data-lang-zh>月</span></span></div>
+    <div class="badge"><span data-lang-en>MONTHLY</span><span data-lang-zh>月費</span><span data-lang-ja>月額</span><span data-lang-ko>월간</span></div>
+    <div class="amount">$4.99 <span>USD / <span data-lang-en>month</span><span data-lang-zh>月</span><span data-lang-ja>月</span><span data-lang-ko>월</span></span></div>
     <ul class="perks">
-      <li><span data-lang-en>Unlimited teleportation</span><span data-lang-zh>無限傳送</span></li>
-      <li><span data-lang-en>4,879 worldwide landmarks</span><span data-lang-zh>4,879 筆全球地標</span></li>
-      <li><span data-lang-en>Smart auto walk routes</span><span data-lang-zh>智慧自動走路</span></li>
-      <li><span data-lang-en>Custom route builder</span><span data-lang-zh>自訂路線繪製</span></li>
-      <li><span data-lang-en>Joystick control</span><span data-lang-zh>虛擬搖桿</span></li>
-      <li><span data-lang-en>iPhone &amp; Android</span><span data-lang-zh>iPhone &amp; Android</span></li>
-      <li><span data-lang-en>macOS &amp; Windows</span><span data-lang-zh>macOS &amp; Windows</span></li>
-      <li><span data-lang-en>All future updates</span><span data-lang-zh>所有未來更新</span></li>
+      <li><span data-lang-en>Unlimited teleportation</span><span data-lang-zh>無限傳送</span><span data-lang-ja>無制限テレポート</span><span data-lang-ko>무제한 텔레포트</span></li>
+      <li><span data-lang-en>4,879 worldwide landmarks</span><span data-lang-zh>4,879 筆全球地標</span><span data-lang-ja>4,879の世界中の名所</span><span data-lang-ko>전 세계 4,879개의 명소</span></li>
+      <li><span data-lang-en>Smart auto walk routes</span><span data-lang-zh>智慧自動走路</span><span data-lang-ja>スマート自動ウォークルート</span><span data-lang-ko>스마트 자동 보행 경로</span></li>
+      <li><span data-lang-en>Custom route builder</span><span data-lang-zh>自訂路線繪製</span><span data-lang-ja>カスタムルートビルダー</span><span data-lang-ko>사용자 정의 경로 작성자</span></li>
+      <li><span data-lang-en>Joystick control</span><span data-lang-zh>虛擬搖桿</span><span data-lang-ja>ジョイスティック制御</span><span data-lang-ko>조이스틱 제어</span></li>
+      <li><span data-lang-en>iPhone &amp; Android</span><span data-lang-zh>iPhone &amp; Android</span><span data-lang-ja>iPhone &amp; Android</span><span data-lang-ko>iPhone &amp; Android</span></li>
+      <li><span data-lang-en>macOS &amp; Windows</span><span data-lang-zh>macOS &amp; Windows</span><span data-lang-ja>macOS &amp; Windows</span><span data-lang-ko>macOS &amp; Windows</span></li>
+      <li><span data-lang-en>All future updates</span><span data-lang-zh>所有未來更新</span><span data-lang-ja>将来のすべての更新</span><span data-lang-ko>모든 향후 업데이트</span></li>
     </ul>
-    <a href="#" class="btn"><span data-lang-en>Coming Soon</span><span data-lang-zh>即將上線</span></a>
+    <a href="#" class="btn"><span data-lang-en>Coming Soon</span><span data-lang-zh>即將上線</span><span data-lang-ja>近日公開予定</span><span data-lang-ko>곧 출시 예정</span></a>
   </div>
 </section>
 
 <!-- ===== FAQ ===== -->
 <section class="faq" id="faq">
   <div class="inner">
-    <h2><span data-lang-en>Frequently asked questions</span><span data-lang-zh>常見問題</span></h2>
+    <h2><span data-lang-en>Frequently asked questions</span><span data-lang-zh>常見問題</span><span data-lang-ja>よくあるご質問</span><span data-lang-ko>자주 묻는 질문</span></h2>
     <div class="faq-item">
-      <h3><span data-lang-en>Is Pik Flyer safe to use?</span><span data-lang-zh>Pik Flyer 安全嗎？</span></h3>
-      <p><span data-lang-en>Pik Flyer simulates GPS at the OS level. It works with Pikmin Bloom and other location apps. Please use responsibly.</span><span data-lang-zh>Pik Flyer 在作業系統層級模擬 GPS，適用於 Pikmin Bloom 及其他定位 App。請負責任地使用。</span></p>
+      <h3><span data-lang-en>Is Pik Flyer safe to use?</span><span data-lang-zh>Pik Flyer 安全嗎？</span><span data-lang-ja>Pik Flyer は安全ですか？</span><span data-lang-ko>Pik Flyer를 사용해도 안전한가요?</span></h3>
+      <p><span data-lang-en>Pik Flyer simulates GPS at the OS level. It works with Pikmin Bloom and other location apps. Please use responsibly.</span><span data-lang-zh>Pik Flyer 在作業系統層級模擬 GPS，適用於 Pikmin Bloom 及其他定位 App。請負責任地使用。</span><span data-lang-ja>Pik Flyer は OS レベルで GPS をシミュレートします。ピクミン ブルームおよび他のロケーション アプリで機能します。責任を持って使用してください。</span><span data-lang-ko>Pik Flyer는 OS 수준에서 GPS를 시뮬레이션합니다. 피크민 블룸 및 기타 위치 앱에서 작동합니다. 책임감 있게 사용해주세요.</span></p>
     </div>
     <div class="faq-item">
-      <h3><span data-lang-en>What devices are supported?</span><span data-lang-zh>支援哪些裝置？</span></h3>
-      <p><span data-lang-en>iPhone (iOS 17+) and Android (5.0+) via USB on Mac or Windows.</span><span data-lang-zh>iPhone (iOS 17+) 和 Android (5.0+)，透過 USB 連接 Mac 或 Windows。</span></p>
+      <h3><span data-lang-en>What devices are supported?</span><span data-lang-zh>支援哪些裝置？</span><span data-lang-ja>どのデバイスがサポートされていますか？</span><span data-lang-ko>어떤 기기가 지원되나요?</span></h3>
+      <p><span data-lang-en>iPhone (iOS 17+) and Android (5.0+) via USB on Mac or Windows.</span><span data-lang-zh>iPhone (iOS 17+) 和 Android (5.0+)，透過 USB 連接 Mac 或 Windows。</span><span data-lang-ja>iPhone (iOS 17+) および Android (5.0+) を Mac または Windows 経由で USB で使用できます。</span><span data-lang-ko>Mac 또는 Windows에서 USB를 통해 iPhone(iOS 17+) 및 Android(5.0+)를 지원합니다.</span></p>
     </div>
     <div class="faq-item">
-      <h3><span data-lang-en>Do I need to jailbreak?</span><span data-lang-zh>需要越獄嗎？</span></h3>
-      <p><span data-lang-en>No. Uses Apple's Developer Tools protocol. No jailbreak needed.</span><span data-lang-zh>不用。使用 Apple 開發者工具協定，無需越獄。</span></p>
+      <h3><span data-lang-en>Do I need to jailbreak?</span><span data-lang-zh>需要越獄嗎？</span><span data-lang-ja>脱獄する必要はありますか？</span><span data-lang-ko>탈옥이 필요한가요?</span></h3>
+      <p><span data-lang-en>No. Uses Apple's Developer Tools protocol. No jailbreak needed.</span><span data-lang-zh>不用。使用 Apple 開發者工具協定，無需越獄。</span><span data-lang-ja>いいえ。Apple の開発者ツール プロトコルを使用します。脱獄は不要です。</span><span data-lang-ko>아니요. Apple의 개발자 도구 프로토콜을 사용합니다. 탈옥이 필요하지 않습니다.</span></p>
     </div>
     <div class="faq-item">
-      <h3><span data-lang-en>How smooth is auto walk?</span><span data-lang-zh>自動走路順暢嗎？</span></h3>
-      <p><span data-lang-en>Pik Flyer uses dual-thread architecture for continuous GPS signals — ultra-smooth, no jerky movement.</span><span data-lang-zh>Pik Flyer 使用雙線程架構連續發送 GPS 訊號，超平滑，不會走走停停。</span></p>
+      <h3><span data-lang-en>How smooth is auto walk?</span><span data-lang-zh>自動走路順暢嗎？</span><span data-lang-ja>自動ウォークはどの程度スムーズですか？</span><span data-lang-ko>자동 보행이 얼마나 부드럽나요?</span></h3>
+      <p><span data-lang-en>Pik Flyer uses dual-thread architecture for continuous GPS signals — ultra-smooth, no jerky movement.</span><span data-lang-zh>Pik Flyer 使用雙線程架構連續發送 GPS 訊號，超平滑，不會走走停停。</span><span data-lang-ja>Pik Flyer は継続的な GPS シグナル用のデュアルスレッド アーキテクチャを使用します。超スムーズで、ぎくしゃくした動きはありません。</span><span data-lang-ko>Pik Flyer는 지속적인 GPS 신호를 위해 듀얼 스레드 아키텍처를 사용합니다. 초극세 이동으로 경직되지 않습니다.</span></p>
     </div>
     <div class="faq-item">
-      <h3><span data-lang-en>Can I cancel anytime?</span><span data-lang-zh>可以隨時取消嗎？</span></h3>
-      <p><span data-lang-en>Yes. Cancel anytime, keep access until billing period ends.</span><span data-lang-zh>可以，隨時取消，使用至帳單週期結束。</span></p>
+      <h3><span data-lang-en>Can I cancel anytime?</span><span data-lang-zh>可以隨時取消嗎？</span><span data-lang-ja>いつでもキャンセルできますか？</span><span data-lang-ko>언제든지 취소할 수 있나요?</span></h3>
+      <p><span data-lang-en>Yes. Cancel anytime, keep access until billing period ends.</span><span data-lang-zh>可以，隨時取消，使用至帳單週期結束。</span><span data-lang-ja>はい。いつでもキャンセル可能で、請求期間が終了するまでアクセスが保持されます。</span><span data-lang-ko>네. 언제든지 취소할 수 있으며 청구 기간이 끝날 때까지 액세스가 유지됩니다.</span></p>
     </div>
     <div class="faq-item">
-      <h3><span data-lang-en>My iPhone is not detected — what should I do?</span><span data-lang-zh>我的 iPhone 偵測不到怎麼辦？</span></h3>
-      <p><span data-lang-en>Make sure you: (1) have iTunes installed (Windows), (2) Developer Mode is on, (3) tunneld is running (<code>sudo pymobiledevice3 remote tunneld</code>), (4) you're using a USB cable (not WiFi), and (5) you tapped "Trust" on the phone.</span><span data-lang-zh>請確認：(1) 已安裝 iTunes（Windows）、(2) 開發者模式已開啟、(3) tunneld 正在執行（<code>sudo pymobiledevice3 remote tunneld</code>）、(4) 使用 USB 連接（非 WiFi）、(5) 手機上已點選「信任」。</span></p>
+      <h3><span data-lang-en>My iPhone is not detected — what should I do?</span><span data-lang-zh>我的 iPhone 偵測不到怎麼辦？</span><span data-lang-ja>iPhone が検出されません。どうすればよいですか？</span><span data-lang-ko>iPhone이 감지되지 않습니다. 어떻게 해야 하나요?</span></h3>
+      <p><span data-lang-en>Make sure you: (1) have Developer Mode on, (2) use a USB cable (not WiFi), (3) tap "Trust" when prompted on the phone, (4) restart Pik Flyer.</span><span data-lang-zh>請確認：(1) 開發者模式已開啟、(2) 使用 USB 連接（非 WiFi）、(3) 手機上已點選「信任」、(4) 重新啟動 Pik Flyer。</span><span data-lang-ja>確認してください：(1) 開発者モードがオンの場合、(2) USB ケーブルを使用している場合（WiFi ではない）、(3) 電話で求められたら「信頼」をタップした場合、(4) Pik Flyer を再起動してください。</span><span data-lang-ko>다음을 확인하세요: (1) 개발자 모드가 켜져 있는 경우, (2) USB 케이블을 사용 중인 경우(WiFi 아님), (3) 전화에서 "신뢰"를 눌렀을 때, (4) Pik Flyer를 다시 시작하세요.</span></p>
     </div>
     <div class="faq-item">
-      <h3><span data-lang-en>My Android phone is not detected</span><span data-lang-zh>我的 Android 手機偵測不到</span></h3>
-      <p><span data-lang-en>Ensure USB Debugging is enabled in Developer Options. When you plug in, select "File Transfer" mode (not "Charging Only"). Some brands need an OEM USB driver — Samsung users should install Samsung USB Driver from Samsung's website.</span><span data-lang-zh>確認已在開發者選項開啟 USB 偵錯。插入時選擇「檔案傳輸」模式（非「僅充電」）。部分品牌需安裝 OEM USB 驅動程式 — 三星用戶請從三星官網安裝 Samsung USB Driver。</span></p>
+      <h3><span data-lang-en>My Android is not detected</span><span data-lang-zh>我的 Android 手機偵測不到</span><span data-lang-ja>Android が検出されません</span><span data-lang-ko>Android가 감지되지 않습니다</span></h3>
+      <p><span data-lang-en>Ensure USB Debugging is enabled in Developer Options. Select "File Transfer" mode when you plug in (not "Charging Only"). Use a good quality USB cable.</span><span data-lang-zh>確認已在開發者選項開啟 USB 偵錯。插入時選擇「檔案傳輸」模式（非「僅充電」）。使用高品質 USB 線。</span><span data-lang-ja>開発者オプションで USB デバッグが有効になっていることを確認してください。プラグイン時に「ファイル転送」モードを選択します（「充電のみ」ではなく）。高品質の USB ケーブルを使用してください。</span><span data-lang-ko>개발자 옵션에서 USB 디버깅이 활성화되어 있는지 확인하세요. 플러그인 시 "파일 전송" 모드를 선택하세요(충전 전용 아님). 고품질 USB 케이블을 사용하세요.</span></p>
     </div>
     <div class="faq-item">
-      <h3><span data-lang-en>Auto walk is stuttering / flowers are sparse</span><span data-lang-zh>自動走路卡頓 / 花很稀疏</span></h3>
-      <p><span data-lang-en>This usually happens with WiFi connections. Always use a USB cable for smooth GPS. Also make sure tunneld is running — it enables the high-speed persistent GPS mode.</span><span data-lang-zh>這通常是因為使用 WiFi 連接。請務必使用 USB 線以確保 GPS 平滑。同時確認 tunneld 正在執行 — 它啟用高速持續 GPS 模式。</span></p>
+      <h3><span data-lang-en>Is there a free trial?</span><span data-lang-zh>有免費試用嗎？</span><span data-lang-ja>無料トライアルはありますか？</span><span data-lang-ko>무료 체험이 있나요?</span></h3>
+      <p><span data-lang-en>Yes! You get 5 days free. No credit card required to start.</span><span data-lang-zh>有！您可獲得 5 天免費試用。無需信用卡即可開始。</span><span data-lang-ja>はい！5日間の無料試用を受けられます。開始するにはクレジット カードは必要ありません。</span><span data-lang-ko>네! 5일 무료 체험을 받을 수 있습니다. 시작하려면 신용 카드가 필요하지 않습니다.</span></p>
     </div>
     <div class="faq-item">
-      <h3><span data-lang-en>What is tunneld and why do I need it?</span><span data-lang-zh>什麼是 tunneld？為什麼需要它？</span></h3>
-      <p><span data-lang-en>tunneld is a background service from pymobiledevice3 that creates a secure tunnel to your iPhone. It allows Pik Flyer to send GPS coordinates directly and instantly (every 0.3s) instead of through slow subprocess calls. This is what makes auto walk ultra-smooth.</span><span data-lang-zh>tunneld 是 pymobiledevice3 的背景服務，會建立與 iPhone 的安全通道。它讓 Pik Flyer 能直接即時發送 GPS 座標（每 0.3 秒），而非透過緩慢的子程序呼叫。這就是自動走路超平滑的關鍵。</span></p>
+      <h3><span data-lang-en>What's the refund policy?</span><span data-lang-zh>退款政策是什麼？</span><span data-lang-ja>払い戻し方針は何ですか？</span><span data-lang-ko>환불 정책은 무엇입니까?</span></h3>
+      <p><span data-lang-en>7-day no questions asked. If you're not happy, we'll refund your payment in full.</span><span data-lang-zh>7 天無條件退款。如果您不滿意，我們將全額退款。</span><span data-lang-ja>7 日間の返金保証。ご不満な場合は、全額払い戻しいたします。</span><span data-lang-ko>7일 무조건 환불 보장. 만족하지 않으시면 전액 환불해드립니다.</span></p>
     </div>
     <div class="faq-item">
-      <h3><span data-lang-en>Does GPS spoofing work over WiFi?</span><span data-lang-zh>WiFi 可以用 GPS 模擬嗎？</span></h3>
-      <p><span data-lang-en>Technically yes, but it's much slower and causes jerky movement. We strongly recommend USB for the best experience, especially for flower planting.</span><span data-lang-zh>技術上可以，但速度會慢很多，走路會卡頓。我們強烈建議使用 USB 以獲得最佳體驗，特別是種花時。</span></p>
-    </div>
-    <div class="faq-item">
-      <h3><span data-lang-en>Does it work with other games besides Pikmin Bloom?</span><span data-lang-zh>除了 Pikmin Bloom 還能用在其他遊戲嗎？</span></h3>
-      <p><span data-lang-en>Pik Flyer simulates GPS at the OS level, so it works with any location-based app. However, it's specifically optimized for Pikmin Bloom's walking and flower-planting mechanics.</span><span data-lang-zh>Pik Flyer 在作業系統層級模擬 GPS，因此任何定位 App 都能使用。但我們特別針對 Pikmin Bloom 的散步和種花機制進行了優化。</span></p>
+      <h3><span data-lang-en>Does it work with other games?</span><span data-lang-zh>除了 Pikmin Bloom 還能用在其他遊戲嗎？</span><span data-lang-ja>他のゲームでも機能しますか？</span><span data-lang-ko>다른 게임과도 호환되나요?</span></h3>
+      <p><span data-lang-en>Yes, but optimized for Pikmin Bloom. Pik Flyer simulates GPS at the OS level, so it works with any location-based app. However, it's specifically tuned for Pikmin Bloom's walking and flower-planting mechanics.</span><span data-lang-zh>可以，但最適化為 Pikmin Bloom。Pik Flyer 在作業系統層級模擬 GPS，因此任何定位 App 都能使用。但我們特別針對 Pikmin Bloom 的散步和種花機制進行了優化。</span><span data-lang-ja>はい、ただしピクミン ブルーム用に最適化されています。Pik Flyer は OS レベルで GPS をシミュレートするため、任何のロケーション ベースのアプリで機能します。ただし、ピクミン ブルームの歩行と花の植え方に特別に調整されています。</span><span data-lang-ko>네, 하지만 피크민 블룸에 최적화되었습니다. Pik Flyer는 OS 수준에서 GPS를 시뮬레이션하므로 모든 위치 기반 앱에서 작동합니다. 그러나 특히 피크민 블룸의 보행 및 꽃 심기 메커니즘에 맞게 조정되었습니다.</span></p>
     </div>
   </div>
 </section>
@@ -906,13 +963,13 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
 <!-- ===== FOOTER ===== -->
 <footer>
   <div class="links">
-    <a href="terms.html"><span data-lang-en>Terms</span><span data-lang-zh>條款</span></a>
-    <a href="privacy.html"><span data-lang-en>Privacy</span><span data-lang-zh>隱私</span></a>
-    <a href="refund.html"><span data-lang-en>Refund</span><span data-lang-zh>退款</span></a>
-    <a href="mailto:zacjasonr@gmail.com"><span data-lang-en>Contact</span><span data-lang-zh>聯絡</span></a>
+    <a href="terms.html"><span data-lang-en>Terms</span><span data-lang-zh>條款</span><span data-lang-ja>利用規約</span><span data-lang-ko>약관</span></a>
+    <a href="privacy.html"><span data-lang-en>Privacy</span><span data-lang-zh>隱私</span><span data-lang-ja>プライバシー</span><span data-lang-ko>개인정보</span></a>
+    <a href="refund.html"><span data-lang-en>Refund</span><span data-lang-zh>退款</span><span data-lang-ja>返金</span><span data-lang-ko>환불</span></a>
+    <a href="mailto:zacjasonr@gmail.com"><span data-lang-en>Contact</span><span data-lang-zh>聯絡</span><span data-lang-ja>お問い合わせ</span><span data-lang-ko>문의</span></a>
   </div>
   <p class="copy">&copy; 2026 Pik Flyer. All rights reserved.</p>
-  <p class="credits"><span data-lang-en>Photos by Unsplash contributors — free for commercial use.</span><span data-lang-zh>圖片來自 Unsplash — 可免費商用。</span></p>
+  <p class="credits"><span data-lang-en>Photos by Unsplash contributors — free for commercial use.</span><span data-lang-zh>圖片來自 Unsplash — 可免費商用。</span><span data-lang-ja>写真は Unsplash の貢献者によるもので、商用利用は無料です。</span><span data-lang-ko>Unsplash 기여자의 사진 — 상업용 무료.</span></p>
 </footer>
 
 <script>
@@ -920,13 +977,18 @@ function setLang(lang){
   document.documentElement.lang=lang;
   document.getElementById('btn-en').classList.toggle('active',lang==='en');
   document.getElementById('btn-zh').classList.toggle('active',lang==='zh');
+  document.getElementById('btn-ja').classList.toggle('active',lang==='ja');
+  document.getElementById('btn-ko').classList.toggle('active',lang==='ko');
   try{localStorage.setItem('pikflyer-lang',lang)}catch(e){}
 }
 (function(){
   var s=null;try{s=localStorage.getItem('pikflyer-lang')}catch(e){}
   if(s){setLang(s);return}
   var n=(navigator.language||'en').toLowerCase();
-  setLang(n.startsWith('zh')?'zh':'en');
+  if(n.startsWith('zh'))setLang('zh');
+  else if(n.startsWith('ja'))setLang('ja');
+  else if(n.startsWith('ko'))setLang('ko');
+  else setLang('en');
 })();
 
 // Setup guide tabs
