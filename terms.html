@@ -7,8 +7,28 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--orange:#ff6b35;--dark:#1a1a2e;--text:#333;--muted:#666}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--text);line-height:1.7}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Noto Sans TC','Noto Sans SC',sans-serif;color:var(--text);line-height:1.7}
 a{color:var(--orange)}
+
+/* Language toggle */
+.lang-toggle{position:fixed;top:0.7rem;right:1rem;z-index:200;display:flex;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);border-radius:50px;overflow:hidden;backdrop-filter:blur(8px)}
+.lang-toggle button{background:none;border:none;color:#ccc;padding:0.35rem 0.9rem;font-size:0.8rem;cursor:pointer;transition:all 0.2s;font-weight:500}
+.lang-toggle button.active{background:var(--orange);color:#fff;border-radius:50px}
+.lang-toggle button:hover:not(.active){color:#fff}
+
+/* Bilingual text */
+[data-lang-en],[data-lang-zh]{display:none}
+html[lang="en"] [data-lang-en]{display:inline}
+html[lang="en"] [data-lang-en-block]{display:block}
+html[lang="en"] [data-lang-en-flex]{display:flex}
+html[lang="en"] [data-lang-en-grid]{display:grid}
+html[lang="en"] [data-lang-en-iblock]{display:inline-block}
+html[lang="zh"] [data-lang-zh]{display:inline}
+html[lang="zh"] [data-lang-zh-block]{display:block}
+html[lang="zh"] [data-lang-zh-flex]{display:flex}
+html[lang="zh"] [data-lang-zh-grid]{display:grid}
+html[lang="zh"] [data-lang-zh-iblock]{display:inline-block}
+
 nav{position:fixed;top:0;width:100%;background:rgba(26,26,46,0.95);backdrop-filter:blur(10px);z-index:100;padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
 nav .logo{color:#fff;font-size:1.3rem;font-weight:700;text-decoration:none}
 nav .logo span{color:var(--orange)}
@@ -22,46 +42,82 @@ footer{background:var(--dark);color:#999;padding:2rem;text-align:center;font-siz
 </style>
 </head>
 <body>
+
+<!-- Language Toggle -->
+<div class="lang-toggle">
+  <button id="btn-en" onclick="setLang('en')">EN</button>
+  <button id="btn-zh" onclick="setLang('zh')">中文</button>
+</div>
+
 <nav>
   <a href="index.html" class="logo"><span>Pik</span> Flyer</a>
-  <a href="index.html" class="back">&larr; Back to Home</a>
+  <a href="index.html" class="back"><span data-lang-en>← Back to Home</span><span data-lang-zh>← 返回首頁</span></a>
 </nav>
 
 <div class="legal">
-<h1>Terms of Service</h1>
-<p class="date">Last updated: March 29, 2026</p>
+<h1><span data-lang-en>Terms of Service</span><span data-lang-zh>服務條款</span></h1>
+<p class="date"><span data-lang-en>Last updated: March 29, 2026</span><span data-lang-zh>最後更新：2026 年 3 月 29 日</span></p>
 
-<h2>1. Acceptance of Terms</h2>
-<p>By accessing or using Pik Flyer ("the Software"), you agree to be bound by these Terms of Service. If you do not agree, do not use the Software.</p>
+<h2><span data-lang-en>1. Acceptance of Terms</span><span data-lang-zh>1. 接受條款</span></h2>
+<p><span data-lang-en>By accessing or using Pik Flyer ("the Software"), you agree to be bound by these Terms of Service. If you do not agree, do not use the Software.</span><span data-lang-zh>使用 Pik Flyer（以下稱「本軟體」）即表示您同意本服務條款。若不同意，請勿使用本軟體。</span></p>
 
-<h2>2. Description of Service</h2>
-<p>Pik Flyer is a desktop application that provides GPS location simulation for mobile devices connected via USB. The Software is provided as a monthly subscription service.</p>
+<h2><span data-lang-en>2. Description of Service</span><span data-lang-zh>2. 服務說明</span></h2>
+<p><span data-lang-en>Pik Flyer is a desktop application that provides GPS location simulation for mobile devices connected via USB. The Software is provided as a monthly subscription service.</span><span data-lang-zh>Pik Flyer 是一款桌面應用程式，透過 USB 連接提供手機 GPS 定位模擬功能。本軟體以月費訂閱方式提供。</span></p>
 
-<h2>3. Subscription and Payment</h2>
-<p>Access to Pik Flyer requires a paid monthly subscription at $4.99/month. Payment is processed through our payment partner, Lemon Squeezy. Your subscription automatically renews each month unless cancelled. You may cancel at any time through your account dashboard.</p>
+<h2><span data-lang-en>3. Subscription and Payment</span><span data-lang-zh>3. 訂閱與付款</span></h2>
+<p><span data-lang-en>Access to Pik Flyer requires a paid monthly subscription at $4.99/month. Payment is processed through our payment partner, Lemon Squeezy. Your subscription automatically renews each month unless cancelled. You may cancel at any time through your account dashboard.</span><span data-lang-zh>使用 Pik Flyer 需支付每月 $4.99 的訂閱費用。付款由我們的支付夥伴 Lemon Squeezy 處理。訂閱每月自動續約，您可隨時取消。</span></p>
 
-<h2>4. Free Trial</h2>
-<p>New users may be offered a free trial period. At the end of the trial, your subscription will begin automatically unless you cancel before the trial ends.</p>
+<h2><span data-lang-en>4. Free Trial</span><span data-lang-zh>4. 免費試用</span></h2>
+<p><span data-lang-en>New users may be offered a free trial period. At the end of the trial, your subscription will begin automatically unless you cancel before the trial ends.</span><span data-lang-zh>新用戶可能獲得免費試用期。試用期結束後，除非您在試用結束前取消，否則訂閱將自動開始。</span></p>
 
-<h2>5. License</h2>
-<p>We grant you a limited, non-exclusive, non-transferable, revocable license to use the Software for personal purposes during your active subscription. You may not redistribute, resell, reverse-engineer, or modify the Software.</p>
+<h2><span data-lang-en>5. License</span><span data-lang-zh>5. 授權</span></h2>
+<p><span data-lang-en>We grant you a limited, non-exclusive, non-transferable, revocable license to use the Software for personal purposes during your active subscription. You may not redistribute, resell, reverse-engineer, or modify the Software.</span><span data-lang-zh>在有效訂閱期間，我們授予您有限的、非獨占的、不可轉讓的、可撤銷的個人使用授權。您不得重新分發、轉售、反向工程或修改本軟體。</span></p>
 
-<h2>6. Acceptable Use</h2>
-<p>You agree to use Pik Flyer responsibly and at your own risk. You are solely responsible for how you use GPS simulation and for complying with the terms of service of any third-party applications. We do not encourage or endorse violating any third-party terms.</p>
+<h2><span data-lang-en>6. Acceptable Use</span><span data-lang-zh>6. 合理使用</span></h2>
+<p><span data-lang-en>You agree to use Pik Flyer responsibly and at your own risk. You are solely responsible for how you use GPS simulation and for complying with the terms of service of any third-party applications. We do not encourage or endorse violating any third-party terms.</span><span data-lang-zh>您同意負責任地使用 Pik Flyer，風險自負。您對 GPS 模擬的使用方式以及遵守任何第三方應用程式的服務條款負全責。我們不鼓勵或認可違反任何第三方條款的行為。</span></p>
 
-<h2>7. Disclaimer of Warranties</h2>
-<p>The Software is provided "as is" without warranties of any kind, express or implied. We do not guarantee that the Software will be error-free, uninterrupted, or compatible with all devices or operating systems.</p>
+<h2><span data-lang-en>7. Disclaimer of Warranties</span><span data-lang-zh>7. 免責聲明</span></h2>
+<p><span data-lang-en>The Software is provided "as is" without warranties of any kind, express or implied. We do not guarantee that the Software will be error-free, uninterrupted, or compatible with all devices or operating systems.</span><span data-lang-zh>本軟體按「現狀」提供，不附帶任何明示或暗示的保證。我們不保證軟體無錯誤、不中斷或與所有裝置或作業系統相容。</span></p>
 
-<h2>8. Limitation of Liability</h2>
-<p>In no event shall Pik Flyer or its creators be liable for any indirect, incidental, special, or consequential damages arising from the use or inability to use the Software, including but not limited to any actions taken by third-party applications as a result of GPS simulation.</p>
+<h2><span data-lang-en>8. Limitation of Liability</span><span data-lang-zh>8. 責任限制</span></h2>
+<p><span data-lang-en>In no event shall Pik Flyer or its creators be liable for any indirect, incidental, special, or consequential damages arising from the use or inability to use the Software, including but not limited to any actions taken by third-party applications as a result of GPS simulation.</span><span data-lang-zh>Pik Flyer 或其創建者不對因使用或無法使用本軟體而產生的任何間接、附帶、特殊或衍生性損害承擔責任。</span></p>
 
-<h2>9. Changes to Terms</h2>
-<p>We reserve the right to update these Terms at any time. Changes will be posted on this page with an updated date. Continued use of the Software after changes constitutes acceptance of the new Terms.</p>
+<h2><span data-lang-en>9. Changes to Terms</span><span data-lang-zh>9. 條款變更</span></h2>
+<p><span data-lang-en>We reserve the right to update these Terms at any time. Changes will be posted on this page with an updated date. Continued use of the Software after changes constitutes acceptance of the new Terms.</span><span data-lang-zh>我們保留隨時更新本條款的權利。變更將在本頁面公佈並更新日期。繼續使用本軟體即表示接受新條款。</span></p>
 
-<h2>10. Contact</h2>
-<p>For questions about these Terms, contact us at <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a>.</p>
+<h2><span data-lang-en>10. Contact</span><span data-lang-zh>10. 聯絡方式</span></h2>
+<p><span data-lang-en>For questions about these Terms, contact us at </span><span data-lang-zh>如有疑問，請聯絡 </span><a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a>.</p>
 </div>
 
-<footer>&copy; 2026 Pik Flyer. All rights reserved.</footer>
+<footer><span data-lang-en>&copy; 2026 Pik Flyer. All rights reserved.</span><span data-lang-zh>&copy; 2026 Pik Flyer。版權所有。</span></footer>
+
+<script>
+// Language detection and toggle
+function setLang(lang) {
+  document.documentElement.lang = lang;
+  localStorage.setItem('pikflyer-lang', lang);
+  updateLangButtons();
+}
+
+function updateLangButtons() {
+  const lang = document.documentElement.lang;
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+}
+
+// Initialize language
+(function() {
+  let lang = localStorage.getItem('pikflyer-lang');
+
+  if (!lang) {
+    // Auto-detect based on browser language
+    const browserLang = navigator.language || navigator.userLanguage;
+    lang = (browserLang.startsWith('zh') || browserLang.startsWith('yue')) ? 'zh' : 'en';
+  }
+
+  document.documentElement.lang = lang;
+  updateLangButtons();
+})();
+</script>
 </body>
 </html>

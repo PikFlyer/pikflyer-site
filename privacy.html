@@ -7,12 +7,18 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--orange:#ff6b35;--dark:#1a1a2e;--text:#333;--muted:#666}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--text);line-height:1.7}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Noto Sans TC',sans-serif;color:var(--text);line-height:1.7}
 a{color:var(--orange)}
 nav{position:fixed;top:0;width:100%;background:rgba(26,26,46,0.95);backdrop-filter:blur(10px);z-index:100;padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
 nav .logo{color:#fff;font-size:1.3rem;font-weight:700;text-decoration:none}
 nav .logo span{color:var(--orange)}
+nav .nav-right{display:flex;align-items:center;gap:1.5rem}
 nav a.back{color:#ccc;font-size:0.9rem}
+.lang-toggle{position:fixed;top:1rem;right:2rem;z-index:101;background:var(--orange);color:#fff;border:none;padding:0.5rem 1rem;border-radius:4px;cursor:pointer;font-size:0.85rem;font-weight:600}
+.lang-toggle:hover{opacity:0.9}
+[data-lang-en],[data-lang-zh]{display:none}
+html[lang="en"] [data-lang-en]{display:inline}
+html[lang="zh"] [data-lang-zh]{display:inline}
 .legal{max-width:800px;margin:0 auto;padding:7rem 2rem 4rem}
 .legal h1{font-size:2rem;margin-bottom:0.5rem}
 .legal .date{color:var(--muted);margin-bottom:2rem;font-size:0.9rem}
@@ -22,49 +28,77 @@ footer{background:var(--dark);color:#999;padding:2rem;text-align:center;font-siz
 </style>
 </head>
 <body>
+<button class="lang-toggle" onclick="setLang(document.documentElement.lang === 'en' ? 'zh' : 'en')">
+  <span data-lang-en>中文</span><span data-lang-zh>English</span>
+</button>
+
 <nav>
   <a href="index.html" class="logo"><span>Pik</span> Flyer</a>
-  <a href="index.html" class="back">&larr; Back to Home</a>
+  <a href="index.html" class="back"><span data-lang-en">&larr; Back to Home</span><span data-lang-zh">&larr; 返回首頁</span></a>
 </nav>
 
 <div class="legal">
-<h1>Privacy Policy</h1>
-<p class="date">Last updated: March 29, 2026</p>
+<h1><span data-lang-en">Privacy Policy</span><span data-lang-zh">隱私權政策</span></h1>
+<p class="date"><span data-lang-en">Last updated: March 29, 2026</span><span data-lang-zh">最後更新：2026 年 3 月 29 日</span></p>
 
-<h2>1. Information We Collect</h2>
-<p>When you purchase a subscription, our payment partner (Lemon Squeezy) collects your name, email address, and payment information. We receive your email address and license key for account management purposes. We do not collect or store your payment card details directly.</p>
+<h2><span data-lang-en">1. Information We Collect</span><span data-lang-zh>1. 我們收集的資訊</span></h2>
+<p><span data-lang-en">When you purchase a subscription, our payment partner (Lemon Squeezy) collects your name, email address, and payment information. We receive your email address and license key for account management purposes. We do not collect or store your payment card details directly.</span><span data-lang-zh>當您購買訂閱時，我們的支付夥伴（Lemon Squeezy）會收集您的姓名、電子郵件和付款資訊。我們僅接收您的電子郵件和授權金鑰以進行帳戶管理。我們不直接收集或儲存您的信用卡資訊。</span></p>
 
-<h2>2. How We Use Your Information</h2>
-<p>We use your email address solely to manage your subscription, send license keys, and provide customer support. We do not sell, rent, or share your personal information with any third parties for marketing purposes.</p>
+<h2><span data-lang-en">2. How We Use Your Information</span><span data-lang-zh">2. 資訊使用方式</span></h2>
+<p><span data-lang-en">We use your email address solely to manage your subscription, send license keys, and provide customer support. We do not sell, rent, or share your personal information with any third parties for marketing purposes.</span><span data-lang-zh">我們僅使用您的電子郵件來管理訂閱、發送授權金鑰和提供客戶支援。我們不會出售、出租或分享您的個人資訊給任何第三方作行銷用途。</span></p>
 
-<h2>3. Data the Software Collects</h2>
-<p>Pik Flyer runs entirely on your local computer. The Software does not collect, transmit, or store your GPS coordinates, location history, device identifiers, or any usage data. All location simulation happens locally on your machine.</p>
+<h2><span data-lang-en">3. Data the Software Collects</span><span data-lang-zh">3. 軟體收集的資料</span></h2>
+<p><span data-lang-en">Pik Flyer runs entirely on your local computer. The Software does not collect, transmit, or store your GPS coordinates, location history, device identifiers, or any usage data. All location simulation happens locally on your machine.</span><span data-lang-zh">Pik Flyer 完全在您的本機電腦上運行。軟體不會收集、傳輸或儲存您的 GPS 座標、位置歷史、裝置識別碼或任何使用數據。所有定位模擬均在您的電腦本地進行。</span></p>
 
-<h2>4. License Verification</h2>
-<p>The Software periodically contacts the Lemon Squeezy API to verify your subscription status. This communication includes only your license key and does not transmit any personal data or location information.</p>
+<h2><span data-lang-en">4. License Verification</span><span data-lang-zh">4. 授權驗證</span></h2>
+<p><span data-lang-en">The Software periodically contacts the Lemon Squeezy API to verify your subscription status. This communication includes only your license key and does not transmit any personal data or location information.</span><span data-lang-zh">軟體會定期聯繫 Lemon Squeezy API 以驗證您的訂閱狀態。此通訊僅包含您的授權金鑰，不會傳輸任何個人資料或位置資訊。</span></p>
 
-<h2>5. Cookies and Tracking</h2>
-<p>Our website does not use cookies, analytics trackers, or any third-party tracking scripts.</p>
+<h2><span data-lang-en">5. Cookies and Tracking</span><span data-lang-zh">5. Cookie 與追蹤</span></h2>
+<p><span data-lang-en">Our website does not use cookies, analytics trackers, or any third-party tracking scripts.</span><span data-lang-zh">我們的網站不使用 Cookie、分析追蹤器或任何第三方追蹤腳本。</span></p>
 
-<h2>6. Data Security</h2>
-<p>We take reasonable measures to protect your information. All communications between the Software and our licensing server use HTTPS encryption.</p>
+<h2><span data-lang-en">6. Data Security</span><span data-lang-zh">6. 資料安全</span></h2>
+<p><span data-lang-en">We take reasonable measures to protect your information. All communications between the Software and our licensing server use HTTPS encryption.</span><span data-lang-zh">我們採取合理措施保護您的資訊。軟體與授權伺服器之間的所有通訊均使用 HTTPS 加密。</span></p>
 
-<h2>7. Data Retention</h2>
-<p>If you cancel your subscription, we retain your email and license information for up to 12 months for support purposes, after which it is deleted.</p>
+<h2><span data-lang-en">7. Data Retention</span><span data-lang-zh">7. 資料保留</span></h2>
+<p><span data-lang-en">If you cancel your subscription, we retain your email and license information for up to 12 months for support purposes, after which it is deleted.</span><span data-lang-zh">如果您取消訂閱，我們會保留您的電子郵件和授權資訊最多 12 個月以供支援用途，之後將予以刪除。</span></p>
 
-<h2>8. Your Rights</h2>
-<p>You may request access to, correction of, or deletion of your personal data at any time by contacting us. We will respond to your request within 30 days.</p>
+<h2><span data-lang-en">8. Your Rights</span><span data-lang-zh">8. 您的權利</span></h2>
+<p><span data-lang-en">You may request access to, correction of, or deletion of your personal data at any time by contacting us. We will respond to your request within 30 days.</span><span data-lang-zh>您可隨時要求存取、更正或刪除您的個人資料。我們將在 30 天內回覆您的請求。</span></p>
 
-<h2>9. Children's Privacy</h2>
-<p>Pik Flyer is not intended for use by children under 13. We do not knowingly collect personal information from children.</p>
+<h2><span data-lang-en">9. Children's Privacy</span><span data-lang-zh">9. 兒童隱私</span></h2>
+<p><span data-lang-en">Pik Flyer is not intended for use by children under 13. We do not knowingly collect personal information from children.</span><span data-lang-zh">Pik Flyer 不適用於 13 歲以下兒童。我們不會故意收集兒童的個人資訊。</span></p>
 
-<h2>10. Changes to This Policy</h2>
-<p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated date.</p>
+<h2><span data-lang-en">10. Changes to This Policy</span><span data-lang-zh">10. 政策變更</span></h2>
+<p><span data-lang-en">We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated date.</span><span data-lang-zh>我們可能會不時更新本隱私權政策。變更將在本頁面公佈並更新日期。</span></p>
 
-<h2>11. Contact</h2>
-<p>For privacy-related questions, contact us at <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a>.</p>
+<h2><span data-lang-en">11. Contact</span><span data-lang-zh">11. 聯絡方式</span></h2>
+<p><span data-lang-en">For privacy-related questions, contact us at <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a>.</span><span data-lang-zh">隱私相關問題請聯絡 <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a>。</span></p>
 </div>
 
-<footer>&copy; 2026 Pik Flyer. All rights reserved.</footer>
+<footer><span data-lang-en">&copy; 2026 Pik Flyer. All rights reserved.</span><span data-lang-zh">&copy; 2026 Pik Flyer。版權所有。</span></footer>
+
+<script>
+function setLang(lang) {
+  document.documentElement.lang = lang;
+  localStorage.setItem('lang', lang);
+}
+
+function autoDetectLang() {
+  const saved = localStorage.getItem('lang');
+  if (saved) {
+    document.documentElement.lang = saved;
+  } else {
+    const browserLang = navigator.language || navigator.userLanguage;
+    if (browserLang.startsWith('zh')) {
+      document.documentElement.lang = 'zh';
+    } else {
+      document.documentElement.lang = 'en';
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', autoDetectLang);
+autoDetectLang();
+</script>
 </body>
 </html>

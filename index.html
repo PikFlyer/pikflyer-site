@@ -3,42 +3,141 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pik Flyer - GPS Location Tool for Pikmin Bloom</title>
-<meta name="description" content="Pik Flyer lets you explore the world from your desk. Walk routes, collect flowers, and discover landmarks in Pikmin Bloom without leaving home.">
+<title>Pik Flyer - 今晚飛哪裡？ | GPS Location Tool for Pikmin Bloom</title>
+<meta name="description" content="Pik Flyer - GPS location tool for Pikmin Bloom. 6,129 worldwide landmarks, auto-walk, and instant teleport. 全球 6,129 筆地標、自動走路、一鍵傳送。">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--orange:#ff6b35;--dark:#1a1a2e;--gray:#f8f9fa;--text:#333;--muted:#666}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--text);line-height:1.6}
+:root{--orange:#ff6b35;--dark:#1a1a2e;--gray:#f8f9fa;--text:#333;--muted:#666;--accent:#0f3460}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Noto Sans TC','Noto Sans SC',sans-serif;color:var(--text);line-height:1.6}
 a{color:var(--orange);text-decoration:none}
 a:hover{text-decoration:underline}
+
+/* Language toggle */
+.lang-toggle{position:fixed;top:0.7rem;right:1rem;z-index:200;display:flex;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);border-radius:50px;overflow:hidden;backdrop-filter:blur(8px)}
+.lang-toggle button{background:none;border:none;color:#ccc;padding:0.35rem 0.9rem;font-size:0.8rem;cursor:pointer;transition:all 0.2s;font-weight:500}
+.lang-toggle button.active{background:var(--orange);color:#fff;border-radius:50px}
+.lang-toggle button:hover:not(.active){color:#fff}
+
+/* Bilingual text */
+[data-lang-en],[data-lang-zh]{display:none}
+html[lang="en"] [data-lang-en]{display:inline}
+html[lang="en"] [data-lang-en-block]{display:block}
+html[lang="en"] [data-lang-en-flex]{display:flex}
+html[lang="en"] [data-lang-en-grid]{display:grid}
+html[lang="en"] [data-lang-en-iblock]{display:inline-block}
+html[lang="zh"] [data-lang-zh]{display:inline}
+html[lang="zh"] [data-lang-zh-block]{display:block}
+html[lang="zh"] [data-lang-zh-flex]{display:flex}
+html[lang="zh"] [data-lang-zh-grid]{display:grid}
+html[lang="zh"] [data-lang-zh-iblock]{display:inline-block}
 
 /* Nav */
 nav{position:fixed;top:0;width:100%;background:rgba(26,26,46,0.95);backdrop-filter:blur(10px);z-index:100;padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
 nav .logo{color:#fff;font-size:1.3rem;font-weight:700}
 nav .logo span{color:var(--orange)}
-nav ul{list-style:none;display:flex;gap:1.5rem}
+nav ul{list-style:none;display:flex;gap:1.5rem;margin-right:5rem}
 nav ul a{color:#ccc;font-size:0.9rem;transition:color 0.2s}
 nav ul a:hover{color:#fff;text-decoration:none}
 
 /* Hero */
-.hero{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);color:#fff;padding:8rem 2rem 5rem;text-align:center;min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
-.hero h1{font-size:3.2rem;margin-bottom:0.5rem;line-height:1.2}
+.hero{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);color:#fff;padding:7rem 2rem 3rem;text-align:center;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 30% 50%,rgba(255,107,53,0.08) 0%,transparent 50%),radial-gradient(circle at 70% 30%,rgba(15,52,96,0.3) 0%,transparent 50%);pointer-events:none}
+.hero h1{font-size:3.5rem;margin-bottom:0.3rem;line-height:1.2;position:relative}
 .hero h1 span{color:var(--orange)}
-.hero .subtitle{font-size:1.3rem;color:#a0b4d0;margin-bottom:0.5rem}
-.hero .tagline{font-size:1.8rem;margin-bottom:2rem}
-.hero .cta{display:inline-block;background:var(--orange);color:#fff;padding:1rem 2.5rem;border-radius:50px;font-size:1.1rem;font-weight:600;transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}
+.hero .subtitle{font-size:1.4rem;color:#a0b4d0;margin-bottom:0.3rem}
+.hero .tagline{font-size:1.8rem;margin-bottom:2rem;font-weight:300}
+.hero .cta{display:inline-block;background:var(--orange);color:#fff;padding:1rem 2.5rem;border-radius:50px;font-size:1.1rem;font-weight:600;transition:transform 0.2s,box-shadow 0.2s;text-decoration:none;position:relative}
 .hero .cta:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(255,107,53,0.4);text-decoration:none}
 .hero .platforms{margin-top:1.5rem;color:#7a8ba8;font-size:0.95rem}
 
+/* Stats bar */
+.stats-bar{background:linear-gradient(90deg,#ff6b35,#ff8c42);padding:2.5rem 2rem;color:#fff;text-align:center}
+.stats-bar .inner{max-width:1100px;margin:0 auto;display:flex;justify-content:center;gap:4rem;flex-wrap:wrap}
+.stat-item{display:flex;flex-direction:column;align-items:center}
+.stat-num{font-size:3rem;font-weight:800;line-height:1}
+.stat-label{font-size:0.95rem;opacity:0.9;margin-top:0.3rem}
+
+/* Product mockup */
+.mockup-section{padding:5rem 2rem;background:#fff;text-align:center}
+.mockup-section h2{font-size:2.2rem;margin-bottom:1rem}
+.mockup-section .desc{color:var(--muted);font-size:1.1rem;margin-bottom:3rem;max-width:700px;margin-left:auto;margin-right:auto}
+.mockup-container{max-width:1000px;margin:0 auto;position:relative}
+
+/* App mockup built with CSS */
+.app-window{background:#1e1e2e;border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.25);text-align:left;border:1px solid #333}
+.app-titlebar{background:#2a2a3e;padding:0.6rem 1rem;display:flex;align-items:center;gap:0.5rem}
+.app-titlebar .dot{width:12px;height:12px;border-radius:50%}
+.app-titlebar .dot.red{background:#ff5f57}
+.app-titlebar .dot.yellow{background:#febc2e}
+.app-titlebar .dot.green{background:#28c840}
+.app-titlebar .title{color:#888;font-size:0.8rem;margin-left:0.8rem}
+.app-body{display:grid;grid-template-columns:260px 1fr;min-height:450px}
+.app-sidebar{background:#252538;padding:1.2rem;display:flex;flex-direction:column;gap:0.6rem;border-right:1px solid #333}
+.sidebar-section{margin-bottom:0.5rem}
+.sidebar-label{color:#666;font-size:0.65rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem}
+.device-badge{background:#1a3a2a;border:1px solid #2d6b45;border-radius:8px;padding:0.6rem 0.8rem;display:flex;align-items:center;gap:0.6rem}
+.device-badge .device-icon{font-size:1.2rem}
+.device-badge .device-info{display:flex;flex-direction:column}
+.device-badge .device-name{color:#5bda8a;font-size:0.8rem;font-weight:600}
+.device-badge .device-status{color:#3a8a5a;font-size:0.65rem}
+.sidebar-btn{background:#2d2d44;border:1px solid #3a3a55;border-radius:8px;padding:0.55rem 0.8rem;color:#ccc;font-size:0.78rem;display:flex;align-items:center;gap:0.5rem;cursor:default;transition:background 0.2s}
+.sidebar-btn .btn-icon{font-size:1rem}
+.sidebar-btn.active{background:#3a2a15;border-color:#ff6b35;color:#ff9a62}
+.sidebar-btn.walk-active{background:#1a3a2a;border-color:#2d6b45;color:#5bda8a;position:relative;overflow:hidden}
+.sidebar-btn.walk-active::after{content:'';position:absolute;top:0;left:-100%;width:200%;height:100%;background:linear-gradient(90deg,transparent,rgba(91,218,138,0.08),transparent);animation:walkShine 2s infinite}
+@keyframes walkShine{0%{left:-100%}100%{left:100%}}
+.coords-display{background:#1a1a28;border-radius:6px;padding:0.5rem 0.8rem;margin-top:0.3rem}
+.coords-display .coord{color:#5bda8a;font-family:'SF Mono',Monaco,monospace;font-size:0.72rem}
+
+.app-map{background:#1a2744;position:relative;overflow:hidden}
+.map-grid{position:absolute;inset:0;opacity:0.08;background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:40px 40px}
+.map-landmass{position:absolute;border-radius:40%;opacity:0.15}
+.map-landmass.l1{background:#2d6b45;width:180px;height:120px;top:60px;left:80px;transform:rotate(-15deg)}
+.map-landmass.l2{background:#2d6b45;width:220px;height:90px;top:100px;left:300px;transform:rotate(5deg)}
+.map-landmass.l3{background:#2d6b45;width:140px;height:100px;top:200px;left:200px;transform:rotate(-8deg)}
+.map-landmass.l4{background:#2d6b45;width:160px;height:80px;top:50px;left:500px;transform:rotate(10deg)}
+.map-landmass.l5{background:#2d6b45;width:100px;height:130px;top:180px;left:500px;transform:rotate(-5deg)}
+
+/* Map markers */
+.map-marker{position:absolute;width:10px;height:10px;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:0.6}}
+.map-marker.m1{background:#ff6b35;top:120px;left:150px}
+.map-marker.m2{background:#ff6b35;top:80px;left:380px}
+.map-marker.m3{background:#5bda8a;top:230px;left:280px}
+.map-marker.m4{background:#ff6b35;top:160px;left:520px}
+.map-marker.m5{background:#5bda8a;top:100px;left:600px}
+
+/* Walk path */
+.walk-path{position:absolute;top:230px;left:200px}
+.walk-path svg{overflow:visible}
+.walk-dot{fill:#5bda8a;animation:walkDot 3s infinite linear}
+@keyframes walkDot{0%{opacity:1}50%{opacity:0.4}100%{opacity:1}}
+
+/* Pikmin characters on map */
+.pikmin-group{position:absolute;bottom:30px;right:30px;display:flex;gap:2px;opacity:0.9}
+.pikmin-char{font-size:1.1rem;animation:pikBounce 0.6s infinite alternate}
+.pikmin-char:nth-child(2){animation-delay:0.1s}
+.pikmin-char:nth-child(3){animation-delay:0.2s}
+@keyframes pikBounce{0%{transform:translateY(0)}100%{transform:translateY(-4px)}}
+
+/* Dice popup overlay on map */
+.dice-popup{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(30,30,46,0.95);border:1px solid #ff6b35;border-radius:12px;padding:1rem 1.5rem;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,0.4)}
+.dice-popup .dice-icon{font-size:2rem;margin-bottom:0.3rem}
+.dice-popup .dice-text{color:#ff9a62;font-size:0.75rem;font-weight:600}
+.dice-popup .dice-name{color:#fff;font-size:0.9rem;font-weight:700;margin-top:0.2rem}
+
 /* Features */
 .features{padding:5rem 2rem;max-width:1100px;margin:0 auto}
-.features h2{text-align:center;font-size:2.2rem;margin-bottom:3rem}
+.features h2{text-align:center;font-size:2.2rem;margin-bottom:1rem}
+.features .section-desc{text-align:center;color:var(--muted);font-size:1.05rem;margin-bottom:3rem;max-width:600px;margin-left:auto;margin-right:auto}
 .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem}
-.feature-card{background:#fff;border:1px solid #e8e8e8;border-radius:16px;padding:2rem;transition:box-shadow 0.3s}
-.feature-card:hover{box-shadow:0 8px 30px rgba(0,0,0,0.08)}
+.feature-card{background:#fff;border:1px solid #e8e8e8;border-radius:16px;padding:2rem;transition:box-shadow 0.3s,transform 0.2s}
+.feature-card:hover{box-shadow:0 8px 30px rgba(0,0,0,0.08);transform:translateY(-3px)}
 .feature-card .icon{font-size:2.5rem;margin-bottom:1rem}
 .feature-card h3{font-size:1.2rem;margin-bottom:0.5rem}
 .feature-card p{color:var(--muted);font-size:0.95rem}
+.feature-card.highlight{border:2px solid var(--orange);background:linear-gradient(135deg,#fff8f5,#fff);position:relative;overflow:hidden}
+.feature-card.highlight::before{content:'HOT';position:absolute;top:12px;right:-25px;background:var(--orange);color:#fff;padding:2px 30px;font-size:0.65rem;font-weight:700;transform:rotate(45deg)}
 
 /* How it works */
 .how{background:var(--gray);padding:5rem 2rem}
@@ -68,8 +167,8 @@ nav ul a:hover{color:#fff;text-decoration:none}
 .faq{background:var(--gray);padding:5rem 2rem}
 .faq .inner{max-width:800px;margin:0 auto}
 .faq h2{text-align:center;font-size:2.2rem;margin-bottom:3rem}
-.faq-item{margin-bottom:1.5rem}
-.faq-item h3{font-size:1.05rem;margin-bottom:0.4rem;cursor:pointer}
+.faq-item{margin-bottom:1.5rem;background:#fff;border-radius:12px;padding:1.2rem 1.5rem;border:1px solid #e8e8e8}
+.faq-item h3{font-size:1.05rem;margin-bottom:0.4rem}
 .faq-item p{color:var(--muted);font-size:0.95rem}
 
 /* Footer */
@@ -79,33 +178,40 @@ footer .links a{color:#bbb;margin:0 1rem;font-size:0.9rem}
 footer .links a:hover{color:#fff}
 footer .copy{font-size:0.85rem}
 
-/* Legal pages */
-.legal{max-width:800px;margin:0 auto;padding:7rem 2rem 4rem}
-.legal h1{font-size:2rem;margin-bottom:1.5rem}
-.legal h2{font-size:1.3rem;margin-top:2rem;margin-bottom:0.8rem}
-.legal p,.legal li{color:var(--muted);margin-bottom:0.8rem;font-size:0.95rem}
-.legal ul{padding-left:1.5rem}
-
 /* Responsive */
 @media(max-width:768px){
   nav{padding:0.8rem 1rem}
-  nav ul{gap:0.8rem}
+  nav ul{gap:0.8rem;margin-right:5rem}
   nav ul a{font-size:0.8rem}
-  .hero h1{font-size:2rem}
+  .hero h1{font-size:2.2rem}
   .hero .tagline{font-size:1.3rem}
   .features-grid{grid-template-columns:1fr}
   .step{flex-direction:column;align-items:center;text-align:center}
+  .stats-bar .inner{gap:2rem}
+  .stat-num{font-size:2.2rem}
+  .app-body{grid-template-columns:1fr;min-height:auto}
+  .app-sidebar{flex-direction:row;flex-wrap:wrap;border-right:none;border-bottom:1px solid #333;padding:0.8rem}
+  .sidebar-section{margin-bottom:0}
+  .app-map{min-height:300px}
+  .dice-popup{display:none}
+  .lang-toggle{top:0.6rem;right:0.5rem}
 }
 </style>
 </head>
 <body>
 
+<!-- Language Toggle -->
+<div class="lang-toggle">
+  <button id="btn-en" onclick="setLang('en')">EN</button>
+  <button id="btn-zh" onclick="setLang('zh')">中文</button>
+</div>
+
 <!-- Navigation -->
 <nav>
   <div class="logo"><span>Pik</span> Flyer</div>
   <ul>
-    <li><a href="#features">Features</a></li>
-    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#features"><span data-lang-en>Features</span><span data-lang-zh>功能</span></a></li>
+    <li><a href="#pricing"><span data-lang-en>Pricing</span><span data-lang-zh>價格</span></a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
 </nav>
@@ -113,45 +219,253 @@ footer .copy{font-size:0.85rem}
 <!-- Hero -->
 <section class="hero">
   <h1><span>Pik Flyer</span></h1>
-  <p class="subtitle">GPS Location Tool for Pikmin Bloom</p>
-  <p class="tagline">Walk the world from your desk. Collect flowers everywhere.</p>
-  <a href="#pricing" class="cta">Start Free Trial</a>
-  <p class="platforms">Available for macOS &amp; Windows &bull; Supports iPhone &amp; Android</p>
+  <p class="subtitle">
+    <span data-lang-en>GPS Location Tool for Pikmin Bloom</span>
+    <span data-lang-zh>Pikmin Bloom GPS 定位工具</span>
+  </p>
+  <p class="tagline">
+    <span data-lang-en>Walk the world from your desk.</span>
+    <span data-lang-zh>今晚飛哪裡？在家也能環遊世界種花。</span>
+  </p>
+  <a href="#pricing" class="cta">
+    <span data-lang-en>Get Started</span>
+    <span data-lang-zh>立即開始</span>
+  </a>
+  <p class="platforms">
+    <span data-lang-en>macOS &amp; Windows &bull; iPhone &amp; Android</span>
+    <span data-lang-zh>支援 macOS &amp; Windows &bull; iPhone &amp; Android</span>
+  </p>
+</section>
+
+<!-- Stats Bar -->
+<section class="stats-bar">
+  <div class="inner">
+    <div class="stat-item">
+      <div class="stat-num" id="poi-counter">6,129</div>
+      <div class="stat-label">
+        <span data-lang-en>Worldwide Landmarks</span>
+        <span data-lang-zh>全球地標景點</span>
+      </div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">17</div>
+      <div class="stat-label">
+        <span data-lang-en>POI Categories</span>
+        <span data-lang-zh>地標分類</span>
+      </div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">24/7</div>
+      <div class="stat-label">
+        <span data-lang-en>Auto Walk</span>
+        <span data-lang-zh>全天候自動走路</span>
+      </div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">&infin;</div>
+      <div class="stat-label">
+        <span data-lang-en>Teleport Anywhere</span>
+        <span data-lang-zh>無限傳送</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Product Mockup -->
+<section class="mockup-section" id="app">
+  <h2>
+    <span data-lang-en>Powerful. Intuitive. Beautiful.</span>
+    <span data-lang-zh>強大、直覺、好看。</span>
+  </h2>
+  <p class="desc">
+    <span data-lang-en>Everything you need in one clean interface. Roll the dice for random landmarks, auto-walk through cities, or teleport anywhere with a click.</span>
+    <span data-lang-zh>所有功能一個介面搞定。骰子隨機地標、自動城市漫步、一鍵傳送到任何地方。</span>
+  </p>
+  <div class="mockup-container">
+    <div class="app-window">
+      <div class="app-titlebar">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+        <span class="title">Pik Flyer v1.0</span>
+      </div>
+      <div class="app-body">
+        <div class="app-sidebar">
+          <div class="sidebar-section">
+            <div class="sidebar-label">
+              <span data-lang-en>Device</span>
+              <span data-lang-zh>裝置</span>
+            </div>
+            <div class="device-badge">
+              <span class="device-icon">📱</span>
+              <div class="device-info">
+                <span class="device-name">iPhone 15 Pro</span>
+                <span class="device-status">
+                  <span data-lang-en>● GPS Simulating</span>
+                  <span data-lang-zh>● GPS 模擬中</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-section">
+            <div class="sidebar-label">
+              <span data-lang-en>Controls</span>
+              <span data-lang-zh>控制</span>
+            </div>
+            <div class="sidebar-btn active">
+              <span class="btn-icon">🎲</span>
+              <span data-lang-en>Dice Landmark (6,129 POIs)</span>
+              <span data-lang-zh>骰子地標 (6,129 筆)</span>
+            </div>
+            <div class="sidebar-btn walk-active">
+              <span class="btn-icon">🚶</span>
+              <span data-lang-en>Auto Walk ● Running</span>
+              <span data-lang-zh>自動走路 ● 行進中</span>
+            </div>
+            <div class="sidebar-btn">
+              <span class="btn-icon">⚡</span>
+              <span data-lang-en>Teleport</span>
+              <span data-lang-zh>一鍵傳送</span>
+            </div>
+            <div class="sidebar-btn">
+              <span class="btn-icon">🕹️</span>
+              <span data-lang-en>Joystick</span>
+              <span data-lang-zh>搖桿</span>
+            </div>
+          </div>
+          <div class="sidebar-section">
+            <div class="sidebar-label">
+              <span data-lang-en>Current Location</span>
+              <span data-lang-zh>目前位置</span>
+            </div>
+            <div class="coords-display">
+              <div class="coord">35.6762° N, 139.6503° E</div>
+              <div class="coord" style="color:#ff9a62;font-size:0.68rem;margin-top:2px">
+                <span data-lang-en>Tokyo Tower, Japan</span>
+                <span data-lang-zh>東京鐵塔，日本</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-map">
+          <div class="map-grid"></div>
+          <div class="map-landmass l1"></div>
+          <div class="map-landmass l2"></div>
+          <div class="map-landmass l3"></div>
+          <div class="map-landmass l4"></div>
+          <div class="map-landmass l5"></div>
+          <div class="map-marker m1"></div>
+          <div class="map-marker m2"></div>
+          <div class="map-marker m3"></div>
+          <div class="map-marker m4"></div>
+          <div class="map-marker m5"></div>
+          <!-- Walk path -->
+          <div class="walk-path">
+            <svg width="180" height="60">
+              <path d="M0,30 Q30,0 60,25 T120,20 T180,35" stroke="#5bda8a" stroke-width="2" fill="none" stroke-dasharray="6,4" opacity="0.6"/>
+              <circle class="walk-dot" cx="90" cy="22" r="5"/>
+            </svg>
+          </div>
+          <!-- Dice popup -->
+          <div class="dice-popup">
+            <div class="dice-icon">🎲</div>
+            <div class="dice-text">
+              <span data-lang-en>ROLLED!</span>
+              <span data-lang-zh>擲出！</span>
+            </div>
+            <div class="dice-name">
+              <span data-lang-en>Tokyo Tower 🗼</span>
+              <span data-lang-zh>東京鐵塔 🗼</span>
+            </div>
+          </div>
+          <!-- Pikmin -->
+          <div class="pikmin-group">
+            <span class="pikmin-char">🌱</span>
+            <span class="pikmin-char">🌿</span>
+            <span class="pikmin-char">🌸</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Features -->
 <section class="features" id="features">
-  <h2>Everything you need to explore</h2>
+  <h2>
+    <span data-lang-en>Everything you need to explore</span>
+    <span data-lang-zh>探索世界所需的一切</span>
+  </h2>
+  <p class="section-desc">
+    <span data-lang-en>Built for Pikmin Bloom players who want to collect flowers and grow Pikmin worldwide.</span>
+    <span data-lang-zh>專為想在全世界種花、培育皮克敏的玩家打造。</span>
+  </p>
   <div class="features-grid">
-    <div class="feature-card">
+    <div class="feature-card highlight">
       <div class="icon">🎲</div>
-      <h3>Dice Landmarks</h3>
-      <p>Roll the dice to discover 6,000+ real-world landmarks across 17 categories. Lighthouses, temples, parks, beaches, and more from every continent.</p>
+      <h3>
+        <span data-lang-en>Dice Landmarks — 6,129 POIs</span>
+        <span data-lang-zh>骰子地標 — 6,129 筆全球景點</span>
+      </h3>
+      <p>
+        <span data-lang-en>Roll the dice to fly to a random landmark from our database of 6,129 real-world locations across 17 categories — lighthouses, temples, hot springs, castles, beaches, observatories, and more from 6 continents.</span>
+        <span data-lang-zh>擲骰子隨機飛往全球 6,129 個真實地標，涵蓋 17 種分類 — 燈塔、寺廟、溫泉、城堡、海灘、天文台等，遍佈六大洲。</span>
+      </p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card highlight">
       <div class="icon">🚶</div>
-      <h3>Auto City Walks</h3>
-      <p>Automated walking routes through real city streets worldwide. Collect flowers and grow your Pikmin while your character walks naturally through Tokyo, Paris, New York, and more.</p>
+      <h3>
+        <span data-lang-en>Smart Auto Walk</span>
+        <span data-lang-zh>智慧自動走路</span>
+      </h3>
+      <p>
+        <span data-lang-en>Ultra-smooth continuous GPS movement — no jerky jumps. Walk through real city streets at natural speed. Perfect for planting flowers and hatching seedlings 24/7.</span>
+        <span data-lang-zh>超平滑連續 GPS 移動 — 不再走走停停。沿著真實城市街道自然行走，完美適合 24 小時種花和孵苗。</span>
+      </p>
     </div>
     <div class="feature-card">
       <div class="icon">⚡</div>
-      <h3>Instant Teleport</h3>
-      <p>Click anywhere on the map and teleport instantly. Visit any coordinate on Earth with a single click.</p>
+      <h3>
+        <span data-lang-en>Instant Teleport</span>
+        <span data-lang-zh>一鍵傳送</span>
+      </h3>
+      <p>
+        <span data-lang-en>Click anywhere on the map and teleport instantly. Visit any coordinate on Earth with a single click.</span>
+        <span data-lang-zh>地圖上點一下即刻傳送，一鍵飛到地球上任何座標。</span>
+      </p>
     </div>
     <div class="feature-card">
       <div class="icon">🗺️</div>
-      <h3>Custom Routes</h3>
-      <p>Draw your own walking paths on the map. Set custom speed, pause, resume, or stop anytime. Create the perfect route for your session.</p>
+      <h3>
+        <span data-lang-en>Custom Routes</span>
+        <span data-lang-zh>自訂路線</span>
+      </h3>
+      <p>
+        <span data-lang-en>Draw your own walking paths on the map. Set speed, pause, resume, or stop anytime.</span>
+        <span data-lang-zh>在地圖上畫出你的散步路線，自由設定速度、暫停、繼續或停止。</span>
+      </p>
     </div>
     <div class="feature-card">
       <div class="icon">🕹️</div>
-      <h3>Joystick Control</h3>
-      <p>Move freely in any direction with the virtual joystick. Explore neighborhoods at your own pace with precise control.</p>
+      <h3>
+        <span data-lang-en>Joystick Control</span>
+        <span data-lang-zh>虛擬搖桿</span>
+      </h3>
+      <p>
+        <span data-lang-en>Move freely in any direction with the virtual joystick. Explore at your own pace.</span>
+        <span data-lang-zh>用虛擬搖桿自由移動，隨心所欲探索每個角落。</span>
+      </p>
     </div>
     <div class="feature-card">
-      <div class="icon">🌍</div>
-      <h3>Multi-Language</h3>
-      <p>Full interface in English, 繁體中文, 日本語, and 한국어. Auto-detects your system language.</p>
+      <div class="icon">📱</div>
+      <h3>
+        <span data-lang-en>iPhone + Android</span>
+        <span data-lang-zh>iPhone + Android 雙平台</span>
+      </h3>
+      <p>
+        <span data-lang-en>Works with both iOS (17+) and Android (5.0+). No jailbreak or root required.</span>
+        <span data-lang-zh>同時支援 iOS (17+) 和 Android (5.0+)，無需越獄或 Root。</span>
+      </p>
     </div>
   </div>
 </section>
@@ -159,27 +473,48 @@ footer .copy{font-size:0.85rem}
 <!-- How it works -->
 <section class="how">
   <div class="inner">
-    <h2>How it works</h2>
+    <h2>
+      <span data-lang-en>How it works</span>
+      <span data-lang-zh>使用方式</span>
+    </h2>
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
         <div class="step-text">
-          <h3>Connect your device</h3>
-          <p>Plug in your iPhone or Android via USB. Pik Flyer detects it automatically.</p>
+          <h3>
+            <span data-lang-en>Connect your device</span>
+            <span data-lang-zh>連接裝置</span>
+          </h3>
+          <p>
+            <span data-lang-en>Plug in your iPhone or Android via USB. Pik Flyer detects it automatically.</span>
+            <span data-lang-zh>用 USB 線插上 iPhone 或 Android，Pik Flyer 自動偵測。</span>
+          </p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-text">
-          <h3>Choose your destination</h3>
-          <p>Roll the dice for a random landmark, pick a city walk route, or click anywhere on the map.</p>
+          <h3>
+            <span data-lang-en>Choose your destination</span>
+            <span data-lang-zh>選擇目的地</span>
+          </h3>
+          <p>
+            <span data-lang-en>Roll the dice for a random landmark, set up auto walk, or click anywhere on the map.</span>
+            <span data-lang-zh>擲骰子隨機地標、設定自動走路、或在地圖上點選任意位置。</span>
+          </p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-text">
-          <h3>Explore and collect</h3>
-          <p>Your phone's GPS updates in real-time. Open Pikmin Bloom and start planting flowers around the world.</p>
+          <h3>
+            <span data-lang-en>Explore and collect</span>
+            <span data-lang-zh>探索與收集</span>
+          </h3>
+          <p>
+            <span data-lang-en>Your phone's GPS updates in real-time. Open Pikmin Bloom and start planting flowers around the world.</span>
+            <span data-lang-zh>手機 GPS 即時更新，打開 Pikmin Bloom 就能在全世界種花！</span>
+          </p>
         </div>
       </div>
     </div>
@@ -188,48 +523,93 @@ footer .copy{font-size:0.85rem}
 
 <!-- Pricing -->
 <section class="pricing" id="pricing">
-  <h2>Simple pricing</h2>
-  <p class="desc">One plan, everything included. Cancel anytime.</p>
+  <h2>
+    <span data-lang-en>Simple pricing</span>
+    <span data-lang-zh>簡單定價</span>
+  </h2>
+  <p class="desc">
+    <span data-lang-en>One plan, everything included. Cancel anytime.</span>
+    <span data-lang-zh>一個方案，全部功能。隨時取消。</span>
+  </p>
   <div class="price-card">
-    <div class="badge">MONTHLY</div>
-    <div class="amount">$4.99 <span>/ month</span></div>
+    <div class="badge">
+      <span data-lang-en>MONTHLY</span>
+      <span data-lang-zh>月費</span>
+    </div>
+    <div class="amount">$4.99 <span>/ <span data-lang-en>month</span><span data-lang-zh>月</span></span></div>
     <ul class="perks">
-      <li>Unlimited teleportation</li>
-      <li>6,000+ worldwide landmarks</li>
-      <li>Auto city walk routes</li>
-      <li>Custom route builder</li>
-      <li>Joystick control</li>
-      <li>iPhone &amp; Android support</li>
-      <li>macOS &amp; Windows</li>
-      <li>All future updates included</li>
+      <li><span data-lang-en>Unlimited teleportation</span><span data-lang-zh>無限傳送</span></li>
+      <li><span data-lang-en>6,129 worldwide landmarks</span><span data-lang-zh>6,129 筆全球地標</span></li>
+      <li><span data-lang-en>Smart auto walk routes</span><span data-lang-zh>智慧自動走路路線</span></li>
+      <li><span data-lang-en>Custom route builder</span><span data-lang-zh>自訂路線繪製</span></li>
+      <li><span data-lang-en>Joystick control</span><span data-lang-zh>虛擬搖桿控制</span></li>
+      <li><span data-lang-en>iPhone &amp; Android support</span><span data-lang-zh>iPhone &amp; Android 雙平台</span></li>
+      <li><span data-lang-en>macOS &amp; Windows</span><span data-lang-zh>macOS &amp; Windows 雙系統</span></li>
+      <li><span data-lang-en>All future updates included</span><span data-lang-zh>所有未來更新</span></li>
     </ul>
-    <a href="#" class="btn">Coming Soon</a>
+    <a href="#" class="btn">
+      <span data-lang-en>Coming Soon</span>
+      <span data-lang-zh>即將上線</span>
+    </a>
   </div>
 </section>
 
 <!-- FAQ -->
 <section class="faq" id="faq">
   <div class="inner">
-    <h2>Frequently asked questions</h2>
+    <h2>
+      <span data-lang-en>Frequently asked questions</span>
+      <span data-lang-zh>常見問題</span>
+    </h2>
     <div class="faq-item">
-      <h3>Is Pik Flyer safe to use?</h3>
-      <p>Pik Flyer simulates GPS location at the operating system level. It works with Pikmin Bloom and other location-based apps. As with any location tool, please use responsibly and be aware of each app's terms of service.</p>
+      <h3>
+        <span data-lang-en>Is Pik Flyer safe to use?</span>
+        <span data-lang-zh>Pik Flyer 安全嗎？</span>
+      </h3>
+      <p>
+        <span data-lang-en>Pik Flyer simulates GPS location at the operating system level. It works with Pikmin Bloom and other location-based apps. Please use responsibly and be aware of each app's terms of service.</span>
+        <span data-lang-zh>Pik Flyer 在作業系統層級模擬 GPS 定位，適用於 Pikmin Bloom 及其他定位型 App。請負責任地使用，並注意各 App 的服務條款。</span>
+      </p>
     </div>
     <div class="faq-item">
-      <h3>What devices are supported?</h3>
-      <p>iPhone (iOS 17+) and Android (5.0+). Your phone connects to Pik Flyer via USB on a Mac or Windows computer.</p>
+      <h3>
+        <span data-lang-en>What devices are supported?</span>
+        <span data-lang-zh>支援哪些裝置？</span>
+      </h3>
+      <p>
+        <span data-lang-en>iPhone (iOS 17+) and Android (5.0+). Your phone connects to Pik Flyer via USB on a Mac or Windows computer.</span>
+        <span data-lang-zh>iPhone (iOS 17+) 和 Android (5.0+)。手機透過 USB 連接到 Mac 或 Windows 電腦上的 Pik Flyer。</span>
+      </p>
     </div>
     <div class="faq-item">
-      <h3>Can I cancel anytime?</h3>
-      <p>Yes. Your subscription can be cancelled at any time from your account dashboard. You'll retain access until the end of your billing period.</p>
+      <h3>
+        <span data-lang-en>Can I cancel anytime?</span>
+        <span data-lang-zh>可以隨時取消嗎？</span>
+      </h3>
+      <p>
+        <span data-lang-en>Yes. Cancel at any time from your account dashboard. You keep access until the end of your billing period.</span>
+        <span data-lang-zh>可以，隨時從帳戶後台取消。取消後仍可使用至帳單週期結束。</span>
+      </p>
     </div>
     <div class="faq-item">
-      <h3>Is there a free trial?</h3>
-      <p>Yes, new users get a 3-day free trial with full access to all features. No credit card required to start.</p>
+      <h3>
+        <span data-lang-en>Do I need to jailbreak my iPhone?</span>
+        <span data-lang-zh>需要越獄嗎？</span>
+      </h3>
+      <p>
+        <span data-lang-en>No. Pik Flyer uses Apple's Developer Tools protocol to simulate location. No jailbreak or modifications needed.</span>
+        <span data-lang-zh>不用。Pik Flyer 使用 Apple 開發者工具協定模擬定位，不需要越獄或任何改機。</span>
+      </p>
     </div>
     <div class="faq-item">
-      <h3>Do I need to jailbreak my iPhone?</h3>
-      <p>No. Pik Flyer uses Apple's Developer Tools protocol to simulate location. No jailbreak or modifications to your device are needed.</p>
+      <h3>
+        <span data-lang-en>How smooth is the auto walk?</span>
+        <span data-lang-zh>自動走路順暢嗎？</span>
+      </h3>
+      <p>
+        <span data-lang-en>Pik Flyer uses a dual-thread architecture that sends continuous GPS signals for ultra-smooth movement. No jerky stops — your character walks naturally.</span>
+        <span data-lang-zh>Pik Flyer 使用雙線程架構，連續發送 GPS 訊號實現超平滑移動。不會走走停停，角色自然行走。</span>
+      </p>
     </div>
   </div>
 </section>
@@ -237,13 +617,61 @@ footer .copy{font-size:0.85rem}
 <!-- Footer -->
 <footer>
   <div class="links">
-    <a href="terms.html">Terms of Service</a>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="refund.html">Refund Policy</a>
-    <a href="mailto:zacjasonr@gmail.com">Contact</a>
+    <a href="terms.html"><span data-lang-en>Terms of Service</span><span data-lang-zh>服務條款</span></a>
+    <a href="privacy.html"><span data-lang-en>Privacy Policy</span><span data-lang-zh>隱私權政策</span></a>
+    <a href="refund.html"><span data-lang-en>Refund Policy</span><span data-lang-zh>退款政策</span></a>
+    <a href="mailto:zacjasonr@gmail.com"><span data-lang-en>Contact</span><span data-lang-zh>聯絡我們</span></a>
   </div>
   <p class="copy">&copy; 2026 Pik Flyer. All rights reserved.</p>
 </footer>
+
+<script>
+// Language detection and switching
+function setLang(lang) {
+  document.documentElement.lang = lang;
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+  try { localStorage.setItem('pikflyer-lang', lang); } catch(e) {}
+}
+
+// Auto-detect language
+(function() {
+  var saved = null;
+  try { saved = localStorage.getItem('pikflyer-lang'); } catch(e) {}
+  if (saved) { setLang(saved); return; }
+  var nav = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+  if (nav.startsWith('zh')) { setLang('zh'); }
+  else { setLang('en'); }
+})();
+
+// Counter animation for stats
+function animateCounter(el, target, duration) {
+  var start = 0, startTime = null;
+  var isNum = !isNaN(target);
+  if (!isNum) return;
+  function step(ts) {
+    if (!startTime) startTime = ts;
+    var progress = Math.min((ts - startTime) / duration, 1);
+    var ease = 1 - Math.pow(1 - progress, 3);
+    var current = Math.floor(ease * target);
+    el.textContent = current.toLocaleString();
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// Trigger counter when visible
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      animateCounter(entry.target, 6129, 2000);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+var counterEl = document.getElementById('poi-counter');
+if (counterEl) observer.observe(counterEl);
+</script>
 
 </body>
 </html>

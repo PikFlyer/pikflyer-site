@@ -7,12 +7,17 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--orange:#ff6b35;--dark:#1a1a2e;--text:#333;--muted:#666}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--text);line-height:1.7}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Noto Sans TC',sans-serif;color:var(--text);line-height:1.7}
 a{color:var(--orange)}
 nav{position:fixed;top:0;width:100%;background:rgba(26,26,46,0.95);backdrop-filter:blur(10px);z-index:100;padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
 nav .logo{color:#fff;font-size:1.3rem;font-weight:700;text-decoration:none}
 nav .logo span{color:var(--orange)}
 nav a.back{color:#ccc;font-size:0.9rem}
+nav .lang-toggle{position:fixed;top:1rem;right:2rem;z-index:101;background:var(--orange);color:#fff;border:none;padding:0.5rem 1rem;border-radius:4px;cursor:pointer;font-size:0.9rem;font-weight:600}
+nav .lang-toggle:hover{opacity:0.9}
+[data-lang-en],[data-lang-zh]{display:none}
+html[lang="en"] [data-lang-en]{display:inline}
+html[lang="zh"] [data-lang-zh]{display:inline}
 .legal{max-width:800px;margin:0 auto;padding:7rem 2rem 4rem}
 .legal h1{font-size:2rem;margin-bottom:0.5rem}
 .legal .date{color:var(--muted);margin-bottom:2rem;font-size:0.9rem}
@@ -24,32 +29,59 @@ footer{background:var(--dark);color:#999;padding:2rem;text-align:center;font-siz
 <body>
 <nav>
   <a href="index.html" class="logo"><span>Pik</span> Flyer</a>
-  <a href="index.html" class="back">&larr; Back to Home</a>
+  <a href="index.html" class="back"><span data-lang-en>&larr; Back to Home</span><span data-lang-zh>&larr; 返回首頁</span></a>
 </nav>
 
+<button class="lang-toggle" onclick="toggleLang()"><span data-lang-en>中文</span><span data-lang-zh>English</span></button>
+
 <div class="legal">
-<h1>Refund Policy</h1>
-<p class="date">Last updated: March 29, 2026</p>
+<h1><span data-lang-en>Refund Policy</span><span data-lang-zh>退款政策</span></h1>
+<p class="date"><span data-lang-en>Last updated: March 29, 2026</span><span data-lang-zh>最後更新：2026 年 3 月 29 日</span></p>
 
-<h2>Free Trial</h2>
-<p>Pik Flyer offers a free trial period for new users. During the trial, you have full access to all features at no cost. If the Software does not meet your needs, simply cancel before the trial ends and you will not be charged.</p>
+<h2><span data-lang-en>Free Trial</span><span data-lang-zh>免費試用</span></h2>
+<p><span data-lang-en>Pik Flyer offers a free trial period for new users. During the trial, you have full access to all features at no cost. If the Software does not meet your needs, simply cancel before the trial ends and you will not be charged.</span><span data-lang-zh>Pik Flyer 為新用戶提供免費試用期。試用期間可免費使用所有功能。若軟體不符合您的需求，只需在試用結束前取消即可，不會被收費。</span></p>
 
-<h2>Subscription Refunds</h2>
-<p>If you are unsatisfied with Pik Flyer after subscribing, you may request a full refund within 7 days of your payment date. To request a refund, email us at <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a> with your license key or the email address associated with your purchase.</p>
+<h2><span data-lang-en>Subscription Refunds</span><span data-lang-zh>訂閱退款</span></h2>
+<p><span data-lang-en>If you are unsatisfied with Pik Flyer after subscribing, you may request a full refund within 7 days of your payment date. To request a refund, email us at <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a> with your license key or the email address associated with your purchase.</span><span data-lang-zh>訂閱後若不滿意，可在付款日起 7 天內申請全額退款。請發送電子郵件至 <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a>，附上您的授權金鑰或購買時使用的電子郵件地址。</span></p>
 
-<h2>Refund Process</h2>
-<p>Refund requests are processed within 5-7 business days. Once approved, the refund will be issued to the original payment method through Lemon Squeezy. Your license will be deactivated upon refund.</p>
+<h2><span data-lang-en>Refund Process</span><span data-lang-zh>退款流程</span></h2>
+<p><span data-lang-en>Refund requests are processed within 5-7 business days. Once approved, the refund will be issued to the original payment method through Lemon Squeezy. Your license will be deactivated upon refund.</span><span data-lang-zh>退款申請將在 5-7 個工作天內處理。核准後，退款將透過 Lemon Squeezy 退至原付款方式。退款後您的授權將被停用。</span></p>
 
-<h2>After 7 Days</h2>
-<p>Refund requests made after the 7-day window are evaluated on a case-by-case basis. We want every customer to be satisfied, so please reach out and we will do our best to help.</p>
+<h2><span data-lang-en>After 7 Days</span><span data-lang-zh>7 天後</span></h2>
+<p><span data-lang-en>Refund requests made after the 7-day window are evaluated on a case-by-case basis. We want every customer to be satisfied, so please reach out and we will do our best to help.</span><span data-lang-zh>超過 7 天退款窗口的申請將逐案評估。我們希望每位客戶都滿意，請隨時聯繫我們，我們會盡力協助。</span></p>
 
-<h2>Cancellation</h2>
-<p>You may cancel your subscription at any time. After cancellation, you will retain access to Pik Flyer until the end of your current billing period. No partial refunds are given for unused time within a billing cycle.</p>
+<h2><span data-lang-en>Cancellation</span><span data-lang-zh>取消訂閱</span></h2>
+<p><span data-lang-en>You may cancel your subscription at any time. After cancellation, you will retain access to Pik Flyer until the end of your current billing period. No partial refunds are given for unused time within a billing cycle.</span><span data-lang-zh>您可隨時取消訂閱。取消後，您仍可使用 Pik Flyer 直到目前帳單週期結束。未使用的時間不提供部分退款。</span></p>
 
-<h2>Contact</h2>
-<p>For refund requests or billing questions, contact us at <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a>.</p>
+<h2><span data-lang-en>Contact</span><span data-lang-zh>聯絡方式</span></h2>
+<p><span data-lang-en>For refund requests or billing questions, contact us at <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a>.</span><span data-lang-zh>退款請求或帳單問題請聯絡 <a href="mailto:zacjasonr@gmail.com">zacjasonr@gmail.com</a>。</span></p>
 </div>
 
-<footer>&copy; 2026 Pik Flyer. All rights reserved.</footer>
+<footer><span data-lang-en>&copy; 2026 Pik Flyer. All rights reserved.</span><span data-lang-zh">&copy; 2026 Pik Flyer. 版權所有。</span></footer>
+
+<script>
+function setLang(lang) {
+  document.documentElement.lang = lang;
+  localStorage.setItem('preferredLang', lang);
+}
+
+function toggleLang() {
+  const currentLang = document.documentElement.lang;
+  const newLang = currentLang === 'en' ? 'zh' : 'en';
+  setLang(newLang);
+}
+
+// Auto-detect language on page load
+document.addEventListener('DOMContentLoaded', function() {
+  const savedLang = localStorage.getItem('preferredLang');
+  if (savedLang) {
+    setLang(savedLang);
+  } else {
+    const browserLang = navigator.language.toLowerCase();
+    const preferredLang = browserLang.startsWith('zh') ? 'zh' : 'en';
+    setLang(preferredLang);
+  }
+});
+</script>
 </body>
 </html>
