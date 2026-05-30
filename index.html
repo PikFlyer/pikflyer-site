@@ -31,6 +31,41 @@ nav ul{list-style:none;display:flex;gap:1.5rem;margin-right:5rem}
 nav ul a{color:#ccc;font-size:0.9rem;transition:color 0.2s}
 nav ul a:hover{color:#fff;text-decoration:none}
 
+/* ===== BUY OPTIONS ===== */
+.buy-options{padding:5rem 2rem;background:var(--gray)}
+.buy-options .inner{max-width:1100px;margin:0 auto;text-align:center}
+.buy-options h2{font-size:2.2rem;margin-bottom:0.8rem}
+.buy-options .section-desc{text-align:center;color:var(--muted);font-size:1.05rem;margin-bottom:3rem;max-width:650px;margin-left:auto;margin-right:auto}
+.buy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.buy-card{background:#fff;border:1px solid #e8e8e8;border-radius:16px;padding:2rem 1.5rem;position:relative;transition:transform 0.2s,box-shadow 0.2s;text-align:center}
+.buy-card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,0.08)}
+.buy-card-featured{border:2px solid var(--orange);box-shadow:0 8px 30px rgba(255,107,53,0.12)}
+.buy-card .buy-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--orange);color:#fff;padding:0.3rem 1rem;border-radius:50px;font-size:0.75rem;font-weight:700;letter-spacing:0.5px}
+.buy-card .buy-logo{font-size:2.5rem;margin-bottom:0.5rem}
+.buy-card h3{font-size:1.3rem;margin-bottom:0.6rem}
+.buy-card>p{color:var(--muted);font-size:0.92rem;line-height:1.5;margin-bottom:1.2rem;min-height:3em}
+.buy-card .buy-btn{display:inline-block;background:var(--orange);color:#fff;padding:0.8rem 1.8rem;border-radius:50px;font-size:0.95rem;font-weight:600;text-decoration:none;transition:transform 0.2s;width:100%;box-sizing:border-box}
+.buy-card .buy-btn:hover{transform:translateY(-1px);text-decoration:none}
+.buy-card small{display:block;margin-top:0.8rem;color:var(--muted);font-size:0.8rem;font-style:italic}
+
+/* ===== DOWNLOAD ===== */
+.download-section{padding:5rem 2rem;background:#fff}
+.download-section .inner{max-width:900px;margin:0 auto;text-align:center}
+.download-section h2{font-size:2.2rem;margin-bottom:0.8rem}
+.download-section .section-desc{text-align:center;color:var(--muted);font-size:1.05rem;margin-bottom:3rem}
+.download-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:700px;margin:0 auto}
+.download-card{display:flex;flex-direction:column;align-items:center;background:var(--gray);border:1px solid #e8e8e8;border-radius:14px;padding:2rem 1.5rem;text-decoration:none;color:var(--text);transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s}
+.download-card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,0.08);border-color:var(--orange);text-decoration:none}
+.download-card .dl-icon{font-size:3rem;margin-bottom:0.5rem}
+.download-card .dl-name{font-size:1.4rem;font-weight:700;margin-bottom:0.3rem;color:var(--dark)}
+.download-card small{color:var(--muted);font-size:0.85rem;margin-bottom:0.8rem}
+.download-card .dl-status{display:inline-block;background:#fff3ee;color:var(--orange);padding:0.25rem 0.8rem;border-radius:50px;font-size:0.75rem;font-weight:600;border:1px solid #ffe0cc}
+.dl-note{margin-top:2rem;color:var(--muted);font-size:0.95rem;font-style:italic}
+@media(max-width:900px){
+  .buy-grid{grid-template-columns:1fr}
+  .download-grid{grid-template-columns:1fr;max-width:400px}
+}
+
 /* ===== HERO ===== */
 .hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;background:#0a0a1a}
 .hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80') center/cover;opacity:0.35}
@@ -312,6 +347,8 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
   <ul>
     <li><a href="#features"><span data-lang-en>Features</span><span data-lang-zh>功能</span><span data-lang-ja>機能</span><span data-lang-ko>기능</span></a></li>
     <li><a href="#pricing"><span data-lang-en>Pricing</span><span data-lang-zh>價格</span><span data-lang-ja>料金</span><span data-lang-ko>가격</span></a></li>
+    <li><a href="#buy"><span data-lang-en>Buy</span><span data-lang-zh>購買</span><span data-lang-ja>購入</span><span data-lang-ko>구매</span></a></li>
+    <li><a href="#download"><span data-lang-en>Download</span><span data-lang-zh>下載</span><span data-lang-ja>ダウンロード</span><span data-lang-ko>다운로드</span></a></li>
     <li><a href="#setup"><span data-lang-en>Setup</span><span data-lang-zh>教學</span><span data-lang-ja>セットアップ</span><span data-lang-ko>설정</span></a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
@@ -909,7 +946,147 @@ footer .credits{font-size:0.75rem;color:#555;margin-top:0.5rem}
       <li><span data-lang-en>macOS &amp; Windows</span><span data-lang-zh>macOS &amp; Windows</span><span data-lang-ja>macOS &amp; Windows</span><span data-lang-ko>macOS &amp; Windows</span></li>
       <li><span data-lang-en>All future updates</span><span data-lang-zh>所有未來更新</span><span data-lang-ja>将来のすべての更新</span><span data-lang-ko>모든 향후 업데이트</span></li>
     </ul>
-    <a href="#" class="btn"><span data-lang-en>Coming Soon</span><span data-lang-zh>即將上線</span><span data-lang-ja>近日公開予定</span><span data-lang-ko>곧 출시 예정</span></a>
+    <a href="#buy" class="btn"><span data-lang-en>Subscribe Now</span><span data-lang-zh>立即訂閱</span><span data-lang-ja>今すぐ申し込む</span><span data-lang-ko>지금 구독하기</span></a>
+  </div>
+</section>
+
+<!-- ===== BUY OPTIONS ===== -->
+<section class="buy-options" id="buy">
+  <div class="inner">
+    <h2>
+      <span data-lang-en>Choose Your Payment Method</span>
+      <span data-lang-zh>選擇付款方式</span>
+      <span data-lang-ja>支払い方法を選ぶ</span>
+      <span data-lang-ko>결제 방법 선택</span>
+    </h2>
+    <p class="section-desc">
+      <span data-lang-en>Multiple ways to subscribe — pick what works for you. All options unlock the same features.</span>
+      <span data-lang-zh>多種訂閱方式，選擇最適合你的。所有選項解鎖同樣的功能。</span>
+      <span data-lang-ja>複数のサブスクリプション方法 — お好きな方法をお選びください。すべて同じ機能が解放されます。</span>
+      <span data-lang-ko>여러 가지 구독 방법 — 가장 적합한 것을 선택하세요. 모든 옵션은 동일한 기능을 잠금 해제합니다.</span>
+    </p>
+    <div class="buy-grid">
+      <div class="buy-card">
+        <div class="buy-logo">🎁</div>
+        <h3>Patreon</h3>
+        <p>
+          <span data-lang-en>Recurring monthly subscription through Patreon. Cancel anytime.</span>
+          <span data-lang-zh>透過 Patreon 月費訂閱，隨時取消。</span>
+          <span data-lang-ja>Patreonの月額サブスクリプション。いつでもキャンセル可能。</span>
+          <span data-lang-ko>Patreon 월간 구독. 언제든지 취소 가능.</span>
+        </p>
+        <a class="buy-btn" href="#" id="buy-patreon" data-disabled="true" onclick="alert('Patreon page launching soon — check back in a few days!');return false;">
+          <span data-lang-en>Subscribe via Patreon</span>
+          <span data-lang-zh>用 Patreon 訂閱</span>
+          <span data-lang-ja>Patreonで申し込む</span>
+          <span data-lang-ko>Patreon으로 구독</span>
+        </a>
+        <small>
+          <span data-lang-en>Coming soon — Patreon page in setup</span>
+          <span data-lang-zh>即將上線 — Patreon 頁面準備中</span>
+          <span data-lang-ja>近日公開 — Patreonページ準備中</span>
+          <span data-lang-ko>곧 출시 — Patreon 페이지 준비 중</span>
+        </small>
+      </div>
+      <div class="buy-card buy-card-featured">
+        <div class="buy-badge">
+          <span data-lang-en>RECOMMENDED</span>
+          <span data-lang-zh>推薦</span>
+          <span data-lang-ja>おすすめ</span>
+          <span data-lang-ko>추천</span>
+        </div>
+        <div class="buy-logo">💳</div>
+        <h3>Direct (Creem)</h3>
+        <p>
+          <span data-lang-en>Pay directly. License key arrives by email instantly. Install &amp; activate.</span>
+          <span data-lang-zh>直接付款，license key 立即寄到信箱，安裝後啟用。</span>
+          <span data-lang-ja>直接支払い、ライセンスキーをすぐにメールで受け取り、インストールして起動。</span>
+          <span data-lang-ko>직접 결제, 라이선스 키를 즉시 이메일로 받고, 설치하여 활성화.</span>
+        </p>
+        <a class="buy-btn" href="https://www.creem.io/payment/prod_p43ENvAr9g7395z8mlvH" id="buy-creem" target="_blank" rel="noopener">
+          <span data-lang-en>Subscribe via Creem</span>
+          <span data-lang-zh>用 Creem 訂閱</span>
+          <span data-lang-ja>Creemで申し込む</span>
+          <span data-lang-ko>Creem으로 구독</span>
+        </a>
+        <small>
+          <span data-lang-en>✓ Live · Secured by Creem (Merchant of Record)</span>
+          <span data-lang-zh>✓ 已上線 · Creem 代收（Merchant of Record）</span>
+          <span data-lang-ja>✓ 利用可能 · Creemが決済代行</span>
+          <span data-lang-ko>✓ 사용 가능 · Creem이 결제 처리</span>
+        </small>
+      </div>
+      <div class="buy-card">
+        <div class="buy-logo">🌐</div>
+        <h3>Reseller (2Checkout)</h3>
+        <p>
+          <span data-lang-en>Verifone-backed reseller checkout. Multi-language, refund supported.</span>
+          <span data-lang-zh>Verifone 第三方代售，支援多語言與退款處理。</span>
+          <span data-lang-ja>Verifoneのリセラー決済。多言語対応、返金対応。</span>
+          <span data-lang-ko>Verifone 기반 리셀러 결제. 다국어, 환불 지원.</span>
+        </p>
+        <a class="buy-btn" href="#" id="buy-2co" data-disabled="true" onclick="alert('2Checkout onboarding in progress — check back soon!');return false;">
+          <span data-lang-en>Buy via 2Checkout</span>
+          <span data-lang-zh>用 2Checkout 購買</span>
+          <span data-lang-ja>2Checkoutで購入</span>
+          <span data-lang-ko>2Checkout으로 구매</span>
+        </a>
+        <small>
+          <span data-lang-en>Coming soon — onboarding in progress</span>
+          <span data-lang-zh>即將上線 — onboarding 進行中</span>
+          <span data-lang-ja>近日公開 — オンボーディング進行中</span>
+          <span data-lang-ko>곧 출시 — 온보딩 진행 중</span>
+        </small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DOWNLOAD ===== -->
+<section class="download-section" id="download">
+  <div class="inner">
+    <h2>
+      <span data-lang-en>Download Pik Flyer</span>
+      <span data-lang-zh>下載 Pik Flyer</span>
+      <span data-lang-ja>Pik Flyer をダウンロード</span>
+      <span data-lang-ko>Pik Flyer 다운로드</span>
+    </h2>
+    <p class="section-desc">
+      <span data-lang-en>Choose your platform. Always free 5-day trial — no card required.</span>
+      <span data-lang-zh>選擇你的平台。永遠提供 5 天免費試用，不需要信用卡。</span>
+      <span data-lang-ja>プラットフォームを選んでください。5日間無料体験 — クレジットカード不要。</span>
+      <span data-lang-ko>플랫폼을 선택하세요. 항상 5일 무료 체험 — 신용카드 필요 없음.</span>
+    </p>
+    <div class="download-grid">
+      <a class="download-card" href="#" id="dl-mac" onclick="alert('Mac .dmg launching soon!');return false;">
+        <span class="dl-icon">🍎</span>
+        <span class="dl-name">macOS</span>
+        <small>.dmg · Apple Silicon &amp; Intel · macOS 13+</small>
+        <span class="dl-status">
+          <span data-lang-en>Coming soon</span>
+          <span data-lang-zh>即將上線</span>
+          <span data-lang-ja>近日公開</span>
+          <span data-lang-ko>곧 출시</span>
+        </span>
+      </a>
+      <a class="download-card" href="#" id="dl-win" onclick="alert('Windows .exe launching soon!');return false;">
+        <span class="dl-icon">⊞</span>
+        <span class="dl-name">Windows</span>
+        <small>.exe installer · Windows 10/11 64-bit</small>
+        <span class="dl-status">
+          <span data-lang-en>Coming soon</span>
+          <span data-lang-zh>即將上線</span>
+          <span data-lang-ja>近日公開</span>
+          <span data-lang-ko>곧 출시</span>
+        </span>
+      </a>
+    </div>
+    <p class="dl-note">
+      <span data-lang-en>Need a license key? Subscribe via one of the options above first.</span>
+      <span data-lang-zh>需要 license key？先從上方選一個訂閱方案。</span>
+      <span data-lang-ja>ライセンスキーが必要ですか？まずは上記のいずれかのオプションで申し込んでください。</span>
+      <span data-lang-ko>라이선스 키가 필요하신가요? 먼저 위 옵션 중 하나로 구독하세요.</span>
+    </p>
   </div>
 </section>
 
