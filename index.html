@@ -233,6 +233,10 @@ section{padding:4.5rem 0}
 .price span{font-size:1rem;color:#cce6bf}
 .download-box ul{margin:1rem 0 1.2rem;padding-left:1.1rem;color:#e8f7df}
 .download-box li{margin:.35rem 0}
+.release-meta{
+  margin:.75rem 0 0;color:#cce6bf;font-size:.82rem;line-height:1.5;
+  overflow-wrap:anywhere;
+}
 .platforms{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
 .platform{
   border-radius:22px;padding:1rem;background:white;border:1px solid rgba(53,95,46,.14);
@@ -318,11 +322,11 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(53,95,46,.12);color:var(--mute
   <section class="hero" aria-labelledby="hero-title">
     <div class="wrap hero-grid">
       <div>
-        <span class="pill">🌱 Android 免費試用即將開放</span>
+        <span class="pill">🌱 Android 免費試用 APK 已就緒</span>
         <h1 id="hero-title">把好看的明信片地點，<span>骰</span>到手邊。</h1>
         <p class="hero-copy">Pik Flyer Android 是為明信片、地標與定位遊戲玩家做的探索工具，也適合其他 location-based apps 的測試與探索情境：明信片骰子資料庫、城市散步、地標分類、快速傳送與懸浮視窗，都集中在手機上操作。</p>
         <div class="btn-row">
-          <a class="btn btn-primary" href="#download">加入 Android 開放通知</a>
+          <a class="btn btn-primary" href="#download">下載 Android 免費試用</a>
           <a class="btn btn-secondary" href="#install">看安裝教學</a>
         </div>
         <div class="trial-strip" aria-label="免費試用每日限制">
@@ -402,8 +406,8 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(53,95,46,.12);color:var(--mute
     <div class="wrap download-panel">
       <div class="download-main">
         <span class="pill">📦 Direct APK download</span>
-        <h2>Android 版為主，release APK 完成後開放免費試用。</h2>
-        <p class="note">這是非 Google Play 的官網直售流程。公開下載只會提供 release-signed APK；debug build 不會對外發布。</p>
+        <h2>Android 版為主，現在可下載 release-signed APK 免費試用。</h2>
+        <p class="note">這是非 Google Play 的官網直售流程。請只從本頁下載 APK，安裝前可用 SHA-256 checksum 核對檔案。</p>
         <div class="platforms">
           <div class="platform">
             <strong>Android</strong>
@@ -431,8 +435,12 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(53,95,46,.12);color:var(--mute
           </ul>
         </div>
         <div>
-          <a class="btn btn-secondary" href="mailto:pikflyer.app@gmail.com?subject=Pik%20Flyer%20Android%20early%20access">加入開放通知</a>
-          <p class="note" style="color:#cce6bf;margin-bottom:0">正式發布時會在此提供 Android release APK、版本號與 checksum。</p>
+          <a class="btn btn-primary" href="downloads/pikflyer-android-free.apk" download>下載免費試用 APK</a>
+          <p class="release-meta">
+            Version 1.0.0 · APK 17.8 MB<br>
+            SHA-256: 253b92233ce619ae84a0e69b4d3d12db16cd162f78bb96c2452acf993c4477a3
+          </p>
+          <p class="note" style="color:#cce6bf;margin-bottom:0">訂閱付款連結建立後，這裡會新增 US$4.99/month checkout。</p>
         </div>
       </aside>
     </div>
