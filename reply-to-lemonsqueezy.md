@@ -1,4 +1,4 @@
-# Reply to LemonSqueezy - Draft
+# Archived PSP Review Reply Draft
 
 **Subject:** Re: Application Details - Pik Flyer
 
@@ -26,12 +26,12 @@ I'm preparing a short demo video showing the main features. I will share the lin
 (填你個人的，不是 app 的)
 
 **5. Product Description**
-Pik Flyer is a desktop application (macOS & Windows) that provides GPS location simulation for mobile devices. It is designed primarily for players of location-based games like Pikmin Bloom who want to explore different areas without physically traveling.
+Pik Flyer is a desktop application (macOS & Windows) that provides GPS location simulation for mobile devices. It is designed for personal testing, route planning, and location-based app workflows.
 
 Key details:
 - It is a software product, developed by me (sole developer)
 - Sold as a monthly subscription ($4.99/month)
-- Target audience: Pikmin Bloom players and location-based game enthusiasts
+- Target audience: developers, creators, travelers, and location-based app users
 - The software connects to iPhone or Android devices via USB and simulates GPS coordinates
 - No jailbreak or device modification required
 
