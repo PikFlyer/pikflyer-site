@@ -3,27 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pik Flyer Android — 免費試用下載</title>
-<meta name="description" content="Pik Flyer Android 免費試用版。用明信片骰子、城市散步、地標分類與懸浮視窗，探索定位遊戲與其他 location-based apps 的美麗地點。">
-<meta property="og:title" content="Pik Flyer Android — 免費試用下載">
+<title>小地球 Pik Flyer Android — 免費試用下載</title>
+<meta name="description" content="小地球 Pik Flyer Android 免費試用版。用明信片骰子、城市散步、地標分類與懸浮視窗，探索定位遊戲與其他 location-based apps 的美麗地點。">
+<meta property="og:title" content="小地球 Pik Flyer Android — 免費試用下載">
 <meta property="og:description" content="Android 版為主，免費試用 5 天：每日 20 次 teleport、50 次 dice、3 次 city walk。支援多種 location-based apps 使用情境。">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#79b84a">
+<meta name="theme-color" content="#07120f">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <style>
 :root{
-  --leaf:#79b84a;
-  --sprout:#b7e45c;
-  --moss:#355f2e;
-  --soil:#3b2d24;
-  --sun:#ffd45a;
-  --petal:#ff7a64;
-  --sky:#dff4ef;
-  --cream:#fffaf0;
-  --paper:#ffffff;
-  --ink:#192417;
-  --muted:#60715c;
-  --line:#dfe8d7;
-  --shadow:0 22px 70px rgba(34,65,28,.16);
+  --bg:#07120f;
+  --panel:#0e1c17;
+  --panel-2:#13251f;
+  --ink:#eefdf4;
+  --muted:#9db7aa;
+  --line:rgba(170,255,211,.16);
+  --lime:#98ff65;
+  --mint:#43f0a8;
+  --cyan:#45d7ff;
+  --gold:#f7c948;
+  --danger:#ff6b78;
+  --paper:#f7fff8;
+  --deep:#07120f;
+  --shadow:0 24px 80px rgba(0,0,0,.38);
+  --glow:0 0 0 1px rgba(152,255,101,.26),0 22px 52px rgba(67,240,168,.16);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -31,7 +34,8 @@ body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Noto Sans JP",Roboto,sans-serif;
   color:var(--ink);
-  background:linear-gradient(180deg,#f8ffe9 0%,#fffaf0 42%,#f7fbf2 100%);
+  background:
+    linear-gradient(180deg,#07120f 0%,#0d1b16 46%,#f5fff4 46%,#f7fff8 100%);
   line-height:1.65;
 }
 img{max-width:100%;display:block}
@@ -39,9 +43,9 @@ a{color:inherit}
 .wrap{width:min(1120px,calc(100% - 40px));margin:0 auto}
 .pill{
   display:inline-flex;align-items:center;gap:.45rem;
-  border:1px solid rgba(53,95,46,.2);
-  background:rgba(255,255,255,.68);
-  color:var(--moss);
+  border:1px solid rgba(152,255,101,.28);
+  background:rgba(152,255,101,.1);
+  color:#dfffce;
   border-radius:999px;
   padding:.42rem .78rem;
   font-size:.86rem;
@@ -60,34 +64,43 @@ a{color:inherit}
   white-space:normal;
 }
 .btn:hover{transform:translateY(-2px);text-decoration:none}
-.btn-primary{background:var(--petal);color:white;box-shadow:0 14px 28px rgba(255,122,100,.28)}
-.btn-secondary{background:white;color:var(--moss);border-color:rgba(53,95,46,.22)}
+.btn-primary{background:linear-gradient(135deg,var(--lime),var(--mint));color:#07120f;box-shadow:0 16px 40px rgba(67,240,168,.28)}
+.btn-secondary{background:rgba(255,255,255,.08);color:#eafff1;border-color:rgba(234,255,241,.22)}
 .btn-muted{background:#edf4e6;color:#6f7d69;border-color:#d8e5ce;cursor:not-allowed}
 .btn-muted:hover{transform:none}
 .btn-row{display:flex;gap:.8rem;flex-wrap:wrap}
 .note{color:var(--muted);font-size:.94rem}
 header{
   position:sticky;top:0;z-index:10;
-  border-bottom:1px solid rgba(53,95,46,.1);
-  background:rgba(255,250,240,.76);
+  border-bottom:1px solid rgba(152,255,101,.14);
+  background:rgba(7,18,15,.78);
   backdrop-filter:blur(18px);
 }
 .nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
 .brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;font-weight:900}
 .brand-mark{
-  width:40px;height:40px;border-radius:14px;
-  background:radial-gradient(circle at 34% 28%,var(--sun) 0 13%,transparent 14%),
-             linear-gradient(135deg,var(--sprout),var(--leaf) 58%,var(--moss));
-  box-shadow:inset 0 -10px 16px rgba(0,0,0,.12),0 10px 22px rgba(53,95,46,.18);
+  width:42px;height:42px;border-radius:50%;
+  background:
+    radial-gradient(circle at 60% 36%,rgba(69,215,255,.95) 0 4px,transparent 5px),
+    radial-gradient(circle at 44% 48%,#142821 0 44%,transparent 45%),
+    linear-gradient(135deg,var(--lime),var(--mint) 58%,var(--cyan));
+  box-shadow:inset 0 -10px 18px rgba(0,0,0,.34),0 0 24px rgba(67,240,168,.34);
   position:relative;
 }
-.brand-mark:after{
-  content:"";position:absolute;left:18px;top:8px;width:4px;height:24px;
-  background:#fff7c1;border-radius:4px;transform:rotate(-16deg);
+.brand-mark:before{
+  content:"";position:absolute;inset:8px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.78);border-left-color:transparent;border-right-color:transparent;
+  transform:rotate(-22deg);
 }
-.brand small{display:block;color:var(--muted);font-weight:700;line-height:1}
+.brand-mark:after{
+  content:"";position:absolute;left:18px;top:8px;width:6px;height:26px;
+  background:#07120f;border:2px solid rgba(255,255,255,.82);border-radius:999px;
+  transform:rotate(38deg);
+}
+.brand span:last-child{color:#f5fff4}
+.brand small{display:block;color:#8efac5;font-weight:800;line-height:1}
 .nav-links{display:flex;align-items:center;gap:1rem}
-.nav-links a{font-size:.92rem;color:var(--moss);text-decoration:none;font-weight:800}
+.nav-links a{font-size:.92rem;color:#cdeede;text-decoration:none;font-weight:800}
 .nav-links a:hover{text-decoration:underline}
 .hero{
   position:relative;
@@ -98,9 +111,18 @@ header{
   content:"";
   position:absolute;inset:0;
   background:
-    linear-gradient(90deg,rgba(248,255,233,.98) 0%,rgba(248,255,233,.9) 40%,rgba(248,255,233,.34) 100%),
+    linear-gradient(90deg,rgba(7,18,15,.98) 0%,rgba(7,18,15,.86) 42%,rgba(7,18,15,.42) 100%),
+    linear-gradient(180deg,transparent 0%,rgba(7,18,15,.92) 100%),
     url("https://images.unsplash.com/photo-1713085699732-62b3c4dfee78?q=80&w=1800&auto=format&fit=crop") center/cover;
-  opacity:.9;
+  opacity:1;
+}
+.hero:after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(152,255,101,.08) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(69,215,255,.06) 1px,transparent 1px);
+  background-size:72px 72px;
+  mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.72) 44%,transparent 100%);
 }
 .hero-grid{position:relative;display:grid;grid-template-columns:1.02fr .98fr;gap:3rem;align-items:center}
 .hero h1{
@@ -109,26 +131,36 @@ header{
   line-height:.95;
   letter-spacing:0;
 }
-.hero h1 span{color:var(--petal)}
-.hero-copy{font-size:clamp(1.06rem,2vw,1.24rem);color:#354733;max-width:670px;margin:0 0 1.4rem}
+.hero h1 span{color:var(--lime)}
+.hero-copy{font-size:clamp(1.06rem,2vw,1.24rem);color:#c6ddd1;max-width:670px;margin:0 0 1.4rem}
+.nickname-lockup{
+  display:flex;align-items:center;gap:.8rem;margin:.95rem 0 1.1rem;color:#eafff1;
+  font-weight:900;font-size:clamp(1.05rem,2.2vw,1.32rem);
+}
+.nickname-lockup .mini-globe{
+  width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--lime),var(--mint) 58%,var(--cyan));
+  color:#07120f;box-shadow:0 0 28px rgba(67,240,168,.36);
+}
+.nickname-lockup small{display:block;color:#90b6a3;font-size:.78rem;font-weight:800;line-height:1.2;margin-top:.1rem}
 .trial-strip{
   display:grid;grid-template-columns:repeat(3,1fr);
   gap:.7rem;margin:1.6rem 0;
 }
 .trial-item{
-  background:rgba(255,255,255,.74);
-  border:1px solid rgba(53,95,46,.16);
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(152,255,101,.16);
   border-radius:18px;
   padding:.9rem;
-  box-shadow:0 10px 28px rgba(53,95,46,.08);
+  box-shadow:0 10px 28px rgba(0,0,0,.16);
 }
-.trial-item strong{display:block;font-size:1.45rem;line-height:1;color:var(--moss)}
+.trial-item strong{display:block;font-size:1.45rem;line-height:1;color:var(--lime)}
 .trial-item span{font-size:.86rem;color:var(--muted);font-weight:700}
 .scene-stage{position:relative;min-height:560px}
 .scene-slideshow{
   position:relative;width:min(560px,100%);min-height:560px;margin:0 auto;
   border-radius:36px;overflow:hidden;box-shadow:var(--shadow);
-  border:1px solid rgba(53,95,46,.18);background:#dbe8d0;
+  border:1px solid rgba(152,255,101,.22);background:#0e1c17;
 }
 .scene-slide{position:absolute;inset:0;opacity:0;transition:opacity .8s ease,transform 7s ease;transform:scale(1.02)}
 .scene-slide.active{opacity:1;transform:scale(1)}
@@ -143,55 +175,61 @@ header{
 .scene-count{font-weight:900;font-size:.9rem;color:#fff;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:.28rem .62rem;backdrop-filter:blur(8px)}
 .scene-control-card{
   position:absolute;left:-18px;bottom:34px;width:min(300px,70%);
-  background:rgba(255,255,255,.94);border:1px solid rgba(53,95,46,.18);
+  background:rgba(7,18,15,.92);border:1px solid rgba(152,255,101,.22);
   border-radius:24px;padding:1rem;box-shadow:0 20px 48px rgba(53,95,46,.22);
+  color:#f4fff6;backdrop-filter:blur(14px);
 }
 .scene-control-card strong{display:flex;justify-content:space-between;gap:.5rem;margin-bottom:.55rem}
 .scene-control-card .mini-dice{
   display:grid;grid-template-columns:auto 1fr;gap:.65rem;align-items:center;
-  background:linear-gradient(135deg,#fff4c0,#ffe7dc);border-radius:18px;padding:.75rem;
+  background:linear-gradient(135deg,rgba(152,255,101,.16),rgba(69,215,255,.13));border-radius:18px;padding:.75rem;
 }
 .scene-dots{position:absolute;right:16px;top:16px;display:flex;gap:6px;z-index:2}
 .scene-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.45);border:0;padding:0}
-.scene-dot.active{width:22px;border-radius:999px;background:var(--sun)}
+.scene-dot.active{width:22px;border-radius:999px;background:var(--gold)}
 .scene-thumb-strip{
-  position:absolute;right:-10px;bottom:26px;display:grid;gap:.45rem;z-index:2;
+  position:absolute;right:8px;bottom:26px;display:grid;gap:.45rem;z-index:2;
 }
 .scene-thumb{
   width:58px;height:44px;border-radius:12px;border:2px solid rgba(255,255,255,.8);
   object-fit:cover;box-shadow:0 12px 24px rgba(10,22,9,.18);opacity:.92;
 }
 section{padding:4.5rem 0}
+main > section:not(.hero){background:#f7fff8;color:#0c1713}
+main > section:nth-of-type(even):not(.hero){background:#eefaf0}
+main > section:not(.hero) .note{color:#50665b}
+.download-panel .note,.download-box .note{color:#a9c7b8}
 .section-head{display:flex;justify-content:space-between;gap:2rem;align-items:flex-end;margin-bottom:1.8rem}
 .section-head h2{margin:0;font-size:clamp(2rem,4vw,3.3rem);line-height:1}
-.section-head p{max-width:520px;margin:0;color:var(--muted)}
+.section-head p{max-width:520px;margin:0;color:#50665b}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
 .card{
-  background:rgba(255,255,255,.78);
-  border:1px solid rgba(53,95,46,.14);
+  background:#ffffff;
+  border:1px solid rgba(7,18,15,.1);
   border-radius:24px;
   padding:1.35rem;
-  box-shadow:0 16px 42px rgba(53,95,46,.08);
+  box-shadow:0 16px 42px rgba(7,18,15,.08);
 }
 .card .icon{font-size:2rem;margin-bottom:.7rem}
 .card h3{margin:.2rem 0 .45rem;font-size:1.24rem}
-.card p{margin:0;color:var(--muted)}
+.card p{margin:0;color:#50665b}
 .usecase-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:1rem;align-items:stretch}
 .usecase-panel{
-  background:linear-gradient(135deg,#25391f,#466b34);
+  background:linear-gradient(135deg,#07120f,#112820 58%,#17392d);
   color:white;border-radius:30px;padding:1.5rem;box-shadow:var(--shadow);
+  border:1px solid rgba(152,255,101,.18);
 }
 .usecase-panel h2{font-size:clamp(2rem,4vw,3.2rem);line-height:1;margin:.7rem 0}
 .usecase-panel p{color:#e8f7df;max-width:640px}
 .usecase-list{display:grid;gap:.75rem}
 .usecase{
-  background:rgba(255,255,255,.78);
-  border:1px solid rgba(53,95,46,.14);
+  background:#fff;
+  border:1px solid rgba(7,18,15,.1);
   border-radius:24px;
   padding:1.05rem;
 }
 .usecase strong{display:block;margin-bottom:.25rem}
-.usecase span{color:var(--muted);font-size:.95rem}
+.usecase span{color:#50665b;font-size:.95rem}
 .landmark-gallery{display:grid;grid-template-columns:1.1fr .9fr .9fr;gap:1rem}
 .landmark{
   min-height:360px;border-radius:28px;overflow:hidden;position:relative;
@@ -211,26 +249,30 @@ section{padding:4.5rem 0}
   margin-top:1rem;background:rgba(255,255,255,.75);border:1px solid rgba(53,95,46,.14);
   border-radius:18px;padding:.9rem 1rem;color:var(--muted);font-size:.86rem;
 }
-.image-credits summary{cursor:pointer;font-weight:900;color:var(--moss)}
+.image-credits summary{cursor:pointer;font-weight:900;color:#0f3729}
 .image-credits ul{margin:.7rem 0 0;padding-left:1.1rem}
 .image-credits li{margin:.22rem 0}
-.image-credits a{color:var(--moss);font-weight:800}
+.image-credits a{color:#0f3729;font-weight:800}
 .download-panel{
   display:grid;grid-template-columns:1fr .9fr;gap:1.2rem;align-items:stretch;
-  background:linear-gradient(135deg,#ffffff,#edf8dd);
-  border:1px solid rgba(53,95,46,.15);
+  background:linear-gradient(135deg,#07120f,#10241d 62%,#173e30);
+  border:1px solid rgba(152,255,101,.18);
   border-radius:34px;
   padding:1.2rem;
   box-shadow:var(--shadow);
+  color:#f4fff6;
 }
 .download-main{padding:1.3rem}
 .download-main h2{font-size:clamp(2rem,4vw,3.4rem);line-height:1;margin:.5rem 0}
 .download-box{
-  background:#26391f;color:#fff;border-radius:28px;padding:1.3rem;
+  background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.05));
+  color:#fff;border-radius:28px;padding:1.3rem;
   display:flex;flex-direction:column;justify-content:space-between;min-height:320px;
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:var(--glow);
 }
 .price{font-size:2.2rem;font-weight:900}
-.price span{font-size:1rem;color:#cce6bf}
+.price span{font-size:1rem;color:#a7f7c8}
 .download-box ul{margin:1rem 0 1.2rem;padding-left:1.1rem;color:#e8f7df}
 .download-box li{margin:.35rem 0}
 .release-meta{
@@ -239,36 +281,36 @@ section{padding:4.5rem 0}
 }
 .platforms{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
 .platform{
-  border-radius:22px;padding:1rem;background:white;border:1px solid rgba(53,95,46,.14);
+  border-radius:22px;padding:1rem;background:rgba(255,255,255,.08);border:1px solid rgba(152,255,101,.14);
   min-height:140px;display:flex;flex-direction:column;justify-content:space-between;
 }
 .platform strong{font-size:1.1rem}
-.soon{color:#7a856f;font-weight:800}
+.soon{color:#a7f7c8;font-weight:800}
 .steps{display:grid;grid-template-columns:1fr 1fr;gap:1rem;counter-reset:step}
 .step{
-  background:var(--paper);border:1px solid rgba(53,95,46,.14);border-radius:24px;
-  padding:1.25rem 1.25rem 1.25rem 4.2rem;position:relative;box-shadow:0 14px 34px rgba(53,95,46,.07);
+  background:#fff;border:1px solid rgba(7,18,15,.1);border-radius:24px;
+  padding:1.25rem 1.25rem 1.25rem 4.2rem;position:relative;box-shadow:0 14px 34px rgba(7,18,15,.07);
 }
 .step:before{
   counter-increment:step;content:counter(step);
   position:absolute;left:1.2rem;top:1.2rem;width:42px;height:42px;border-radius:15px;
-  display:grid;place-items:center;background:var(--sun);font-weight:900;color:var(--soil);
+  display:grid;place-items:center;background:linear-gradient(135deg,var(--lime),var(--mint));font-weight:900;color:#07120f;
 }
 .step h3{margin:.1rem 0 .4rem}
 .step p{margin:0;color:var(--muted)}
 .safety{
-  background:#fff6df;border:1px solid #f0dc9f;border-radius:26px;padding:1.3rem;
+  background:#fff8dc;border:1px solid #f0dc9f;border-radius:26px;padding:1.3rem;
   display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:flex-start;
 }
 .faq{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .faq details{
-  background:#fff;border:1px solid rgba(53,95,46,.14);border-radius:20px;padding:1rem 1.1rem;
+  background:#fff;border:1px solid rgba(7,18,15,.1);border-radius:20px;padding:1rem 1.1rem;
 }
 .faq summary{font-weight:900;cursor:pointer}
 .faq p{color:var(--muted);margin:.7rem 0 0}
-footer{padding:2.5rem 0;border-top:1px solid rgba(53,95,46,.12);color:var(--muted)}
+footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;background:#f7fff8}
 .footer-grid{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-.footer-grid a{color:var(--moss);font-weight:800;text-decoration:none;margin-right:1rem}
+.footer-grid a{color:#0f3729;font-weight:800;text-decoration:none;margin-right:1rem}
 .footer-grid a:hover{text-decoration:underline}
 @media(max-width:880px){
   .wrap{width:min(100% - 28px,680px)}
@@ -305,7 +347,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(53,95,46,.12);color:var(--mute
   <div class="wrap nav">
     <a class="brand" href="#top" aria-label="Pik Flyer home">
       <span class="brand-mark" aria-hidden="true"></span>
-      <span>Pik Flyer <small>Android first</small></span>
+      <span>小地球 <small>Pik Flyer Android</small></span>
     </a>
     <nav class="nav-links" aria-label="主選單">
       <a href="#usecases">適用場景</a>
@@ -322,12 +364,16 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(53,95,46,.12);color:var(--mute
   <section class="hero" aria-labelledby="hero-title">
     <div class="wrap hero-grid">
       <div>
-        <span class="pill">🌱 Android 免費試用 APK 已就緒</span>
-        <h1 id="hero-title">把好看的明信片地點，<span>骰</span>到手邊。</h1>
-        <p class="hero-copy">Pik Flyer Android 是為明信片、地標與定位遊戲玩家做的探索工具，也適合其他 location-based apps 的測試與探索情境：明信片骰子資料庫、城市散步、地標分類、快速傳送與懸浮視窗，都集中在手機上操作。</p>
+        <span class="pill">小地球 · Android 免費試用 APK 已就緒</span>
+        <h1 id="hero-title">把整個世界，<span>骰</span>進手機裡。</h1>
+        <div class="nickname-lockup">
+          <span class="mini-globe" aria-hidden="true">◎</span>
+          <span>記住它就叫「小地球」<small>一顆會骰地點、會散步、會開浮窗的定位探索工具</small></span>
+        </div>
+        <p class="hero-copy">小地球 Pik Flyer Android 是為明信片、地標與定位遊戲玩家做的探索工具，也適合其他 location-based apps 的測試與探索情境：明信片骰子資料庫、城市散步、地標分類、快速傳送與懸浮視窗，都集中在手機上操作。</p>
         <div class="btn-row">
-          <a class="btn btn-primary" href="#download">下載 Android 免費試用</a>
-          <a class="btn btn-secondary" href="#install">看安裝教學</a>
+          <a class="btn btn-primary" href="#download">免費下載小地球</a>
+          <a class="btn btn-secondary" href="#pricing">看 US$4.99 方案</a>
         </div>
         <div class="trial-strip" aria-label="免費試用每日限制">
           <div class="trial-item"><strong>20</strong><span>teleport / day</span></div>
@@ -392,7 +438,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(53,95,46,.12);color:var(--mute
           <img class="scene-thumb" src="assets/landmarks/santorini.jpg" alt="">
         </div>
         <div class="scene-control-card" aria-hidden="true">
-          <strong><span>Postcard Dice</span><span>50/day</span></strong>
+          <strong><span>小地球 Dice</span><span>50/day</span></strong>
           <div class="mini-dice">
             <span style="font-size:1.8rem">🎲</span>
             <span><b>Real photo landmarks</b><br><span class="note">tower · garden · riverwalk · temple</span></span>
@@ -405,8 +451,8 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(53,95,46,.12);color:var(--mute
   <section id="download">
     <div class="wrap download-panel">
       <div class="download-main">
-        <span class="pill">📦 Direct APK download</span>
-        <h2>Android 版為主，現在可下載 release-signed APK 免費試用。</h2>
+        <span class="pill">Direct APK download</span>
+        <h2>先免費試用小地球，真的常用再訂閱。</h2>
         <p class="note">這是非 Google Play 的官網直售流程。請只從本頁下載 APK，安裝前可用 SHA-256 checksum 核對檔案。</p>
         <div class="platforms">
           <div class="platform">
@@ -431,11 +477,11 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(53,95,46,.12);color:var(--mute
             <li>免費版每日 20 次 teleport</li>
             <li>免費版每日 50 次 dice</li>
             <li>免費版每日 3 次 city walk</li>
-            <li>訂閱後解鎖懸浮視窗、Pippi loop、路線/預設儲存與匯出</li>
+            <li>訂閱後解鎖無限制、懸浮視窗、Pippi loop、路線/預設儲存與匯出</li>
           </ul>
         </div>
         <div>
-          <a class="btn btn-primary" href="downloads/pikflyer-android-free.apk" download>下載免費試用 APK</a>
+          <a class="btn btn-primary" href="downloads/pikflyer-android-free.apk" download>下載小地球 APK</a>
           <p class="release-meta">
             Version 1.0.0 · APK 17.8 MB<br>
             SHA-256: b3cd357100749f46cea626caecf8f9087e1a375fdd8fc5cce789f2bdc736355b
@@ -473,7 +519,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(53,95,46,.12);color:var(--mute
   <section id="features">
     <div class="wrap">
       <div class="section-head">
-        <h2>像撒花一樣探索地圖。</h2>
+        <h2>小地球打開，就是你的定位控制台。</h2>
         <p>不是塞滿按鈕的工程工具，而是玩家、地圖 app 測試者和定位 app 使用者真的會每天打開的快速探索面板。</p>
       </div>
       <div class="cards">
@@ -633,7 +679,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(53,95,46,.12);color:var(--mute
 <footer>
   <div class="wrap footer-grid">
     <div>
-      <strong>Pik Flyer Android</strong><br>
+      <strong>小地球 Pik Flyer Android</strong><br>
       <span>Unofficial exploration companion. Android first.</span>
       <p class="note">All third-party product names, trademarks, and app names are property of their respective owners. References are descriptive only and do not imply affiliation, sponsorship, or endorsement.</p>
     </div>
