@@ -23,6 +23,22 @@ const forbiddenCopy = [
   "SHA-256",
   "Tinder",
   "Pikmin",
+  "下載頁該回答",
+  "減少客服",
+  "上一版官網",
+  "可授權素材",
+  "Creative Commons",
+  "Wikimedia",
+  "Photo:",
+  "敬請期待",
+  "準備中",
+  "roadmap",
+  "正式開放",
+  "開發者與 QA",
+  "產品測試",
+  "More than one workflow",
+  "Real photo landmarks",
+  "Android first",
 ];
 
 test("public HTML is synchronized with the source HTML", () => {
@@ -42,6 +58,8 @@ test("brand assets and Android release download are present", () => {
     "../downloads/xiaochibang-android-v1.0.1.apk",
     "../downloads/xiaochibang-android-v1.0.1.aab",
     "../downloads/xiaochibang-android-v1.0.1.sha256",
+    "../credits.html",
+    "../public/credits.html",
     "../public/downloads/xiaochibang-android-v1.0.1.apk",
   ];
 

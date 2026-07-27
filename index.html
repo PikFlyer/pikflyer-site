@@ -266,7 +266,7 @@ main > section:not(.hero) .note{color:#50665b}
   margin:.75rem 0 0;color:#cce6bf;font-size:.82rem;line-height:1.5;
   overflow-wrap:anywhere;
 }
-.platforms{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
+.platforms{display:grid;grid-template-columns:1fr;gap:1rem;margin-top:1rem}
 .platform{
   border-radius:22px;padding:1rem;background:rgba(255,255,255,.08);border:1px solid rgba(152,255,101,.14);
   min-height:140px;display:flex;flex-direction:column;justify-content:space-between;
@@ -351,7 +351,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
   <section class="hero" aria-labelledby="hero-title">
     <div class="wrap hero-grid">
       <div>
-        <span class="pill">小翅膀 · Android 免費試用 APK 已就緒</span>
+        <span class="pill">小翅膀 · Android 免費試用版</span>
         <h1 id="hero-title">把整個世界，<span>骰</span>進手機裡。</h1>
         <div class="nickname-lockup">
           <span class="mini-globe" aria-hidden="true">◎</span>
@@ -367,7 +367,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
           <div class="trial-item"><strong>50</strong><span>dice / day</span></div>
           <div class="trial-item"><strong>3</strong><span>city walk / day</span></div>
         </div>
-        <p class="note">免費試用 5 天。訂閱後每月 US$4.99，解鎖無限制與進階功能。PC / Mac 版敬請期待。</p>
+        <p class="note">免費試用 5 天。訂閱後每月 US$4.99，解鎖無限制與進階功能。</p>
       </div>
 
       <div class="scene-stage" aria-label="真實世界地標 slideshow">
@@ -428,7 +428,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
           <strong><span>小翅膀 Dice</span><span>50/day</span></strong>
           <div class="mini-dice">
             <span style="font-size:1.8rem">🎲</span>
-            <span><b>Real photo landmarks</b><br><span class="note">tower · garden · riverwalk · temple</span></span>
+            <span><b>地標明信片</b><br><span class="note">tower · garden · riverwalk · temple</span></span>
           </div>
         </div>
       </div>
@@ -444,15 +444,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
         <div class="platforms">
           <div class="platform">
             <strong>Android</strong>
-            <span class="note">主要版本，支援免費試用、每日額度與訂閱解鎖。</span>
-          </div>
-          <div class="platform">
-            <strong>Windows PC</strong>
-            <span class="soon">敬請期待</span>
-          </div>
-          <div class="platform">
-            <strong>Mac</strong>
-            <span class="soon">敬請期待</span>
+            <span class="note">免費試用 5 天；每日提供 20 次 teleport、50 次 dice、3 次 city walk。</span>
           </div>
         </div>
       </div>
@@ -472,7 +464,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
           <p class="release-meta">
             Version 1.0.1 · Android 版 16.9 MB
           </p>
-          <p class="note" style="color:#cce6bf;margin-bottom:0">目前先開放免費試用版。US$4.99/month 訂閱通道準備中，上線後會在此頁開放。</p>
+          <p class="note" style="color:#cce6bf;margin-bottom:0">免費試用 5 天；需要更多額度時可升級 US$4.99/month。</p>
         </div>
       </aside>
     </div>
@@ -481,22 +473,22 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
   <section id="usecases">
     <div class="wrap usecase-grid">
       <div class="usecase-panel">
-        <span class="pill">🧭 More than one workflow</span>
+        <span class="pill">🧭 一個工具，三種用法</span>
         <h2>不只找地點，也能把城市探索變成每天會用的小工具。</h2>
         <p>小翅膀把地標清單、城市散步、明信片地點和區域資料整理在一起，讓你快速切換城市、保存常用地點、安排下一段路線。</p>
       </div>
       <div class="usecase-list">
         <div class="usecase">
           <strong>地圖與地標資料</strong>
-          <span>適合明信片地點整理、地標探索、AR 地圖資料與其他以地點探索為核心的產品測試。</span>
+          <span>把明信片地點、花園、夜景、河岸、老街和車站區域整理成好骰、好收藏的清單。</span>
         </div>
         <div class="usecase">
           <strong>城市體驗預覽</strong>
-          <span>適合預覽不同城市的附近內容、地圖畫面與區域資料，做旅行、活動或產品展示前的快速檢查。</span>
+          <span>快速切到不同城市，看附近區域、熱門地標與散步路線，不必先把行程排滿。</span>
         </div>
         <div class="usecase">
-          <strong>開發者與 QA</strong>
-          <span>測試地圖、附近搜尋、區域限制、城市化資料與 onboarding 流程，不必到現場重現每個案例。</span>
+          <strong>日常路線安排</strong>
+          <span>把常去地點、活動路線和城市散步預設存起來，打開就能開始下一段探索。</span>
         </div>
       </div>
     </div>
@@ -517,7 +509,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
         <article class="card">
           <div class="icon">🎲</div>
           <h3>分類骰子</h3>
-          <p>依 decor、城市、季節、夜景、親子、宗教、港灣、花園等類別抽地點，減少盲飛，讓每一次跳點都有目標。</p>
+          <p>依 decor、城市、季節、夜景、親子、宗教、港灣、花園等類別抽地點，讓每一次跳點都有目標。</p>
         </article>
         <article class="card">
           <div class="icon">🚶</div>
@@ -527,7 +519,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
         <article class="card">
           <div class="icon">🫧</div>
           <h3>懸浮視窗</h3>
-          <p>在 Android 上用 floating bubble 快速骰點、teleport、啟停 city walk。這是訂閱功能，適合重度玩家。</p>
+          <p>在 Android 上用 floating bubble 快速骰點、teleport、啟停 city walk，常用功能不用一直切回主畫面。</p>
         </article>
         <article class="card">
           <div class="icon">🧭</div>
@@ -547,48 +539,31 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
     <div class="wrap">
       <div class="section-head">
         <h2>真實世界的地標美景。</h2>
-        <p>延續上一版官網的旅行感：用可授權素材展示「骰子資料庫」會帶你遇見的城市、花園、夜景與明信片地點。</p>
+        <p>從夜景高塔、湖畔山景、古都街道到花園燈海，每一次骰點都像翻開一張新的城市明信片。</p>
       </div>
       <div class="landmark-gallery">
         <figure class="landmark">
           <img src="assets/landmarks/tokyo-tower.jpg" alt="Tokyo Tower night view">
           <figcaption class="landmark-caption">
             <strong>Tokyo Tower · night view</strong>
-            <span>適合 night view、tower、classic route 類別。Photo: <a href="https://commons.wikimedia.org/wiki/File:Tokyo_Tower_night_view.jpg">Immanuelle / Wikimedia Commons / CC BY-SA 4.0</a></span>
+            <span>night view · tower · classic route</span>
           </figcaption>
         </figure>
         <figure class="landmark">
           <img src="assets/landmarks/taipei-101.jpg" alt="Taipei 101 at sunset">
           <figcaption class="landmark-caption">
             <strong>Taipei 101 · sunset skyline</strong>
-            <span>適合 observation deck、station area、city skyline 類別。Photo: <a href="https://commons.wikimedia.org/wiki/File:Taipei_Taiwan_Taipei-101-Tower-01.jpg">CEphoto, Uwe Aranas / CC BY-SA 3.0</a></span>
+            <span>observation deck · skyline · station area</span>
           </figcaption>
         </figure>
         <figure class="landmark">
           <img src="assets/landmarks/gardens-by-the-bay.jpg" alt="Gardens by the Bay Supertree Grove">
           <figcaption class="landmark-caption">
             <strong>Gardens by the Bay · Supertree Grove</strong>
-            <span>適合 garden、botanical special、postcard beauty 類別。Photo: <a href="https://commons.wikimedia.org/wiki/File:Singapore_(SG),_Gardens_by_the_Bay,_Supertree_Grove_--_2019_--_4752.jpg">Dietmar Rabich / Wikimedia Commons / CC BY-SA 4.0</a></span>
+            <span>garden · botanical · night lights</span>
           </figcaption>
         </figure>
       </div>
-      <p class="credits-note">Images are included with attribution under Creative Commons licenses. They are examples of real-world landmark aesthetics and do not imply endorsement by the photographers or Wikimedia Commons.</p>
-      <details class="image-credits">
-        <summary>Slideshow image credits</summary>
-        <ul>
-          <li><a href="https://commons.wikimedia.org/wiki/File:Tokyo_Tower_night_view.jpg">Tokyo Tower night view</a> — Immanuelle / Wikimedia Commons / CC BY-SA 4.0</li>
-          <li><a href="https://commons.wikimedia.org/wiki/File:Mount_Fuji_from_Lake_Kawaguchi_s2.jpg">Mount Fuji from Lake Kawaguchi</a> — Alpsdake / Wikimedia Commons / CC BY-SA 4.0</li>
-          <li><a href="https://commons.wikimedia.org/wiki/File:Torii_path_with_lantern_at_Fushimi_Inari_Taisha_Shrine,_Kyoto,_Japan.jpg">Fushimi Inari Taisha torii path</a> — Basile Morin / Wikimedia Commons / CC BY-SA 4.0</li>
-          <li><a href="https://commons.wikimedia.org/wiki/File:Singapore_(SG),_Gardens_by_the_Bay,_Supertree_Grove_--_2019_--_4752.jpg">Gardens by the Bay</a> — Dietmar Rabich / Wikimedia Commons / CC BY-SA 4.0</li>
-          <li><a href="https://commons.wikimedia.org/wiki/File:Taipei_Taiwan_Taipei-101-Tower-01.jpg">Taipei 101</a> — CEphoto, Uwe Aranas / Wikimedia Commons / CC BY-SA 3.0</li>
-          <li><a href="https://commons.wikimedia.org/wiki/File:Sunset_in_Santorini,_Greece.jpg">Santorini sunset</a> — Eric Limer / Wikimedia Commons / CC BY-SA 4.0</li>
-          <li><a href="https://commons.wikimedia.org/wiki/File:Machu_Picchu,_Peru.jpg">Machu Picchu, Peru</a> — Pedro Szekely / Wikimedia Commons / CC BY-SA 2.0</li>
-          <li><a href="https://commons.wikimedia.org/wiki/File:Rialto_Bridge_Grand_Canal.jpg">Rialto Bridge Grand Canal</a> — Saffron Blaze / Wikimedia Commons / CC BY-SA 3.0</li>
-          <li><a href="https://commons.wikimedia.org/wiki/File:New_York_City_Skyline_-_1.jpg">New York City Skyline</a> — Central Park Tours NYC / Wikimedia Commons / CC BY-SA 4.0</li>
-          <li><a href="https://commons.wikimedia.org/wiki/File:Neuschwanstein_castle.jpg">Neuschwanstein castle</a> — Jeff Wilcox / Wikimedia Commons / CC BY 2.0</li>
-          <li><a href="https://commons.wikimedia.org/wiki/File:Seine_by_Eiffel.jpg">Seine by Eiffel</a> — Savani1987 / Wikimedia Commons / CC BY-SA 3.0</li>
-        </ul>
-      </details>
     </div>
   </section>
 
@@ -638,7 +613,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
     <div class="wrap">
       <div class="section-head">
         <h2>常見問題</h2>
-        <p>把下載頁該回答的問題先放在這裡，減少客服來回。</p>
+        <p>下載、試用和升級前，先看最常遇到的幾個問題。</p>
       </div>
       <div class="faq">
         <details open>
@@ -651,7 +626,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
         </details>
         <details>
           <summary>PC / Mac 版去哪裡下載？</summary>
-          <p>目前官網改成 Android 版為主。PC 與 Mac 會保留在 roadmap，正式開放時再更新下載區。</p>
+          <p>小翅膀先從 Android 版開始。PC 與 Mac 版會在穩定後推出。</p>
         </details>
       </div>
     </div>
@@ -662,13 +637,14 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
   <div class="wrap footer-grid">
     <div>
       <strong>小翅膀 Pik Flyer Android</strong><br>
-      <span>Android first. Built for postcard routes, city walks, and landmark discovery.</span>
+      <span>會飛也會走，城市探索更自由。</span>
       <p class="note">Support: <a href="mailto:support@pikflyer.app">support@pikflyer.app</a></p>
     </div>
     <div>
       <a href="privacy.html">Privacy</a>
       <a href="terms.html">Terms</a>
       <a href="refund.html">Refund</a>
+      <a href="credits.html">Credits</a>
     </div>
   </div>
 </footer>
