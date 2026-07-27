@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>小翅膀 Pik Flyer Android — 免費試用下載</title>
-<meta name="description" content="小翅膀 Pik Flyer Android 免費試用版。會飛也會走。用明信片骰子、城市散步、地標分類與懸浮視窗，整理城市地標、規劃散步路線、預覽不同地區的地圖體驗。">
-<meta property="og:title" content="小翅膀 Pik Flyer Android — 免費試用下載">
-<meta property="og:description" content="免費試用 5 天：每日 20 次 teleport、50 次 dice、3 次 city walk。明信片骰子、城市散步、懸浮視窗一次搞定。">
+<title>Pik Flyer - 小翅膀 Android — 免費試用下載</title>
+<meta name="description" content="Pik Flyer - 小翅膀 Android 免費試用版。會飛也會走。用明信片骰子、城市散步、地標分類與懸浮視窗，整理城市地標、規劃散步路線、預覽不同地區的地圖體驗。">
+<meta property="og:title" content="Pik Flyer - 小翅膀 Android — 免費試用下載">
+<meta property="og:description" content="Pik Flyer Android free trial: 20 teleport, 50 dice, and 3 city walk uses per day. For postcards, landmark routes, and city exploration.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#07120f">
 <link rel="icon" href="assets/brand/xiaochibang-logo-180.png" type="image/png">
@@ -190,6 +190,7 @@ main > section:not(.hero) .note{color:#50665b}
 .section-head h2{margin:0;font-size:clamp(2rem,4vw,3.3rem);line-height:1}
 .section-head p{max-width:520px;margin:0;color:#50665b}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.global-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
 .card{
   background:#ffffff;
   border:1px solid rgba(7,18,15,.1);
@@ -200,6 +201,12 @@ main > section:not(.hero) .note{color:#50665b}
 .card .icon{font-size:2rem;margin-bottom:.7rem}
 .card h3{margin:.2rem 0 .45rem;font-size:1.24rem}
 .card p{margin:0;color:#50665b}
+.global-card{
+  background:#fff;border:1px solid rgba(7,18,15,.1);border-radius:24px;
+  padding:1.2rem;box-shadow:0 14px 34px rgba(7,18,15,.07);
+}
+.global-card b{display:block;color:#0c1713;margin-bottom:.4rem}
+.global-card p{margin:0;color:#50665b;font-size:.95rem}
 .usecase-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:1rem;align-items:stretch}
 .usecase-panel{
   background:linear-gradient(135deg,#07120f,#112820 58%,#17392d);
@@ -312,7 +319,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
   .scene-caption{left:1rem;bottom:9.7rem}
   .scene-control-card{left:12px;right:12px;bottom:14px;width:auto}
   .scene-thumb-strip{display:none}
-  .trial-strip,.cards,.platforms,.steps,.faq{grid-template-columns:1fr}
+  .trial-strip,.cards,.global-grid,.platforms,.steps,.faq{grid-template-columns:1fr}
   .section-head{display:block}
   .section-head p{margin-top:.7rem}
   .btn-row .btn{width:100%}
@@ -334,9 +341,10 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
   <div class="wrap nav">
     <a class="brand" href="#top" aria-label="Pik Flyer home">
       <span class="brand-mark" aria-hidden="true"></span>
-      <span>小翅膀 <small>Pik Flyer Android</small></span>
+      <span>Pik Flyer <small>小翅膀 Android</small></span>
     </a>
     <nav class="nav-links" aria-label="主選單">
+      <a href="#global">Languages</a>
       <a href="#usecases">適用場景</a>
       <a href="#features">特色</a>
       <a href="#landmarks">地標</a>
@@ -351,15 +359,15 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
   <section class="hero" aria-labelledby="hero-title">
     <div class="wrap hero-grid">
       <div>
-        <span class="pill">小翅膀 · Android 免費試用版</span>
+        <span class="pill">Pik Flyer - 小翅膀 · Android 免費試用版</span>
         <h1 id="hero-title">把整個世界，<span>骰</span>進手機裡。</h1>
         <div class="nickname-lockup">
           <span class="mini-globe" aria-hidden="true">◎</span>
-          <span>記住它就叫「小翅膀」<small>會飛也會走。會骰地點、會散步、會開浮窗的定位探索工具</small></span>
+          <span>台灣叫「小翅膀」，海外叫 Pik Flyer<small>會飛也會走。會骰地點、會散步、會開浮窗的定位探索工具</small></span>
         </div>
         <p class="hero-copy">小翅膀把城市地標、明信片骰子、自動散步與懸浮視窗整理成手機上的快速控制台。想找漂亮地點、安排路線、預覽不同城市畫面，都可以在同一個 app 裡完成。</p>
         <div class="btn-row">
-          <a class="btn btn-primary" href="#download">免費下載小翅膀</a>
+          <a class="btn btn-primary" href="#download">免費下載 Pik Flyer</a>
           <a class="btn btn-secondary" href="#pricing">看 US$4.99 方案</a>
         </div>
         <div class="trial-strip" aria-label="免費試用每日限制">
@@ -435,11 +443,38 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
     </div>
   </section>
 
+  <section id="global">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Pik Flyer，台灣也叫小翅膀。</h2>
+        <p>同一個 app，用不同語言快速理解：骰地標、找明信片、安排城市散步，讓探索城市更輕鬆。</p>
+      </div>
+      <div class="global-grid" aria-label="Pik Flyer multilingual introduction">
+        <article class="global-card" lang="zh-Hant">
+          <b>繁體中文</b>
+          <p>Pik Flyer-小翅膀，把明信片骰子、城市散步、收藏地點與懸浮視窗放進同一個 Android 工具。</p>
+        </article>
+        <article class="global-card" lang="en">
+          <b>English</b>
+          <p>Pik Flyer helps you roll landmark spots, plan city walks, and explore postcard-worthy places on Android.</p>
+        </article>
+        <article class="global-card" lang="ja">
+          <b>日本語</b>
+          <p>Pik Flyer は、ランドマーク抽選、街歩きルート、ポストカード向きスポット探しをまとめた Android ツールです。</p>
+        </article>
+        <article class="global-card" lang="ko">
+          <b>한국어</b>
+          <p>Pik Flyer는 랜드마크 랜덤 선택, 도시 산책, 엽서처럼 예쁜 장소 탐색을 돕는 Android 도구입니다.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section id="download">
     <div class="wrap download-panel">
       <div class="download-main">
         <span class="pill">Android 版下載</span>
-        <h2>先免費試用小翅膀，真的常用再訂閱。</h2>
+        <h2>先免費試用 Pik Flyer-小翅膀，真的常用再訂閱。</h2>
         <p class="note">從這裡取得最新 Android 版，安裝後即可開始 5 天免費試用。</p>
         <div class="platforms">
           <div class="platform">
@@ -460,9 +495,9 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
           </ul>
         </div>
         <div>
-          <a class="btn btn-primary" href="downloads/xiaochibang-android-v1.0.1.apk" download>下載小翅膀 Android</a>
+          <a class="btn btn-primary" href="downloads/pikflyer-xiaochibang-android-v1.0.2.apk" download>下載 Pik Flyer Android</a>
           <p class="release-meta">
-            Version 1.0.1 · Android 版 16.9 MB
+            Version 1.0.2 · Android 版 16.9 MB
           </p>
           <p class="note" style="color:#cce6bf;margin-bottom:0">免費試用 5 天；需要更多額度時可升級 US$4.99/month。</p>
         </div>
@@ -497,7 +532,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
   <section id="features">
     <div class="wrap">
       <div class="section-head">
-        <h2>小翅膀打開，就是你的定位控制台。</h2>
+        <h2>Pik Flyer 打開，就是你的定位控制台。</h2>
         <p>不是塞滿按鈕的工程工具，而是常常整理地標、跑城市路線、找漂亮地點的人真的會每天打開的快速探索面板。</p>
       </div>
       <div class="cards">
@@ -576,7 +611,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
       <div class="steps">
         <article class="step">
           <h3>下載 Android 版</h3>
-          <p>在 Android 手機上點「下載小翅膀」。下載完成後開啟檔案。</p>
+          <p>在 Android 手機上點「下載 Pik Flyer Android」。下載完成後開啟檔案。</p>
         </article>
         <article class="step">
           <h3>依系統提示允許安裝</h3>
@@ -626,7 +661,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
         </details>
         <details>
           <summary>PC / Mac 版去哪裡下載？</summary>
-          <p>小翅膀先從 Android 版開始。PC 與 Mac 版會在穩定後推出。</p>
+          <p>Pik Flyer 先從 Android 版開始。PC 與 Mac 版會在穩定後推出。</p>
         </details>
       </div>
     </div>
@@ -636,7 +671,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
 <footer>
   <div class="wrap footer-grid">
     <div>
-      <strong>小翅膀 Pik Flyer Android</strong><br>
+      <strong>Pik Flyer - 小翅膀 Android</strong><br>
       <span>會飛也會走，城市探索更自由。</span>
       <p class="note">Support: <a href="mailto:support@pikflyer.app">support@pikflyer.app</a></p>
     </div>

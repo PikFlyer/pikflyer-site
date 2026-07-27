@@ -55,12 +55,12 @@ test("brand assets and Android release download are present", () => {
   const requiredFiles = [
     "../assets/brand/xiaochibang-logo.png",
     "../assets/brand/xiaochibang-logo-180.png",
-    "../downloads/xiaochibang-android-v1.0.1.apk",
-    "../downloads/xiaochibang-android-v1.0.1.aab",
-    "../downloads/xiaochibang-android-v1.0.1.sha256",
+    "../downloads/pikflyer-xiaochibang-android-v1.0.2.apk",
+    "../downloads/pikflyer-xiaochibang-android-v1.0.2.aab",
+    "../downloads/pikflyer-xiaochibang-android-v1.0.2.sha256",
     "../credits.html",
     "../public/credits.html",
-    "../public/downloads/xiaochibang-android-v1.0.1.apk",
+    "../public/downloads/pikflyer-xiaochibang-android-v1.0.2.apk",
   ];
 
   for (const relativePath of requiredFiles) {
@@ -71,6 +71,14 @@ test("brand assets and Android release download are present", () => {
 });
 
 test("page points users at the current Android release", () => {
-  assert.match(rootIndex, /downloads\/xiaochibang-android-v1\.0\.1\.apk/);
-  assert.match(rootIndex, /Version 1\.0\.1/);
+  assert.match(rootIndex, /downloads\/pikflyer-xiaochibang-android-v1\.0\.2\.apk/);
+  assert.match(rootIndex, /Version 1\.0\.2/);
+});
+
+
+test("page explains Pik Flyer for international visitors", () => {
+  assert.match(rootIndex, /Pik Flyer - 小翅膀/);
+  assert.match(rootIndex, /Pik Flyer helps you roll landmark spots/);
+  assert.match(rootIndex, /ランドマーク抽選/);
+  assert.match(rootIndex, /랜드마크 랜덤 선택/);
 });
