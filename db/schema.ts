@@ -1,4 +1,4 @@
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { integer, primaryKey, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const inviteCodes = sqliteTable("invite_codes", {
   id: text("id").primaryKey(),
@@ -14,3 +14,23 @@ export const inviteCodes = sqliteTable("invite_codes", {
   createdAt: text("created_at").notNull(),
   lastValidatedAt: text("last_validated_at"),
 });
+
+export const trialDevices = sqliteTable("trial_devices", {
+  deviceHash: text("device_hash").primaryKey(),
+  trialStartedAt: text("trial_started_at").notNull(),
+  trialExpiresAt: text("trial_expires_at").notNull(),
+  createdAt: text("created_at").notNull(),
+  lastSeenAt: text("last_seen_at").notNull(),
+});
+
+export const trialUsage = sqliteTable(
+  "trial_usage",
+  {
+    deviceHash: text("device_hash").notNull(),
+    usageDate: text("usage_date").notNull(),
+    feature: text("feature").notNull(),
+    used: integer("used").notNull().default(0),
+    updatedAt: text("updated_at").notNull(),
+  },
+  (table) => [primaryKey({ columns: [table.deviceHash, table.usageDate, table.feature] })],
+);

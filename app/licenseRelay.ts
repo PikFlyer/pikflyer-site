@@ -26,10 +26,28 @@ type InviteCodeRow = {
   last_validated_at: string | null;
 };
 
+type TrialDeviceRow = {
+  device_hash: string;
+  trial_started_at: string;
+  trial_expires_at: string;
+  created_at: string;
+  last_seen_at: string;
+};
+
+type TrialUsageRow = {
+  used: number;
+};
+
 const INVITE_CODE_PREFIX = "PF";
 const INVITE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+const TRIAL_DAYS = 5;
+const TRIAL_DAILY_LIMITS: Record<string, number> = {
+  teleport: 20,
+  dice: 50,
+  citywalk: 3,
+};
 
-let inviteSchemaReady: Promise<void> | null = null;
+let licenseSchemaReady: Promise<void> | null = null;
 
 function jsonResponse(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), { status, headers: JSON_HEADERS });
@@ -83,8 +101,8 @@ async function getD1(): Promise<D1Database | null> {
   return relayEnv.DB || null;
 }
 
-async function ensureInviteSchema(db: D1Database): Promise<void> {
-  inviteSchemaReady ||= db
+async function ensureLicenseSchema(db: D1Database): Promise<void> {
+  licenseSchemaReady ||= db
     .batch([
       db.prepare(`CREATE TABLE IF NOT EXISTS invite_codes (
         id TEXT PRIMARY KEY,
@@ -103,9 +121,26 @@ async function ensureInviteSchema(db: D1Database): Promise<void> {
       db.prepare("CREATE INDEX IF NOT EXISTS invite_codes_code_hash_idx ON invite_codes (code_hash)"),
       db.prepare("CREATE INDEX IF NOT EXISTS invite_codes_instance_id_idx ON invite_codes (instance_id)"),
       db.prepare("CREATE INDEX IF NOT EXISTS invite_codes_expires_at_idx ON invite_codes (expires_at)"),
+      db.prepare(`CREATE TABLE IF NOT EXISTS trial_devices (
+        device_hash TEXT PRIMARY KEY,
+        trial_started_at TEXT NOT NULL,
+        trial_expires_at TEXT NOT NULL,
+        created_at TEXT NOT NULL,
+        last_seen_at TEXT NOT NULL
+      )`),
+      db.prepare(`CREATE TABLE IF NOT EXISTS trial_usage (
+        device_hash TEXT NOT NULL,
+        usage_date TEXT NOT NULL,
+        feature TEXT NOT NULL,
+        used INTEGER NOT NULL DEFAULT 0,
+        updated_at TEXT NOT NULL,
+        PRIMARY KEY (device_hash, usage_date, feature)
+      )`),
+      db.prepare("CREATE INDEX IF NOT EXISTS trial_devices_expires_at_idx ON trial_devices (trial_expires_at)"),
+      db.prepare("CREATE INDEX IF NOT EXISTS trial_usage_device_date_idx ON trial_usage (device_hash, usage_date)"),
     ])
     .then(() => undefined);
-  return inviteSchemaReady;
+  return licenseSchemaReady;
 }
 
 function normalizeInviteCode(value: string): string {
@@ -146,6 +181,23 @@ function isExpired(expiresAt: string | null, now = new Date()): boolean {
   return Boolean(expiresAt && Date.parse(expiresAt) <= now.getTime());
 }
 
+function utcDateKey(now = new Date()): string {
+  return now.toISOString().slice(0, 10);
+}
+
+function trialPayload(row: TrialDeviceRow, now = new Date()): Record<string, unknown> {
+  const expiresMs = Date.parse(row.trial_expires_at);
+  const remainingMs = Math.max(0, expiresMs - now.getTime());
+  const dayMs = 24 * 60 * 60 * 1000;
+  return {
+    is_trial: true,
+    start_at: row.trial_started_at,
+    expire_at: row.trial_expires_at,
+    remaining_days: remainingMs === 0 ? 0 : Math.ceil(remainingMs / dayMs),
+    is_expired: expiresMs <= now.getTime(),
+  };
+}
+
 async function findInviteByCodeHash(db: D1Database, codeHash: string): Promise<InviteCodeRow | null> {
   return db
     .prepare("SELECT * FROM invite_codes WHERE code_hash = ?")
@@ -179,7 +231,7 @@ async function tryInviteActivate(key: string, body: Record<string, unknown>): Pr
     return jsonResponse({ success: false, valid: false, error: "invite database is not configured" }, 500);
   }
 
-  await ensureInviteSchema(db);
+  await ensureLicenseSchema(db);
   const codeHash = await inviteCodeHash(key);
   const deviceHash = await deviceHashFromBody(body);
   const now = new Date();
@@ -225,7 +277,7 @@ async function tryInviteValidate(key: string, body: Record<string, unknown>): Pr
     return jsonResponse({ success: false, valid: false, error: "invite database is not configured" }, 500);
   }
 
-  await ensureInviteSchema(db);
+  await ensureLicenseSchema(db);
   const codeHash = await inviteCodeHash(key);
   const instanceId = requireString(body.instance_id, "instance_id");
   const deviceHash = await deviceHashFromBody(body);
@@ -323,6 +375,9 @@ export async function health(): Promise<Response> {
     creem_configured: Boolean(relayEnv.CREEM_API_KEY),
     invite_db_configured: Boolean(relayEnv.DB),
     invite_admin_configured: Boolean(relayEnv.INVITE_ADMIN_TOKEN),
+    server_trial_configured: Boolean(relayEnv.DB),
+    trial_days: TRIAL_DAYS,
+    trial_daily_limits: TRIAL_DAILY_LIMITS,
   });
 }
 
@@ -375,7 +430,7 @@ export async function createInviteCodes(request: Request): Promise<Response> {
   if (!db) {
     return jsonResponse({ success: false, error: "invite database is not configured" }, 500);
   }
-  await ensureInviteSchema(db);
+  await ensureLicenseSchema(db);
 
   const body = await readJson(request);
   const count = Math.max(1, Math.min(Number(body.count || 1), 50));
@@ -416,7 +471,7 @@ export async function listInviteCodes(request: Request): Promise<Response> {
   if (!db) {
     return jsonResponse({ success: false, error: "invite database is not configured" }, 500);
   }
-  await ensureInviteSchema(db);
+  await ensureLicenseSchema(db);
 
   const result = await db
     .prepare(`SELECT id, label, duration_days, max_devices,
@@ -428,6 +483,133 @@ export async function listInviteCodes(request: Request): Promise<Response> {
     .all();
 
   return jsonResponse({ success: true, codes: result.results || [] });
+}
+
+export async function checkTrial(request: Request): Promise<Response> {
+  const db = await getD1();
+  if (!db) {
+    return jsonResponse({ success: false, allowed: false, error: "trial database is not configured" }, 500);
+  }
+  await ensureLicenseSchema(db);
+
+  const body = await readJson(request);
+  const feature = requireString(body.feature, "feature", 32);
+  const limit = TRIAL_DAILY_LIMITS[feature];
+  if (!limit) {
+    return jsonResponse({ success: false, allowed: false, error: `unknown trial feature: ${feature}` }, 400);
+  }
+
+  const consume = body.consume !== false;
+  const deviceHash = await deviceHashFromBody(body);
+  const now = new Date();
+  const nowIso = now.toISOString();
+  const today = utcDateKey(now);
+  let trial = await db
+    .prepare("SELECT * FROM trial_devices WHERE device_hash = ?")
+    .bind(deviceHash)
+    .first<TrialDeviceRow>();
+
+  if (!trial) {
+    const expiresAt = addDaysIso(now, TRIAL_DAYS);
+    await db
+      .prepare(`INSERT INTO trial_devices
+        (device_hash, trial_started_at, trial_expires_at, created_at, last_seen_at)
+        VALUES (?, ?, ?, ?, ?)`)
+      .bind(deviceHash, nowIso, expiresAt, nowIso, nowIso)
+      .run();
+    trial = {
+      device_hash: deviceHash,
+      trial_started_at: nowIso,
+      trial_expires_at: expiresAt,
+      created_at: nowIso,
+      last_seen_at: nowIso,
+    };
+  } else {
+    await db
+      .prepare("UPDATE trial_devices SET last_seen_at = ? WHERE device_hash = ?")
+      .bind(nowIso, deviceHash)
+      .run();
+  }
+
+  await db
+    .prepare(`INSERT OR IGNORE INTO trial_usage
+      (device_hash, usage_date, feature, used, updated_at)
+      VALUES (?, ?, ?, 0, ?)`)
+    .bind(deviceHash, today, feature, nowIso)
+    .run();
+
+  const usageBefore = await db
+    .prepare("SELECT used FROM trial_usage WHERE device_hash = ? AND usage_date = ? AND feature = ?")
+    .bind(deviceHash, today, feature)
+    .first<TrialUsageRow>();
+  const usedBefore = Math.max(0, Number(usageBefore?.used || 0));
+  const trialInfo = trialPayload(trial, now);
+
+  if (trialInfo.is_expired) {
+    return jsonResponse({
+      success: true,
+      allowed: false,
+      code: "trial_expired",
+      error: "免費試用已到期，請訂閱 $4.99/月解鎖全部功能。",
+      feature,
+      trial: trialInfo,
+      trial_usage: { date: today, limits: { [feature]: limit }, counts: { [feature]: usedBefore }, remaining: { [feature]: 0 } },
+    });
+  }
+
+  if (usedBefore >= limit) {
+    return jsonResponse({
+      success: true,
+      allowed: false,
+      code: "daily_limit_reached",
+      error: `免費試用今日 ${feature} 次數已用完，訂閱 $4.99/月可解鎖無限制使用。`,
+      feature,
+      trial: trialInfo,
+      trial_usage: { date: today, limits: { [feature]: limit }, counts: { [feature]: usedBefore }, remaining: { [feature]: 0 } },
+    });
+  }
+
+  let usedAfter = usedBefore;
+  if (consume) {
+    const updateResult = await db
+      .prepare(`UPDATE trial_usage
+        SET used = used + 1, updated_at = ?
+        WHERE device_hash = ? AND usage_date = ? AND feature = ? AND used < ?`)
+      .bind(nowIso, deviceHash, today, feature, limit)
+      .run();
+    const changed = Number((updateResult.meta as { changes?: number } | undefined)?.changes || 0);
+    const usageAfter = await db
+      .prepare("SELECT used FROM trial_usage WHERE device_hash = ? AND usage_date = ? AND feature = ?")
+      .bind(deviceHash, today, feature)
+      .first<TrialUsageRow>();
+    usedAfter = Math.max(0, Number(usageAfter?.used || 0));
+    if (changed < 1) {
+      return jsonResponse({
+        success: true,
+        allowed: false,
+        code: "daily_limit_reached",
+        error: `免費試用今日 ${feature} 次數已用完，訂閱 $4.99/月可解鎖無限制使用。`,
+        feature,
+        trial: trialInfo,
+        trial_usage: { date: today, limits: { [feature]: limit }, counts: { [feature]: usedAfter }, remaining: { [feature]: 0 } },
+      });
+    }
+  }
+
+  const allowed = usedAfter <= limit;
+  return jsonResponse({
+    success: true,
+    allowed,
+    paid: false,
+    feature,
+    trial: trialInfo,
+    trial_usage: {
+      date: today,
+      limits: { [feature]: limit },
+      counts: { [feature]: usedAfter },
+      remaining: { [feature]: Math.max(0, limit - usedAfter) },
+    },
+  });
 }
 
 export function methodNotAllowed(): Response {
