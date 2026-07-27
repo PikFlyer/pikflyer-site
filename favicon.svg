@@ -1,6 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="小翅膀">
   <rect width="64" height="64" rx="18" fill="#07120f"/>
-  <circle cx="32" cy="32" r="20" fill="#98ff65"/>
-  <path d="M14 32h36M32 12c7 7 10 14 10 20S39 45 32 52M32 12c-7 7-10 14-10 20s3 13 10 20" fill="none" stroke="#07120f" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="42" cy="22" r="5" fill="#45d7ff"/>
+  <path d="M12 30c6-13 19-16 27-7-8 1-13 7-17 16-5-1-8-4-10-9Z" fill="#eefdf4"/>
+  <path d="M53 36c-5 10-16 13-24 6 7-1 12-6 16-13 4 1 7 3 8 7Z" fill="#8efac5"/>
+  <circle cx="34" cy="34" r="9" fill="#45d7ff"/>
+  <circle cx="34" cy="34" r="4" fill="#07120f"/>
+  <path d="M18 48c8 4 21 4 29-1" fill="none" stroke="#98ff65" stroke-width="4" stroke-linecap="round"/>
 </svg>
