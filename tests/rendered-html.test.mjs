@@ -1,0 +1,58 @@
+import assert from "node:assert/strict";
+import { existsSync, readFileSync, statSync } from "node:fs";
+import { test } from "node:test";
+
+const rootIndex = readFileSync(new URL("../index.html", import.meta.url), "utf8");
+const publicIndex = readFileSync(new URL("../public/index.html", import.meta.url), "utf8");
+
+const forbiddenCopy = [
+  "非 Google Play",
+  "官網直售",
+  "Android GPS location simulation",
+  "Android location simulation",
+  "location-aware app",
+  "location-based apps",
+  "第三方",
+  "官方合作",
+  "自行確認",
+  "服務條款",
+  "帳號風險",
+  "sideload",
+  "Unofficial",
+  "Direct APK",
+  "SHA-256",
+  "Tinder",
+  "Pikmin",
+];
+
+test("public HTML is synchronized with the source HTML", () => {
+  assert.equal(publicIndex, rootIndex);
+});
+
+test("sales page does not expose risk-heavy or unwanted launch copy", () => {
+  for (const term of forbiddenCopy) {
+    assert.equal(rootIndex.includes(term), false, `Unexpected public copy: ${term}`);
+  }
+});
+
+test("brand assets and Android release download are present", () => {
+  const requiredFiles = [
+    "../assets/brand/xiaochibang-logo.png",
+    "../assets/brand/xiaochibang-logo-180.png",
+    "../downloads/xiaochibang-android-v1.0.1.apk",
+    "../downloads/xiaochibang-android-v1.0.1.aab",
+    "../downloads/xiaochibang-android-v1.0.1.sha256",
+    "../public/downloads/xiaochibang-android-v1.0.1.apk",
+  ];
+
+  for (const relativePath of requiredFiles) {
+    const url = new URL(relativePath, import.meta.url);
+    assert.equal(existsSync(url), true, `Missing required release asset: ${relativePath}`);
+    assert.ok(statSync(url).size > 0, `Release asset is empty: ${relativePath}`);
+  }
+});
+
+test("page points users at the current Android release", () => {
+  assert.match(rootIndex, /downloads\/xiaochibang-android-v1\.0\.1\.apk/);
+  assert.match(rootIndex, /Version 1\.0\.1/);
+});

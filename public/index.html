@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>小翅膀 Pik Flyer Android — 免費試用下載</title>
-<meta name="description" content="小翅膀 Pik Flyer Android 免費試用版。會飛也會走。用明信片骰子、城市散步、地標分類與懸浮視窗，做 Android location simulation、地圖 QA 與 location-aware app preview。">
+<meta name="description" content="小翅膀 Pik Flyer Android 免費試用版。會飛也會走。用明信片骰子、城市散步、地標分類與懸浮視窗，整理城市地標、規劃散步路線、預覽不同地區的地圖體驗。">
 <meta property="og:title" content="小翅膀 Pik Flyer Android — 免費試用下載">
-<meta property="og:description" content="Android 版為主，免費試用 5 天：每日 20 次 teleport、50 次 dice、3 次 city walk。支援多種 location-based apps 使用情境。">
+<meta property="og:description" content="免費試用 5 天：每日 20 次 teleport、50 次 dice、3 次 city walk。明信片骰子、城市散步、懸浮視窗一次搞定。">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#07120f">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/brand/xiaochibang-logo-180.png" type="image/png">
 <style>
 :root{
   --bg:#07120f;
@@ -80,25 +80,9 @@ header{
 .brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;font-weight:900}
 .brand-mark{
   width:42px;height:42px;border-radius:14px;
-  background:
-    radial-gradient(circle at 54% 52%,#07120f 0 6px,transparent 7px),
-    linear-gradient(135deg,var(--lime),var(--mint) 54%,var(--cyan));
+  background:url("assets/brand/xiaochibang-logo-180.png") center/cover;
   box-shadow:inset 0 -10px 18px rgba(0,0,0,.34),0 0 24px rgba(67,240,168,.34);
   position:relative;
-}
-.brand-mark:before{
-  content:"";position:absolute;left:5px;top:9px;width:24px;height:18px;
-  background:rgba(255,255,255,.86);
-  border-radius:18px 6px 18px 6px;
-  transform:rotate(-28deg);
-  box-shadow:0 1px 0 rgba(7,18,15,.18);
-}
-.brand-mark:after{
-  content:"";position:absolute;right:5px;bottom:7px;width:21px;height:17px;
-  background:rgba(255,255,255,.72);
-  border-radius:6px 18px 6px 18px;
-  transform:rotate(-28deg);
-  box-shadow:inset 0 -4px 8px rgba(7,18,15,.16);
 }
 .brand span:last-child{color:#f5fff4}
 .brand small{display:block;color:#8efac5;font-weight:800;line-height:1}
@@ -373,7 +357,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
           <span class="mini-globe" aria-hidden="true">◎</span>
           <span>記住它就叫「小翅膀」<small>會飛也會走。會骰地點、會散步、會開浮窗的定位探索工具</small></span>
         </div>
-        <p class="hero-copy">小翅膀 Pik Flyer Android 是 Android location simulation 工具，適合地圖 QA、城市資料檢查、location-aware app preview 與地標資料整理：明信片骰子資料庫、城市散步、地標分類、快速傳送與懸浮視窗，都集中在手機上操作。</p>
+        <p class="hero-copy">小翅膀把城市地標、明信片骰子、自動散步與懸浮視窗整理成手機上的快速控制台。想找漂亮地點、安排路線、預覽不同城市畫面，都可以在同一個 app 裡完成。</p>
         <div class="btn-row">
           <a class="btn btn-primary" href="#download">免費下載小翅膀</a>
           <a class="btn btn-secondary" href="#pricing">看 US$4.99 方案</a>
@@ -454,13 +438,13 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
   <section id="download">
     <div class="wrap download-panel">
       <div class="download-main">
-        <span class="pill">Direct APK download</span>
+        <span class="pill">Android 版下載</span>
         <h2>先免費試用小翅膀，真的常用再訂閱。</h2>
-        <p class="note">這是非 Google Play 的官網直售流程。請只從本頁下載 APK，安裝前可用 SHA-256 checksum 核對檔案。</p>
+        <p class="note">從這裡取得最新 Android 版，安裝後即可開始 5 天免費試用。</p>
         <div class="platforms">
           <div class="platform">
             <strong>Android</strong>
-            <span class="note">主要版本，支援 APK 安裝、試用限制與訂閱解鎖。</span>
+            <span class="note">主要版本，支援免費試用、每日額度與訂閱解鎖。</span>
           </div>
           <div class="platform">
             <strong>Windows PC</strong>
@@ -484,12 +468,11 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
           </ul>
         </div>
         <div>
-          <a class="btn btn-primary" href="downloads/xiaochibang-android-v1.0.0.apk" download>下載小翅膀 APK</a>
+          <a class="btn btn-primary" href="downloads/xiaochibang-android-v1.0.1.apk" download>下載小翅膀 Android</a>
           <p class="release-meta">
-            Version 1.0.0 · APK 16.9 MB<br>
-            SHA-256: 933c643e5573d761f772df9980e56f5b7dd9fd2f5bd52bb587710c3d3bd98691
+            Version 1.0.1 · Android 版 16.9 MB
           </p>
-          <p class="note" style="color:#cce6bf;margin-bottom:0">目前先開放免費試用 APK。US$4.99/month 訂閱通道準備中，上線後會在此頁開放。</p>
+          <p class="note" style="color:#cce6bf;margin-bottom:0">目前先開放免費試用版。US$4.99/month 訂閱通道準備中，上線後會在此頁開放。</p>
         </div>
       </aside>
     </div>
@@ -499,8 +482,8 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
     <div class="wrap usecase-grid">
       <div class="usecase-panel">
         <span class="pill">🧭 More than one workflow</span>
-        <h2>不只單一場景，任何需要定位預覽的 app 都能派上用場。</h2>
-        <p>核心是 Android GPS location simulation：你可以用它測試不同城市的地圖體驗、附近搜尋、區域限制、城市化資料與 onboarding 流程。Pik Flyer 不與任何第三方 app 官方合作，使用前請自行確認各平台條款。</p>
+        <h2>不只找地點，也能把城市探索變成每天會用的小工具。</h2>
+        <p>小翅膀把地標清單、城市散步、明信片地點和區域資料整理在一起，讓你快速切換城市、保存常用地點、安排下一段路線。</p>
       </div>
       <div class="usecase-list">
         <div class="usecase">
@@ -508,8 +491,8 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
           <span>適合明信片地點整理、地標探索、AR 地圖資料與其他以地點探索為核心的產品測試。</span>
         </div>
         <div class="usecase">
-          <strong>Location-aware app 測試</strong>
-          <span>適合使用測試帳號預覽不同城市的定位呈現、搜尋結果與區域內容；請遵守各服務條款。</span>
+          <strong>城市體驗預覽</strong>
+          <span>適合預覽不同城市的附近內容、地圖畫面與區域資料，做旅行、活動或產品展示前的快速檢查。</span>
         </div>
         <div class="usecase">
           <strong>開發者與 QA</strong>
@@ -523,7 +506,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
     <div class="wrap">
       <div class="section-head">
         <h2>小翅膀打開，就是你的定位控制台。</h2>
-        <p>不是塞滿按鈕的工程工具，而是玩家、地圖 app 測試者和定位 app 使用者真的會每天打開的快速探索面板。</p>
+        <p>不是塞滿按鈕的工程工具，而是常常整理地標、跑城市路線、找漂亮地點的人真的會每天打開的快速探索面板。</p>
       </div>
       <div class="cards">
         <article class="card">
@@ -613,20 +596,20 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
     <div class="wrap">
       <div class="section-head">
         <h2>Android 安裝教學</h2>
-        <p>第一次安裝 APK 會看到 Android 安全提示，這是 sideload 的正常流程。照順序做即可。</p>
+        <p>照順序完成下載、安裝與首次設定。</p>
       </div>
       <div class="steps">
         <article class="step">
-          <h3>下載 APK</h3>
-          <p>在 Android 手機上點「下載免費版 APK」。下載完成後，檔案通常會在 Downloads / 下載資料夾。</p>
+          <h3>下載 Android 版</h3>
+          <p>在 Android 手機上點「下載小翅膀」。下載完成後開啟檔案。</p>
         </article>
         <article class="step">
-          <h3>允許此來源安裝</h3>
-          <p>如果系統提示「基於安全性，手機不得安裝未知來源應用程式」，點設定，允許 Chrome 或你的檔案管理器安裝 APK。</p>
+          <h3>依系統提示允許安裝</h3>
+          <p>Android 會請你確認安裝來源，依畫面提示開啟授權後返回安裝。</p>
         </article>
         <article class="step">
           <h3>完成安裝並開啟</h3>
-          <p>回到 APK，點安裝。第一次啟動時允許必要權限，進入 app 後可以先使用免費試用。</p>
+          <p>第一次啟動時依提示授予必要權限，進入 app 後即可開始免費試用。</p>
         </article>
         <article class="step">
           <h3>啟用懸浮視窗</h3>
@@ -642,10 +625,10 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
         </article>
       </div>
       <div class="safety" style="margin-top:1rem">
-        <div style="font-size:2rem">⚠️</div>
+        <div style="font-size:2rem">✨</div>
         <div>
-          <strong>使用提醒</strong>
-          <p class="note" style="margin:.35rem 0 0">Pik Flyer 是第三方工具，與任何遊戲、社交 app、平台或其權利人無官方關係。請自行確認所在地法規、各平台服務條款與帳號風險，避免高頻率或異常行為。</p>
+          <strong>使用節奏</strong>
+          <p class="note" style="margin:.35rem 0 0">建議先用免費額度熟悉分類、路線與收藏，再依自己的需求升級訂閱。</p>
         </div>
       </div>
     </div>
@@ -659,16 +642,12 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
       </div>
       <div class="faq">
         <details open>
-          <summary>為什麼不是 Google Play？</summary>
-          <p>Google Play 對數位訂閱、遊戲輔助與裝置行為有更高審核風險。現階段主線走官網 APK 直售，之後可另做低風險 companion 版評估 Play 上架。</p>
-        </details>
-        <details>
           <summary>免費版真的可以用嗎？</summary>
           <p>可以。免費試用 5 天，每日提供 20 次 teleport、50 次 dice、3 次 city walk。進階功能與無限制使用需要訂閱。</p>
         </details>
         <details>
-          <summary>安裝時跳出安全警告怎麼辦？</summary>
-          <p>Android 對 APK sideload 會顯示未知來源提示。請確認你是從本官網下載，再依安裝教學開啟該瀏覽器或檔案管理器的安裝權限。</p>
+          <summary>安裝時需要授權怎麼辦？</summary>
+          <p>依 Android 畫面提示開啟安裝授權，再回到下載檔完成安裝即可。</p>
         </details>
         <details>
           <summary>PC / Mac 版去哪裡下載？</summary>
@@ -683,9 +662,8 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
   <div class="wrap footer-grid">
     <div>
       <strong>小翅膀 Pik Flyer Android</strong><br>
-      <span>Unofficial exploration companion. Android first.</span>
+      <span>Android first. Built for postcard routes, city walks, and landmark discovery.</span>
       <p class="note">Support: <a href="mailto:support@pikflyer.app">support@pikflyer.app</a></p>
-      <p class="note">All third-party product names, trademarks, and app names are property of their respective owners. References are descriptive only and do not imply affiliation, sponsorship, or endorsement.</p>
     </div>
     <div>
       <a href="privacy.html">Privacy</a>
