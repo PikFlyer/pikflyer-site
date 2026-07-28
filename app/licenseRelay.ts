@@ -1,4 +1,4 @@
-const JSON_HEADERS = {
+export const JSON_HEADERS = {
   "content-type": "application/json; charset=utf-8",
   "cache-control": "no-store",
 };
@@ -43,8 +43,15 @@ type RateLimitRow = {
   reset_at: number;
 };
 
+type LicenseCacheRow = {
+  valid_until: string;
+};
+
 const INVITE_CODE_PREFIX = "PF";
 const INVITE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+const OWNER_DEVICE_HASHES = new Set([
+  "ea56499f3e5c78465c3bccebb78a342cf37c8e73ea60760efd75b1714f95d619",
+]);
 const TRIAL_DAYS = 5;
 const TRIAL_DAILY_LIMITS: Record<string, number> = {
   teleport: 20,
@@ -54,11 +61,11 @@ const TRIAL_DAILY_LIMITS: Record<string, number> = {
 
 let licenseSchemaReady: Promise<void> | null = null;
 
-function jsonResponse(body: unknown, status = 200): Response {
+export function jsonResponse(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), { status, headers: JSON_HEADERS });
 }
 
-async function readJson(request: Request): Promise<Record<string, unknown>> {
+export async function readJson(request: Request): Promise<Record<string, unknown>> {
   const contentType = request.headers.get("content-type") || "";
   if (!contentType.includes("application/json")) {
     throw new Error("content-type must be application/json");
@@ -153,6 +160,14 @@ async function ensureLicenseSchema(db: D1Database): Promise<void> {
         PRIMARY KEY (key_hash, scope, bucket)
       )`),
       db.prepare("CREATE INDEX IF NOT EXISTS rate_limits_reset_idx ON rate_limits (reset_at)"),
+      db.prepare(`CREATE TABLE IF NOT EXISTS license_validation_cache (
+        credential_hash TEXT NOT NULL,
+        instance_id TEXT NOT NULL,
+        valid_until TEXT NOT NULL,
+        updated_at TEXT NOT NULL,
+        PRIMARY KEY (credential_hash, instance_id)
+      )`),
+      db.prepare("CREATE INDEX IF NOT EXISTS license_validation_cache_valid_until_idx ON license_validation_cache (valid_until)"),
     ])
     .then(() => undefined);
   return licenseSchemaReady;
@@ -439,6 +454,212 @@ async function creemPost(path: string, payload: Record<string, string>): Promise
   }
 
   return jsonResponse(body);
+}
+
+async function isPaidOrOwner(body: Record<string, unknown>): Promise<boolean> {
+  const suppliedOwnerHash = typeof body.owner_device_hash === "string" ? body.owner_device_hash.trim() : "";
+  if (suppliedOwnerHash && OWNER_DEVICE_HASHES.has(suppliedOwnerHash)) return true;
+
+  const keyValue = body.key || body.license_key;
+  const instanceValue = body.instance_id;
+  if (typeof keyValue !== "string" || keyValue.trim() === "") return false;
+  if (typeof instanceValue !== "string" || instanceValue.trim() === "") return false;
+
+  const key = keyValue.trim();
+  const instanceId = instanceValue.trim();
+  if (looksLikeInviteCode(key)) {
+    const response = await tryInviteValidate(key, body);
+    if (!response || response.status >= 400) return false;
+    const result = await response.json().catch(() => null) as { valid?: boolean } | null;
+    return Boolean(result?.valid);
+  }
+
+  const db = await getD1();
+  const credentialHash = await sha256Hex(`pikflyer-license-v1:${key}`);
+  const now = new Date();
+  if (db) {
+    await ensureLicenseSchema(db);
+    const cached = await db
+      .prepare("SELECT valid_until FROM license_validation_cache WHERE credential_hash = ? AND instance_id = ?")
+      .bind(credentialHash, instanceId)
+      .first<LicenseCacheRow>();
+    if (cached?.valid_until && Date.parse(cached.valid_until) > now.getTime()) return true;
+  }
+
+  const response = await creemPost("/licenses/validate", { key, instance_id: instanceId });
+  if (response.status >= 400) return false;
+  const result = await response.json().catch(() => null) as { valid?: boolean; status?: string } | null;
+  const status = String(result?.status || "").toLowerCase();
+  const valid = Boolean(result?.valid) || status === "active";
+  if (valid && db) {
+    const validUntil = addDaysIso(now, 1);
+    await db
+      .prepare(`INSERT OR REPLACE INTO license_validation_cache
+        (credential_hash, instance_id, valid_until, updated_at)
+        VALUES (?, ?, ?, ?)`)
+      .bind(credentialHash, instanceId, validUntil, now.toISOString())
+      .run();
+  }
+  return valid;
+}
+
+async function consumeTrialQuota(
+  body: Record<string, unknown>,
+  feature: string,
+  requestedCount: number,
+  allowPartial: boolean,
+): Promise<Response | null> {
+  const db = await getD1();
+  if (!db) {
+    return jsonResponse({ success: false, allowed: false, error: "trial database is not configured" }, 500);
+  }
+  await ensureLicenseSchema(db);
+
+  const limit = TRIAL_DAILY_LIMITS[feature];
+  if (!limit) {
+    return jsonResponse({ success: false, allowed: false, error: `unknown trial feature: ${feature}` }, 400);
+  }
+
+  const count = Math.max(1, Math.min(Math.floor(requestedCount || 1), 10));
+  const deviceHash = await deviceHashFromBody(body);
+  const now = new Date();
+  const nowIso = now.toISOString();
+  const today = utcDateKey(now);
+  let trial = await db
+    .prepare("SELECT * FROM trial_devices WHERE device_hash = ?")
+    .bind(deviceHash)
+    .first<TrialDeviceRow>();
+
+  if (!trial) {
+    const expiresAt = addDaysIso(now, TRIAL_DAYS);
+    await db
+      .prepare(`INSERT INTO trial_devices
+        (device_hash, trial_started_at, trial_expires_at, created_at, last_seen_at)
+        VALUES (?, ?, ?, ?, ?)`)
+      .bind(deviceHash, nowIso, expiresAt, nowIso, nowIso)
+      .run();
+    trial = {
+      device_hash: deviceHash,
+      trial_started_at: nowIso,
+      trial_expires_at: expiresAt,
+      created_at: nowIso,
+      last_seen_at: nowIso,
+    };
+  } else {
+    await db
+      .prepare("UPDATE trial_devices SET last_seen_at = ? WHERE device_hash = ?")
+      .bind(nowIso, deviceHash)
+      .run();
+  }
+
+  await db
+    .prepare(`INSERT OR IGNORE INTO trial_usage
+      (device_hash, usage_date, feature, used, updated_at)
+      VALUES (?, ?, ?, 0, ?)`)
+    .bind(deviceHash, today, feature, nowIso)
+    .run();
+
+  const usageBefore = await db
+    .prepare("SELECT used FROM trial_usage WHERE device_hash = ? AND usage_date = ? AND feature = ?")
+    .bind(deviceHash, today, feature)
+    .first<TrialUsageRow>();
+  const usedBefore = Math.max(0, Number(usageBefore?.used || 0));
+  const trialInfo = trialPayload(trial, now);
+  const remainingBefore = Math.max(0, limit - usedBefore);
+
+  if (trialInfo.is_expired) {
+    return jsonResponse({
+      success: true,
+      allowed: false,
+      code: "trial_expired",
+      error: "免費試用已到期，請訂閱 $4.99/月解鎖全部功能。",
+      feature,
+      granted: 0,
+      trial: trialInfo,
+      trial_usage: { date: today, limits: { [feature]: limit }, counts: { [feature]: usedBefore }, remaining: { [feature]: 0 } },
+    });
+  }
+
+  const grant = allowPartial ? Math.min(count, remainingBefore) : (remainingBefore >= count ? count : 0);
+  if (grant < 1) {
+    return jsonResponse({
+      success: true,
+      allowed: false,
+      code: "daily_limit_reached",
+      error: `免費試用今日 ${feature} 次數已用完，訂閱 $4.99/月可解鎖無限制使用。`,
+      feature,
+      granted: 0,
+      trial: trialInfo,
+      trial_usage: { date: today, limits: { [feature]: limit }, counts: { [feature]: usedBefore }, remaining: { [feature]: remainingBefore } },
+    });
+  }
+
+  const updateResult = await db
+    .prepare(`UPDATE trial_usage
+      SET used = used + ?, updated_at = ?
+      WHERE device_hash = ? AND usage_date = ? AND feature = ? AND used + ? <= ?`)
+    .bind(grant, nowIso, deviceHash, today, feature, grant, limit)
+    .run();
+  const changed = Number((updateResult.meta as { changes?: number } | undefined)?.changes || 0);
+  if (changed < 1) {
+    return jsonResponse({
+      success: true,
+      allowed: false,
+      code: "daily_limit_reached",
+      error: `免費試用今日 ${feature} 次數已用完，訂閱 $4.99/月可解鎖無限制使用。`,
+      feature,
+      granted: 0,
+      trial: trialInfo,
+      trial_usage: { date: today, limits: { [feature]: limit }, counts: { [feature]: usedBefore }, remaining: { [feature]: remainingBefore } },
+    });
+  }
+
+  const usedAfter = usedBefore + grant;
+  return jsonResponse({
+    success: true,
+    allowed: true,
+    paid: false,
+    feature,
+    granted: grant,
+    trial: trialInfo,
+    trial_usage: {
+      date: today,
+      limits: { [feature]: limit },
+      counts: { [feature]: usedAfter },
+      remaining: { [feature]: Math.max(0, limit - usedAfter) },
+    },
+  });
+}
+
+export async function authorizeFeatureUse(
+  request: Request,
+  body: Record<string, unknown>,
+  feature: string,
+  requestedCount: number,
+  allowPartial = false,
+): Promise<Response> {
+  const limited = await enforceRateLimit(request, `feature_${feature}`, 240, 15 * 60);
+  if (limited) return limited;
+
+  const count = Math.max(1, Math.min(Math.floor(requestedCount || 1), 10));
+  if (await isPaidOrOwner(body)) {
+    return jsonResponse({
+      success: true,
+      allowed: true,
+      paid: true,
+      feature,
+      granted: count,
+    });
+  }
+
+  return consumeTrialQuota(body, feature, count, allowPartial);
+}
+
+export async function issueQuota(request: Request): Promise<Response> {
+  const body = await readJson(request);
+  const feature = requireString(body.feature, "feature", 32);
+  const count = Math.max(1, Math.min(Number(body.count || 1), 10));
+  return authorizeFeatureUse(request, body, feature, count, true);
 }
 
 export async function health(request?: Request): Promise<Response> {
