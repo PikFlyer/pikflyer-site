@@ -1,5 +1,5 @@
 import {
-  authorizeFeatureUse,
+  authorizePoiRoll,
   jsonResponse,
   methodNotAllowed,
   readJson,
@@ -10,8 +10,8 @@ import { rollServerPois } from "../../serverPoi";
 export async function POST(request: Request): Promise<Response> {
   try {
     const body = await readJson(request);
-    const requestedCount = Math.max(1, Math.min(Number(body.count || 5), 10));
-    const auth = await authorizeFeatureUse(request, body, "dice", requestedCount, true);
+    const requestedCount = Math.max(1, Math.min(Number(body.count || 8), 8));
+    const auth = await authorizePoiRoll(request, body, requestedCount);
     const authBody = await auth.clone().json().catch(() => null) as { allowed?: boolean; granted?: number; paid?: boolean } | null;
     if (!authBody?.allowed) return auth;
 

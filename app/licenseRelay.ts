@@ -47,6 +47,19 @@ type LicenseCacheRow = {
   valid_until: string;
 };
 
+type PoiUsageRow = {
+  used: number;
+  reset_at: number;
+};
+
+type StarterPackRow = {
+  pack_id: string;
+  seed: string;
+  count: number;
+  created_at: string;
+  last_returned_at: string | null;
+};
+
 const INVITE_CODE_PREFIX = "PF";
 const INVITE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const OWNER_DEVICE_HASHES = new Set([
@@ -58,6 +71,9 @@ const TRIAL_DAILY_LIMITS: Record<string, number> = {
   dice: 30,
   citywalk: 3,
 };
+const PAID_POI_HOURLY_LIMIT = 300;
+const PAID_POI_DAILY_LIMIT = 2000;
+const STARTER_PACK_SIZE = 100;
 
 let licenseSchemaReady: Promise<void> | null = null;
 
@@ -168,6 +184,24 @@ async function ensureLicenseSchema(db: D1Database): Promise<void> {
         PRIMARY KEY (credential_hash, instance_id)
       )`),
       db.prepare("CREATE INDEX IF NOT EXISTS license_validation_cache_valid_until_idx ON license_validation_cache (valid_until)"),
+      db.prepare(`CREATE TABLE IF NOT EXISTS poi_return_usage (
+        subject_hash TEXT NOT NULL,
+        scope TEXT NOT NULL,
+        bucket TEXT NOT NULL,
+        used INTEGER NOT NULL DEFAULT 0,
+        reset_at INTEGER NOT NULL,
+        updated_at TEXT NOT NULL,
+        PRIMARY KEY (subject_hash, scope, bucket)
+      )`),
+      db.prepare("CREATE INDEX IF NOT EXISTS poi_return_usage_reset_idx ON poi_return_usage (reset_at)"),
+      db.prepare(`CREATE TABLE IF NOT EXISTS starter_packs (
+        device_hash TEXT PRIMARY KEY,
+        pack_id TEXT NOT NULL UNIQUE,
+        seed TEXT NOT NULL,
+        count INTEGER NOT NULL,
+        created_at TEXT NOT NULL,
+        last_returned_at TEXT
+      )`),
     ])
     .then(() => undefined);
   return licenseSchemaReady;
@@ -503,6 +537,131 @@ async function isPaidOrOwner(body: Record<string, unknown>): Promise<boolean> {
   return valid;
 }
 
+async function ensureActiveTrial(body: Record<string, unknown>): Promise<boolean> {
+  const db = await getD1();
+  if (!db) return false;
+  await ensureLicenseSchema(db);
+  const deviceHash = await deviceHashFromBody(body);
+  const now = new Date();
+  const nowIso = now.toISOString();
+  let trial = await db
+    .prepare("SELECT * FROM trial_devices WHERE device_hash = ?")
+    .bind(deviceHash)
+    .first<TrialDeviceRow>();
+
+  if (!trial) {
+    const expiresAt = addDaysIso(now, TRIAL_DAYS);
+    await db
+      .prepare(`INSERT INTO trial_devices
+        (device_hash, trial_started_at, trial_expires_at, created_at, last_seen_at)
+        VALUES (?, ?, ?, ?, ?)`)
+      .bind(deviceHash, nowIso, expiresAt, nowIso, nowIso)
+      .run();
+    return true;
+  }
+
+  await db
+    .prepare("UPDATE trial_devices SET last_seen_at = ? WHERE device_hash = ?")
+    .bind(nowIso, deviceHash)
+    .run();
+  return !isExpired(trial.trial_expires_at, now);
+}
+
+async function consumePoiUsageBudget(
+  request: Request,
+  body: Record<string, unknown>,
+  requestedCount: number,
+): Promise<Response> {
+  const db = await getD1();
+  if (!db) {
+    return jsonResponse({ success: false, allowed: false, error: "usage database is not configured" }, 500);
+  }
+  await ensureLicenseSchema(db);
+
+  const count = Math.max(1, Math.min(Math.floor(requestedCount || 1), 8));
+  const now = Math.floor(Date.now() / 1000);
+  const nowIso = new Date().toISOString();
+  const deviceHash = await deviceHashFromBody(body);
+  const ipHash = await sha256Hex(`pikflyer-poi-ip-v1:${clientIdentity(request)}`);
+  const budgets = [
+    {
+      subject: deviceHash,
+      scope: "paid_device_hour",
+      bucket: new Date(now * 1000).toISOString().slice(0, 13),
+      max: PAID_POI_HOURLY_LIMIT,
+      resetAt: now + 60 * 60,
+    },
+    {
+      subject: deviceHash,
+      scope: "paid_device_day",
+      bucket: utcDateKey(new Date(now * 1000)),
+      max: PAID_POI_DAILY_LIMIT,
+      resetAt: now + 24 * 60 * 60,
+    },
+    {
+      subject: ipHash,
+      scope: "paid_ip_15m",
+      bucket: String(Math.floor(now / (15 * 60))),
+      max: 480,
+      resetAt: (Math.floor(now / (15 * 60)) + 1) * 15 * 60,
+    },
+  ];
+
+  await db.prepare("DELETE FROM poi_return_usage WHERE reset_at < ?").bind(now - 3600).run();
+
+  let grant = count;
+  for (const budget of budgets) {
+    await db
+      .prepare(`INSERT OR IGNORE INTO poi_return_usage
+        (subject_hash, scope, bucket, used, reset_at, updated_at)
+        VALUES (?, ?, ?, 0, ?, ?)`)
+      .bind(budget.subject, budget.scope, budget.bucket, budget.resetAt, nowIso)
+      .run();
+    const row = await db
+      .prepare("SELECT used, reset_at FROM poi_return_usage WHERE subject_hash = ? AND scope = ? AND bucket = ?")
+      .bind(budget.subject, budget.scope, budget.bucket)
+      .first<PoiUsageRow>();
+    grant = Math.min(grant, Math.max(0, budget.max - Number(row?.used || 0)));
+  }
+
+  if (grant < 1) {
+    return jsonResponse({
+      success: true,
+      allowed: false,
+      code: "poi_return_limit_reached",
+      error: "今日地標資料讀取量已達安全上限，請稍後再試。",
+      granted: 0,
+    }, 429);
+  }
+
+  for (const budget of budgets) {
+    const update = await db
+      .prepare(`UPDATE poi_return_usage
+        SET used = used + ?, updated_at = ?
+        WHERE subject_hash = ? AND scope = ? AND bucket = ? AND used + ? <= ?`)
+      .bind(grant, nowIso, budget.subject, budget.scope, budget.bucket, grant, budget.max)
+      .run();
+    const changed = Number((update.meta as { changes?: number } | undefined)?.changes || 0);
+    if (changed < 1) {
+      return jsonResponse({
+        success: true,
+        allowed: false,
+        code: "poi_return_limit_reached",
+        error: "地標資料讀取量已達安全上限，請稍後再試。",
+        granted: 0,
+      }, 429);
+    }
+  }
+
+  return jsonResponse({
+    success: true,
+    allowed: true,
+    paid: true,
+    feature: "dice",
+    granted: grant,
+  });
+}
+
 async function consumeTrialQuota(
   body: Record<string, unknown>,
   feature: string,
@@ -653,6 +812,82 @@ export async function authorizeFeatureUse(
   }
 
   return consumeTrialQuota(body, feature, count, allowPartial);
+}
+
+export async function authorizePoiRoll(
+  request: Request,
+  body: Record<string, unknown>,
+  requestedCount: number,
+): Promise<Response> {
+  const limited = await enforceRateLimit(request, "poi_roll", 60, 15 * 60);
+  if (limited) return limited;
+
+  const count = Math.max(1, Math.min(Math.floor(requestedCount || 1), 8));
+  if (await isPaidOrOwner(body)) {
+    return consumePoiUsageBudget(request, body, count);
+  }
+  return consumeTrialQuota(body, "dice", count, true);
+}
+
+export async function authorizeStarterPack(request: Request): Promise<Response> {
+  const limited = await enforceRateLimit(request, "poi_starter", 10, 15 * 60);
+  if (limited) return limited;
+  const body = await readJson(request);
+  const db = await getD1();
+  if (!db) {
+    return jsonResponse({ success: false, allowed: false, error: "starter database is not configured" }, 500);
+  }
+  await ensureLicenseSchema(db);
+  const deviceHash = await deviceHashFromBody(body);
+  const nowIso = new Date().toISOString();
+  let row = await db
+    .prepare("SELECT * FROM starter_packs WHERE device_hash = ?")
+    .bind(deviceHash)
+    .first<StarterPackRow>();
+  let alreadyClaimed = Boolean(row);
+
+  if (!row) {
+    const eligible = await isPaidOrOwner(body) || await ensureActiveTrial(body);
+    if (!eligible) {
+      return jsonResponse({
+        success: true,
+        allowed: false,
+        code: "starter_not_allowed",
+        error: "免費試用已到期，請訂閱後重新取得備用地標包。",
+      }, 403);
+    }
+    const seed = crypto.randomUUID();
+    const packId = `starter_${(await sha256Hex(`${deviceHash}:${seed}`)).slice(0, 20)}`;
+    await db
+      .prepare(`INSERT OR IGNORE INTO starter_packs
+        (device_hash, pack_id, seed, count, created_at, last_returned_at)
+        VALUES (?, ?, ?, ?, ?, ?)`)
+      .bind(deviceHash, packId, seed, STARTER_PACK_SIZE, nowIso, nowIso)
+      .run();
+    row = await db
+      .prepare("SELECT * FROM starter_packs WHERE device_hash = ?")
+      .bind(deviceHash)
+      .first<StarterPackRow>();
+    alreadyClaimed = false;
+  } else {
+    await db
+      .prepare("UPDATE starter_packs SET last_returned_at = ? WHERE device_hash = ?")
+      .bind(nowIso, deviceHash)
+      .run();
+    alreadyClaimed = true;
+  }
+
+  if (!row) {
+    return jsonResponse({ success: false, allowed: false, error: "starter pack unavailable" }, 500);
+  }
+  return jsonResponse({
+    success: true,
+    allowed: true,
+    pack_id: row.pack_id,
+    seed: row.seed,
+    count: row.count,
+    already_claimed: alreadyClaimed,
+  });
 }
 
 export async function issueQuota(request: Request): Promise<Response> {

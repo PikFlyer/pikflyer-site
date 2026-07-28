@@ -67,8 +67,36 @@ function tagName(group: string, tag: string): string {
   return groupObj?.tags?.[tag] || tag;
 }
 
-function pickRandom<T>(items: T[]): T {
-  return items[Math.floor(Math.random() * items.length)];
+function seededRandom(seed: string): () => number {
+  let h = 2166136261;
+  for (let i = 0; i < seed.length; i += 1) {
+    h ^= seed.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return () => {
+    h += 0x6d2b79f5;
+    let t = h;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function normalizePoi(row: PoiRecord, group: string): Record<string, unknown> | null {
+  const lat = numberOrNaN(row.lat);
+  const lng = numberOrNaN(row.lng);
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) return null;
+  const pTag = typeof row.tag === "string" ? row.tag : "";
+  return {
+    name: row.name || "未命名地點",
+    city: row.city || "",
+    lat,
+    lng,
+    tag: pTag,
+    tagName: tagName(group, pTag),
+    tz: typeof row.tz === "number" ? row.tz : 0,
+    group,
+  };
 }
 
 export function rollServerPois(params: RollParams, count: number): { results: Record<string, unknown>[]; group: string } {
@@ -96,17 +124,34 @@ export function rollServerPois(params: RollParams, count: number): { results: Re
       if (haversineMeters(curLat, curLng, lat, lng) < MAX_DISTANCE_FROM_CURRENT_M) continue;
     }
     picked.add(idx);
-    const pTag = typeof row.tag === "string" ? row.tag : "";
-    results.push({
-      name: row.name || "未命名地點",
-      city: row.city || "",
-      lat,
-      lng,
-      tag: pTag,
-      tagName: tagName(group, pTag),
-      tz: typeof row.tz === "number" ? row.tz : 0,
-    });
+    const normalized = normalizePoi(row, group);
+    if (normalized) results.push(normalized);
   }
 
   return { results, group };
+}
+
+export function starterServerPois(seed: string, count: number): Record<string, unknown>[] {
+  const rng = seededRandom(seed);
+  const pools = [
+    { group: "postcard", rows: groups.postcard, weight: 70 },
+    { group: "decor", rows: groups.decor, weight: 30 },
+  ];
+  const picked = new Set<string>();
+  const results: Record<string, unknown>[] = [];
+  const safeCount = Math.max(1, Math.min(Math.floor(count || 100), 100));
+
+  for (let attempts = 0; attempts < safeCount * 30 && results.length < safeCount; attempts += 1) {
+    const roll = rng() * 100;
+    const pool = roll < pools[0].weight ? pools[0] : pools[1];
+    const idx = Math.floor(rng() * pool.rows.length);
+    const key = `${pool.group}:${idx}`;
+    if (picked.has(key)) continue;
+    const normalized = normalizePoi(pool.rows[idx], pool.group);
+    if (!normalized) continue;
+    picked.add(key);
+    results.push(normalized);
+  }
+
+  return results;
 }
