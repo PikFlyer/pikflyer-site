@@ -55,12 +55,12 @@ test("brand assets and Android release download are present", () => {
   const requiredFiles = [
     "../assets/brand/xiaochibang-logo.png",
     "../assets/brand/xiaochibang-logo-180.png",
-    "../downloads/pikflyer-xiaochibang-android-v1.0.2.apk",
-    "../downloads/pikflyer-xiaochibang-android-v1.0.2.aab",
-    "../downloads/pikflyer-xiaochibang-android-v1.0.2.sha256",
+    "../downloads/pikflyer-xiaochibang-android-v1.0.3.apk",
+    "../downloads/pikflyer-xiaochibang-android-v1.0.3.aab",
+    "../downloads/pikflyer-xiaochibang-android-v1.0.3.sha256",
     "../credits.html",
     "../public/credits.html",
-    "../public/downloads/pikflyer-xiaochibang-android-v1.0.2.apk",
+    "../public/downloads/pikflyer-xiaochibang-android-v1.0.3.apk",
   ];
 
   for (const relativePath of requiredFiles) {
@@ -71,8 +71,8 @@ test("brand assets and Android release download are present", () => {
 });
 
 test("page points users at the current Android release", () => {
-  assert.match(rootIndex, /downloads\/pikflyer-xiaochibang-android-v1\.0\.2\.apk/);
-  assert.match(rootIndex, /Version 1\.0\.2/);
+  assert.match(rootIndex, /downloads\/pikflyer-xiaochibang-android-v1\.0\.3\.apk/);
+  assert.match(rootIndex, /Version 1\.0\.3/);
 });
 
 
