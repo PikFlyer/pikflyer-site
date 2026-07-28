@@ -38,6 +38,11 @@ type TrialUsageRow = {
   used: number;
 };
 
+type RateLimitRow = {
+  count: number;
+  reset_at: number;
+};
+
 const INVITE_CODE_PREFIX = "PF";
 const INVITE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const TRIAL_DAYS = 5;
@@ -138,6 +143,16 @@ async function ensureLicenseSchema(db: D1Database): Promise<void> {
       )`),
       db.prepare("CREATE INDEX IF NOT EXISTS trial_devices_expires_at_idx ON trial_devices (trial_expires_at)"),
       db.prepare("CREATE INDEX IF NOT EXISTS trial_usage_device_date_idx ON trial_usage (device_hash, usage_date)"),
+      db.prepare(`CREATE TABLE IF NOT EXISTS rate_limits (
+        key_hash TEXT NOT NULL,
+        scope TEXT NOT NULL,
+        bucket INTEGER NOT NULL,
+        count INTEGER NOT NULL DEFAULT 0,
+        reset_at INTEGER NOT NULL,
+        updated_at TEXT NOT NULL,
+        PRIMARY KEY (key_hash, scope, bucket)
+      )`),
+      db.prepare("CREATE INDEX IF NOT EXISTS rate_limits_reset_idx ON rate_limits (reset_at)"),
     ])
     .then(() => undefined);
   return licenseSchemaReady;
@@ -183,6 +198,65 @@ function isExpired(expiresAt: string | null, now = new Date()): boolean {
 
 function utcDateKey(now = new Date()): string {
   return now.toISOString().slice(0, 10);
+}
+
+function clientIdentity(request: Request): string {
+  const forwardedFor = request.headers.get("cf-connecting-ip")
+    || request.headers.get("x-forwarded-for")
+    || "unknown-ip";
+  const userAgent = (request.headers.get("user-agent") || "unknown-ua").slice(0, 160);
+  return `${forwardedFor.split(",")[0].trim()}|${userAgent}`;
+}
+
+async function enforceRateLimit(
+  request: Request,
+  scope: string,
+  maxRequests: number,
+  windowSeconds: number,
+): Promise<Response | null> {
+  const db = await getD1();
+  if (!db) return null;
+
+  await ensureLicenseSchema(db);
+  const now = Math.floor(Date.now() / 1000);
+  const bucket = Math.floor(now / windowSeconds);
+  const resetAt = (bucket + 1) * windowSeconds;
+  const nowIso = new Date().toISOString();
+  const keyHash = await sha256Hex(`pikflyer-rate-v1:${scope}:${clientIdentity(request)}`);
+
+  await db
+    .prepare("DELETE FROM rate_limits WHERE reset_at < ?")
+    .bind(now - windowSeconds)
+    .run();
+  await db
+    .prepare(`INSERT OR IGNORE INTO rate_limits
+      (key_hash, scope, bucket, count, reset_at, updated_at)
+      VALUES (?, ?, ?, 0, ?, ?)`)
+    .bind(keyHash, scope, bucket, resetAt, nowIso)
+    .run();
+
+  const updateResult = await db
+    .prepare(`UPDATE rate_limits
+      SET count = count + 1, updated_at = ?
+      WHERE key_hash = ? AND scope = ? AND bucket = ? AND count < ?`)
+    .bind(nowIso, keyHash, scope, bucket, maxRequests)
+    .run();
+  const changed = Number((updateResult.meta as { changes?: number } | undefined)?.changes || 0);
+  if (changed > 0) return null;
+
+  const row = await db
+    .prepare("SELECT count, reset_at FROM rate_limits WHERE key_hash = ? AND scope = ? AND bucket = ?")
+    .bind(keyHash, scope, bucket)
+    .first<RateLimitRow>();
+  return jsonResponse(
+    {
+      success: false,
+      valid: false,
+      error: "too many requests",
+      retry_after_seconds: Math.max(1, (row?.reset_at || resetAt) - now),
+    },
+    429,
+  );
 }
 
 function trialPayload(row: TrialDeviceRow, now = new Date()): Record<string, unknown> {
@@ -367,8 +441,12 @@ async function creemPost(path: string, payload: Record<string, string>): Promise
   return jsonResponse(body);
 }
 
-export async function health(): Promise<Response> {
+export async function health(request?: Request): Promise<Response> {
   const relayEnv = await getRelayEnv();
+  const suppliedToken = request?.headers.get("x-admin-token") || "";
+  if (!relayEnv.INVITE_ADMIN_TOKEN || suppliedToken !== relayEnv.INVITE_ADMIN_TOKEN) {
+    return jsonResponse({ ok: true });
+  }
   return jsonResponse({
     ok: true,
     creem_test_mode: relayEnv.CREEM_TEST_MODE === "true",
@@ -382,6 +460,8 @@ export async function health(): Promise<Response> {
 }
 
 export async function activate(request: Request): Promise<Response> {
+  const limited = await enforceRateLimit(request, "activate", 30, 15 * 60);
+  if (limited) return limited;
   const body = await readJson(request);
   const key = requireString(body.key || body.license_key, "license key");
   const instanceName = requireString(body.instance_name || body.device_id, "instance name");
@@ -391,6 +471,8 @@ export async function activate(request: Request): Promise<Response> {
 }
 
 export async function validate(request: Request): Promise<Response> {
+  const limited = await enforceRateLimit(request, "validate", 120, 15 * 60);
+  if (limited) return limited;
   const body = await readJson(request);
   const key = requireString(body.key || body.license_key, "license key");
   const instanceId = requireString(body.instance_id, "instance_id");
@@ -400,6 +482,8 @@ export async function validate(request: Request): Promise<Response> {
 }
 
 export async function deactivate(request: Request): Promise<Response> {
+  const limited = await enforceRateLimit(request, "deactivate", 30, 15 * 60);
+  if (limited) return limited;
   const body = await readJson(request);
   const key = requireString(body.key || body.license_key, "license key");
   const instanceId = requireString(body.instance_id, "instance_id");
@@ -424,6 +508,8 @@ function requireInviteAdmin(request: Request, relayEnv: RelayEnv): void {
 }
 
 export async function createInviteCodes(request: Request): Promise<Response> {
+  const limited = await enforceRateLimit(request, "invite_admin", 10, 15 * 60);
+  if (limited) return limited;
   const relayEnv = await getRelayEnv();
   requireInviteAdmin(request, relayEnv);
   const db = relayEnv.DB;
@@ -465,6 +551,8 @@ export async function createInviteCodes(request: Request): Promise<Response> {
 }
 
 export async function listInviteCodes(request: Request): Promise<Response> {
+  const limited = await enforceRateLimit(request, "invite_admin", 20, 15 * 60);
+  if (limited) return limited;
   const relayEnv = await getRelayEnv();
   requireInviteAdmin(request, relayEnv);
   const db = relayEnv.DB;
@@ -486,6 +574,8 @@ export async function listInviteCodes(request: Request): Promise<Response> {
 }
 
 export async function checkTrial(request: Request): Promise<Response> {
+  const limited = await enforceRateLimit(request, "trial", 120, 15 * 60);
+  if (limited) return limited;
   const db = await getD1();
   if (!db) {
     return jsonResponse({ success: false, allowed: false, error: "trial database is not configured" }, 500);
@@ -617,11 +707,12 @@ export function methodNotAllowed(): Response {
 }
 
 export function relayError(error: unknown): Response {
+  console.warn("license relay request failed", error);
   return jsonResponse(
     {
       success: false,
       valid: false,
-      error: error instanceof Error ? error.message : "request failed",
+      error: "request failed",
     },
     400,
   );
