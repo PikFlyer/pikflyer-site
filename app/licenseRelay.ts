@@ -43,7 +43,7 @@ const INVITE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const TRIAL_DAYS = 5;
 const TRIAL_DAILY_LIMITS: Record<string, number> = {
   teleport: 20,
-  dice: 50,
+  dice: 30,
   citywalk: 3,
 };
 

@@ -11,7 +11,7 @@ Status date: 2026-07-18
 - Privacy, Terms, and Refund pages exist and are linked.
 - Customer support email is consistent: pikflyer.app@gmail.com.
 - Pricing copy is set to US$4.99/month with a 5-day free trial.
-- Free daily limits are documented: 20 teleport, 50 dice, 3 city walk.
+- Free daily limits are documented: 20 teleport, 30 dice, 3 city walk.
 
 ## Must Finish Before Charging Users
 
