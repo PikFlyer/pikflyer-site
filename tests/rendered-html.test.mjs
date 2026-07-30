@@ -56,10 +56,10 @@ test("brand assets and Android release download are present", () => {
     "../assets/brand/xiaochibang-logo.png",
     "../assets/brand/xiaochibang-logo-180.png",
     "../downloads/pikflyer-xiaochibang-android-v1.0.8.apk",
-    "../downloads/pikflyer-xiaochibang-android-v1.0.9.sha256",
+    "../downloads/pikflyer-xiaochibang-android-v1.0.10.sha256",
     "../credits.html",
     "../public/credits.html",
-    "../public/downloads/pikflyer-xiaochibang-android-v1.0.9.apk",
+    "../public/downloads/pikflyer-xiaochibang-android-v1.0.10.apk",
   ];
 
   for (const relativePath of requiredFiles) {
@@ -70,8 +70,8 @@ test("brand assets and Android release download are present", () => {
 });
 
 test("page points users at the current Android release", () => {
-  assert.match(rootIndex, /downloads\/pikflyer-xiaochibang-android-v1\.0\.9\.apk/);
-  assert.match(rootIndex, /版本 1\.0\.9/);
+  assert.match(rootIndex, /downloads\/pikflyer-xiaochibang-android-v1\.0\.10\.apk/);
+  assert.match(rootIndex, /版本 1\.0\.10/);
   assert.match(rootIndex, /手動批量匯入座標/);
 });
 
