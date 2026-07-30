@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pik Flyer - 小翅膀 Android — 免費試用下載</title>
-<meta name="description" content="Pik Flyer - 小翅膀 Android 免費版。設定簡單，前 7 天完整體驗；第 8 天後仍可每天基本次數使用。用明信片骰子、城市散步、地標分類與懸浮視窗，整理城市地標、規劃散步路線。">
+<meta name="description" content="Pik Flyer - 小翅膀 Android 免費版。和朋友一起骰漂亮明信片、到國外找美景，忙碌或天氣太熱時也能在家安排 18 km/h 城市散步。前 7 天完整體驗；第 8 天後仍可每天基本次數使用。">
 <meta property="og:title" content="Pik Flyer - 小翅膀 Android — 免費試用下載">
-<meta property="og:description" content="Pik Flyer Android 設定簡單，前 7 天完整體驗；第 8 天後仍有免費基本次數。適合明信片地點、地標路線與城市探索。">
+<meta property="og:description" content="和朋友一起骰明信片、找國外美景、安排城市散步。前 7 天完整體驗；第 8 天後仍有免費基本次數。">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#07120f">
 <link rel="icon" href="assets/brand/xiaochibang-logo-180.png" type="image/png">
@@ -269,6 +269,26 @@ main > section:not(.hero) .note{color:#50665b}
 }
 .usecase strong{display:block;margin-bottom:.25rem}
 .usecase span{color:#50665b;font-size:.95rem}
+.life-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:1rem;align-items:stretch}
+.life-panel{
+  background:linear-gradient(135deg,#fff,#effff1 58%,#e7f9ff);
+  border:1px solid rgba(7,18,15,.1);
+  border-radius:30px;
+  padding:1.5rem;
+  box-shadow:0 18px 46px rgba(53,95,46,.11);
+}
+.life-panel h2{font-size:clamp(2rem,4vw,3.2rem);line-height:1;margin:.7rem 0}
+.life-panel p{color:#50665b;max-width:670px}
+.life-list{display:grid;gap:.75rem}
+.life-card{
+  background:#ffffff;
+  border:1px solid rgba(7,18,15,.1);
+  border-radius:24px;
+  padding:1.05rem;
+  box-shadow:0 14px 34px rgba(7,18,15,.06);
+}
+.life-card strong{display:block;margin-bottom:.25rem}
+.life-card span{color:#50665b;font-size:.95rem}
 .landmark-gallery{display:grid;grid-template-columns:1.1fr .9fr .9fr;gap:1rem}
 .landmark{
   min-height:360px;border-radius:28px;overflow:hidden;position:relative;
@@ -406,7 +426,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
   .nav-links a:not(.download-nav){display:none}
   .hero{padding:2.4rem 0 2rem}
   .hero-grid,.download-panel{grid-template-columns:1fr}
-  .usecase-grid,.landmark-gallery{grid-template-columns:1fr}
+  .usecase-grid,.life-grid,.landmark-gallery{grid-template-columns:1fr}
   .landmark,.landmark:first-child{min-height:320px;grid-row:auto}
   .scene-stage{min-height:430px}
   .scene-slideshow{min-height:430px}
@@ -441,7 +461,8 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
     </a>
     <nav class="nav-links" aria-label="主選單">
       <a href="#global">Languages</a>
-      <a href="#usecases">適用場景</a>
+      <a href="#life">日常情境</a>
+      <a href="#usecases">玩法</a>
       <a href="#features">特色</a>
       <a href="#reviews">玩家情境</a>
       <a href="#landmarks">地標</a>
@@ -457,12 +478,12 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
     <div class="wrap hero-grid">
       <div>
         <span class="pill">Pik Flyer - 小翅膀 · 7 天完整體驗，之後仍可免費基本使用</span>
-        <h1 id="hero-title">把整個世界，<span>骰</span>進手機裡。</h1>
+        <h1 id="hero-title">在家，也能<span>行</span>萬里路。</h1>
         <div class="nickname-lockup">
           <span class="mini-globe" aria-hidden="true">◎</span>
-          <span>台灣叫「小翅膀」，海外叫 Pik Flyer<small>會飛也會走。會骰地點、會散步、會開浮窗的定位探索工具</small></span>
+          <span>台灣叫「小翅膀」，海外叫 Pik Flyer<small>會飛也會走。和朋友一起骰明信片、找國外美景、排城市散步</small></span>
         </div>
-        <p class="hero-copy">小翅膀把城市地標、明信片骰子、自動散步與懸浮視窗整理成手機上的快速控制台。安裝後照畫面完成幾個授權，就能開始找漂亮地點、安排路線、預覽不同城市畫面。</p>
+        <p class="hero-copy">附近的香菇看膩了？今天很忙忘了種花？天氣太熱不想出門？小翅膀把明信片骰子、自動散步與懸浮視窗放進手機。和朋友一起分享今天骰到的國外美景，在家也能有新的城市話題。</p>
         <div class="hero-actions" aria-label="Android 下載">
           <a class="btn btn-primary" href="downloads/pikflyer-xiaochibang-android-v1.0.13.apk?v=overlay-trial-fix" download>免費下載 Android 版</a>
           <a class="btn btn-secondary" href="#install">看安裝教學</a>
@@ -582,7 +603,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
     <div class="wrap">
       <div class="section-head">
         <h2>玩家會怎麼用</h2>
-        <p>不同城市玩家的使用情境：少一點手動查點，多一點城市探索、明信片和散步路線。</p>
+        <p>不是只有重度玩家才會用。忙碌、下雨、天氣太熱、想跟朋友交換漂亮地點時，小翅膀都能派上用場。</p>
       </div>
       <div class="reviews-shell" data-review-carousel>
         <div class="reviews-grid" aria-label="玩家情境輪播">
@@ -594,35 +615,35 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
             </div>
           </figure>
           <figure class="review-card">
-            <blockquote>I use Pik Flyer when I want a quick postcard route without spending half an hour sorting coordinates. The dice makes city hopping feel organized.</blockquote>
+            <blockquote>I use Pik Flyer when friends share nice postcard spots. I can save them, roll a nearby category, and turn it into a short walk later.</blockquote>
             <div class="review-person">
               <img class="review-avatar" src="assets/reviews/jack.jpg" alt="Jack示意頭像">
               <figcaption>Jack<span>London · postcard route planner</span></figcaption>
             </div>
           </figure>
           <figure class="review-card">
-            <blockquote>設定は思ったより簡単でした。ランドマークを選んで散歩を始めるだけなので、きれいなポストカード場所を探す時間がかなり減りました。</blockquote>
+            <blockquote>忙しい日でも、きれいなポストカード場所を友達に送れるのが便利です。近所だけで遊ぶ感じから少し抜け出せます。</blockquote>
             <div class="review-person">
               <img class="review-avatar" src="assets/reviews/yui.jpg" alt="Yui示意頭像">
               <figcaption>Yui<span>Tokyo · postcard collector</span></figcaption>
             </div>
           </figure>
           <figure class="review-card">
-            <blockquote>أحب أن أختار المدينة ثم أترك التطبيق يقترح أماكن جميلة. الرحلات القصيرة بين المعالم أصبحت أسهل بكثير.</blockquote>
+            <blockquote>أحب أن أبحث عن أماكن جميلة خارج منطقتي. أرسل المواقع للأصدقاء، ثم نختار أفضل بطاقة بريدية لليوم.</blockquote>
             <div class="review-person">
               <img class="review-avatar" src="assets/reviews/omar.jpg" alt="Omar示意頭像">
               <figcaption>Omar<span>Cairo · city explorer</span></figcaption>
             </div>
           </figure>
           <figure class="review-card">
-            <blockquote>我最常用的是明信片骰子。以前要自己查地點、複製座標、再慢慢整理，現在直接選分類，幾秒鐘就有新的散步目標。</blockquote>
+            <blockquote>白天事情很多，晚上只想輕鬆補一段。小翅膀幫我把路線排好，還能跟朋友分享今天骰到哪個城市。</blockquote>
             <div class="review-person">
               <img class="review-avatar" src="assets/reviews/mika.jpg" alt="Mika示意頭像">
               <figcaption>Mika<span>Kaohsiung · Android 使用者</span></figcaption>
             </div>
           </figure>
           <figure class="review-card">
-            <blockquote>Lo mejor es que no se siente complicado. Abro la app, elijo una categoría y guardo lugares para caminar después.</blockquote>
+            <blockquote>Cuando hace demasiado calor, elijo una ciudad bonita, guardo algunos lugares y los comparto con amigas. Se siente como un viaje pequeño.</blockquote>
             <div class="review-person">
               <img class="review-avatar" src="assets/reviews/sofia.jpg" alt="Sofía示意頭像">
               <figcaption>Sofía<span>Madrid · landmark hunter</span></figcaption>
@@ -642,19 +663,19 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
       <div class="global-grid" aria-label="Pik Flyer multilingual introduction">
         <article class="global-card" lang="zh-Hant">
           <b>繁體中文</b>
-          <p>Pik Flyer-小翅膀，把明信片骰子、城市散步、收藏地點與懸浮視窗放進同一個 Android 工具。</p>
+          <p>Pik Flyer-小翅膀，幫你骰漂亮明信片地點、安排城市散步，和朋友分享今天去了哪裡。</p>
         </article>
         <article class="global-card" lang="en">
           <b>English</b>
-          <p>Pik Flyer helps you roll landmark spots, plan city walks, and explore postcard-worthy places on Android.</p>
+          <p>Pik Flyer helps you find postcard-worthy spots, plan gentle city walks, and share discoveries with friends.</p>
         </article>
         <article class="global-card" lang="ja">
           <b>日本語</b>
-          <p>Pik Flyer は、ランドマーク抽選、街歩きルート、ポストカード向きスポット探しをまとめた Android ツールです。</p>
+          <p>Pik Flyer は、きれいなポストカード場所探し、街歩き、友達とのスポット共有を助ける Android アプリです。</p>
         </article>
         <article class="global-card" lang="ko">
           <b>한국어</b>
-          <p>Pik Flyer는 랜드마크 랜덤 선택, 도시 산책, 엽서처럼 예쁜 장소 탐색을 돕는 Android 도구입니다.</p>
+          <p>Pik Flyer는 엽서처럼 예쁜 장소를 찾고, 도시 산책을 계획하고, 친구와 공유하기 쉽게 돕는 Android 앱입니다.</p>
         </article>
       </div>
     </div>
@@ -664,8 +685,8 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
     <div class="wrap download-panel">
       <div class="download-main">
         <span class="pill">Android 版下載</span>
-        <h2>先免費試用 Pik Flyer-小翅膀，真的常用再訂閱。</h2>
-        <p class="note">從這裡取得最新 Android 版，照畫面完成授權即可開始。7 天完整試用後不會突然不能用，只會改成每日低額度。</p>
+        <h2>先免費用起來，喜歡再升級。</h2>
+        <p class="note">下載後照畫面完成設定，就能開始骰明信片、排散步、開浮窗。7 天完整試用後不會突然不能用，只會改成每日基本次數。</p>
         <div class="platforms">
           <div class="platform">
             <strong>Android</strong>
@@ -697,25 +718,49 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
     </div>
   </section>
 
+  <section id="life">
+    <div class="wrap life-grid">
+      <div class="life-panel">
+        <span class="pill">給每天很忙、但還想有點探索感的人</span>
+        <h2>不用硬出門，也能跟朋友聊今天去了哪裡。</h2>
+        <p>小翅膀的重點不是炫技，而是把「找漂亮明信片、避開附近重複點、安排一段路」變成每天打開就能完成的小儀式。學生課很多、家裡事情多、外面太熱或下雨，都可以先在手機裡走一段。</p>
+      </div>
+      <div class="life-list">
+        <div class="life-card">
+          <strong>跟朋友有連結</strong>
+          <span>今天你骰到埃及，我骰到冰島。互相丟明信片地點、交換分類清單，比單純自己玩更有話題。</span>
+        </div>
+        <div class="life-card">
+          <strong>離開住家附近的重複感</strong>
+          <span>附近都一樣、香菇都看膩時，直接去國外找壯麗地標、夜景、花園和河岸路線。</span>
+        </div>
+        <div class="life-card">
+          <strong>忙或熱，也能補一段散步感</strong>
+          <span>忘了種花、天氣太熱、晚點才有空，都能先用 18 km/h 城市散步安排一段路。</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="usecases">
     <div class="wrap usecase-grid">
       <div class="usecase-panel">
         <span class="pill">🧭 一個工具，三種用法</span>
-        <h2>不只找地點，也能把城市探索變成每天會用的小工具。</h2>
-        <p>小翅膀把地標清單、城市散步、明信片地點和區域資料整理在一起，讓你快速切換城市、保存常用地點、安排下一段路線。</p>
+        <h2>今天想去哪裡，讓小翅膀先幫你開路。</h2>
+        <p>從國外美景、明信片地點、住家附近以外的香菇，到朋友分享的一整串座標，小翅膀把日常探索變成一個比較輕鬆的流程。</p>
       </div>
       <div class="usecase-list">
         <div class="usecase">
-          <strong>地圖與地標資料</strong>
-          <span>把明信片地點、花園、夜景、河岸、老街和車站區域整理成好骰、好收藏的清單。</span>
+          <strong>朋友分享的點，直接變路線</strong>
+          <span>看到社群或朋友丟一串座標，整段貼上，先預覽再開始走，不用一個一個複製。</span>
         </div>
         <div class="usecase">
-          <strong>城市體驗預覽</strong>
-          <span>快速切到不同城市，看附近區域、熱門地標與散步路線，不必先把行程排滿。</span>
+          <strong>今天想看國外明信片</strong>
+          <span>埃及、東京、冰島、河岸、夜景、花園，選分類就能骰，不用先做功課。</span>
         </div>
         <div class="usecase">
-          <strong>日常路線安排</strong>
-          <span>把常去地點、活動路線和城市散步預設存起來，打開就能開始下一段探索。</span>
+          <strong>每天都能保留一點進度感</strong>
+          <span>前 7 天完整體驗；之後免費基本版也能每天骰點、傳送、散步，常用再升級。</span>
         </div>
       </div>
     </div>
@@ -724,8 +769,8 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
   <section id="features">
     <div class="wrap">
       <div class="section-head">
-        <h2>Pik Flyer 打開，就是你的定位控制台。</h2>
-        <p>不是塞滿按鈕的工程工具，而是常常整理地標、跑城市路線、找漂亮地點的人真的會每天打開的快速探索面板。</p>
+        <h2>小翅膀打開，就是今天的探索入口。</h2>
+        <p>重點不是一堆難懂設定，而是讓你很快完成三件事：骰一個好點、走一段路、把漂亮明信片地點傳給朋友。</p>
       </div>
       <div class="cards">
         <article class="card">

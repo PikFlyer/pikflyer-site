@@ -56,10 +56,10 @@ test("brand assets and Android release download are present", () => {
     "../assets/brand/xiaochibang-logo.png",
     "../assets/brand/xiaochibang-logo-180.png",
     "../downloads/pikflyer-xiaochibang-android-v1.0.8.apk",
-    "../downloads/pikflyer-xiaochibang-android-v1.0.12.sha256",
+    "../downloads/pikflyer-xiaochibang-android-v1.0.13.sha256",
     "../credits.html",
     "../public/credits.html",
-    "../public/downloads/pikflyer-xiaochibang-android-v1.0.12.apk",
+    "../public/downloads/pikflyer-xiaochibang-android-v1.0.13.apk",
     "../assets/reviews/emma.jpg",
     "../assets/reviews/jack.jpg",
     "../assets/reviews/mika.jpg",
@@ -86,9 +86,9 @@ test("brand assets and Android release download are present", () => {
 });
 
 test("page points users at the current Android release", () => {
-  assert.match(rootIndex, /downloads\/pikflyer-xiaochibang-android-v1\.0\.12\.apk/);
+  assert.match(rootIndex, /downloads\/pikflyer-xiaochibang-android-v1\.0\.13\.apk/);
   assert.match(rootIndex, /https:\/\/www\.creem\.io\/payment\/prod_p43ENvAr9g7395z8mlvH/);
-  assert.match(rootIndex, /版本 1\.0\.12/);
+  assert.match(rootIndex, /版本 1\.0\.13/);
   assert.match(rootIndex, /7 天完整試用/);
   assert.match(rootIndex, /第 8 天後仍可用：10 次傳送、15 次骰子、1 次城市散步/);
   assert.match(rootIndex, /設定簡單/);
@@ -109,12 +109,15 @@ test("page points users at the current Android release", () => {
   assert.match(rootIndex, /19 \/ 19/);
   assert.match(rootIndex, /setInterval\(\(\) => showSlide\(activeIndex \+ 1\), 5000\)/);
   assert.match(rootIndex, /手動批量匯入座標/);
+  assert.match(rootIndex, /在家，也能<span>行<\/span>萬里路/);
+  assert.match(rootIndex, /跟朋友有連結/);
+  assert.match(rootIndex, /附近的香菇看膩了/);
 });
 
 
 test("page explains Pik Flyer for international visitors", () => {
   assert.match(rootIndex, /Pik Flyer - 小翅膀/);
-  assert.match(rootIndex, /Pik Flyer helps you roll landmark spots/);
-  assert.match(rootIndex, /ランドマーク抽選/);
-  assert.match(rootIndex, /랜드마크 랜덤 선택/);
+  assert.match(rootIndex, /Pik Flyer helps you find postcard-worthy spots/);
+  assert.match(rootIndex, /友達とのスポット共有/);
+  assert.match(rootIndex, /친구와 공유하기 쉽게/);
 });
