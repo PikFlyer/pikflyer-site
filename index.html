@@ -120,6 +120,20 @@ header{
 }
 .hero h1 span{color:var(--lime)}
 .hero-copy{font-size:clamp(1.06rem,2vw,1.24rem);color:#c6ddd1;max-width:670px;margin:0 0 1.4rem}
+.hero-actions{display:flex;gap:.85rem;align-items:stretch;flex-wrap:wrap;margin:1.2rem 0 .75rem}
+.hero-actions .btn{align-self:center}
+.hero-release-card{
+  min-width:min(100%,290px);
+  border:1px solid rgba(152,255,101,.22);
+  background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.05));
+  border-radius:20px;
+  padding:.8rem .95rem;
+  box-shadow:0 16px 40px rgba(0,0,0,.18);
+}
+.hero-release-card strong{display:block;color:#f4fff6;font-size:.98rem;margin-bottom:.18rem}
+.hero-release-card span{display:block;color:#b9d8c6;font-size:.86rem;font-weight:800}
+.micro-link{display:inline-block;margin-top:.35rem;color:#8efac5;font-weight:900;text-decoration:none;font-size:.88rem}
+.micro-link:hover{text-decoration:underline}
 .nickname-lockup{
   display:flex;align-items:center;gap:.8rem;margin:.95rem 0 1.1rem;color:#eafff1;
   font-weight:900;font-size:clamp(1.05rem,2.2vw,1.32rem);
@@ -181,7 +195,7 @@ header{
   width:58px;height:44px;border-radius:12px;border:2px solid rgba(255,255,255,.8);
   object-fit:cover;box-shadow:0 12px 24px rgba(10,22,9,.18);opacity:.92;
 }
-section{padding:4.5rem 0}
+section{padding:4.5rem 0;scroll-margin-top:82px}
 main > section:not(.hero){background:#f7fff8;color:#0c1713}
 main > section:nth-of-type(even):not(.hero){background:#eefaf0}
 main > section:not(.hero) .note{color:#50665b}
@@ -323,6 +337,55 @@ main > section:not(.hero) .note{color:#50665b}
 }
 .step h3{margin:.1rem 0 .4rem}
 .step p{margin:0;color:var(--muted)}
+.setup-guide{display:grid;grid-template-columns:1.05fr .95fr;gap:1.1rem;align-items:start;margin-top:1.2rem}
+.setup-copy{
+  background:#fff;border:1px solid rgba(7,18,15,.1);border-radius:26px;
+  padding:1.3rem;box-shadow:0 14px 34px rgba(7,18,15,.07);
+}
+.setup-copy h3{margin:.1rem 0 .55rem;font-size:1.35rem}
+.setup-list{margin:0;padding:0;list-style:none;display:grid;gap:.7rem}
+.setup-list li{display:grid;grid-template-columns:auto 1fr;gap:.65rem;align-items:start;color:#50665b}
+.setup-list b{
+  width:30px;height:30px;border-radius:11px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--lime),var(--mint));color:#07120f;font-size:.92rem;
+}
+.setup-visuals{display:grid;gap:.8rem}
+.phone-shot{
+  background:linear-gradient(145deg,#101b26,#07120f);
+  border:1px solid rgba(67,240,168,.26);
+  border-radius:30px;
+  padding:.85rem;
+  box-shadow:var(--shadow);
+  color:#f4fff6;
+}
+.phone-bar{height:20px;display:flex;justify-content:space-between;color:#a9c7b8;font-size:.72rem;font-weight:900;padding:0 .35rem .45rem}
+.phone-screen{
+  min-height:250px;border-radius:22px;padding:1rem;
+  background:linear-gradient(180deg,#f7fff8,#eaf6ed);
+  color:#0c1713;border:1px solid rgba(255,255,255,.2);
+}
+.phone-screen.dark{background:linear-gradient(180deg,#101d29,#0b1511);color:#f4fff6}
+.phone-title{display:flex;align-items:center;gap:.5rem;font-weight:900;margin-bottom:.9rem}
+.phone-row{
+  display:flex;align-items:center;justify-content:space-between;gap:.8rem;
+  background:rgba(7,18,15,.06);border:1px solid rgba(7,18,15,.08);
+  border-radius:16px;padding:.75rem;margin:.55rem 0;font-weight:800;
+}
+.phone-screen.dark .phone-row{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.1)}
+.phone-toggle{width:46px;height:26px;border-radius:999px;background:linear-gradient(135deg,var(--lime),var(--mint));position:relative;flex:0 0 auto}
+.phone-toggle:after{content:"";position:absolute;right:4px;top:4px;width:18px;height:18px;background:#07120f;border-radius:50%}
+.phone-btn{
+  display:block;text-align:center;border-radius:16px;
+  background:linear-gradient(135deg,var(--lime),var(--mint));color:#07120f;
+  font-weight:900;text-decoration:none;padding:.75rem .85rem;margin-top:.9rem;
+}
+.install-checks{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:1rem}
+.install-check{
+  background:#ffffff;border:1px solid rgba(7,18,15,.1);border-radius:22px;padding:1rem;
+  box-shadow:0 12px 28px rgba(7,18,15,.06);
+}
+.install-check strong{display:block;margin-bottom:.25rem}
+.install-check span{color:#50665b;font-size:.92rem}
 .safety{
   background:#fff8dc;border:1px solid #f0dc9f;border-radius:26px;padding:1.3rem;
   display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:flex-start;
@@ -345,12 +408,13 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
   .hero-grid,.download-panel{grid-template-columns:1fr}
   .usecase-grid,.landmark-gallery{grid-template-columns:1fr}
   .landmark,.landmark:first-child{min-height:320px;grid-row:auto}
-  .scene-stage{order:-1;min-height:430px}
+  .scene-stage{min-height:430px}
   .scene-slideshow{min-height:430px}
   .scene-caption{left:1rem;bottom:9.7rem}
   .scene-control-card{left:12px;right:12px;bottom:14px;width:auto}
   .scene-thumb-strip{display:none}
   .trial-strip,.cards,.global-grid,.platforms,.steps,.faq{grid-template-columns:1fr}
+  .setup-guide,.install-checks{grid-template-columns:1fr}
   .review-card{flex-basis:100%}
   .section-head{display:block}
   .section-head p{margin-top:.7rem}
@@ -359,7 +423,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
 }
 @media(max-width:420px){
   .brand small{display:none}
-  .hero h1{font-size:2.45rem}
+  .hero h1{font-size:2.25rem}
   .scene-stage{min-height:390px}
   .scene-slideshow{min-height:390px;border-radius:28px}
   .scene-caption{left:.85rem;right:.85rem;bottom:9.2rem}
@@ -399,9 +463,14 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
           <span>台灣叫「小翅膀」，海外叫 Pik Flyer<small>會飛也會走。會骰地點、會散步、會開浮窗的定位探索工具</small></span>
         </div>
         <p class="hero-copy">小翅膀把城市地標、明信片骰子、自動散步與懸浮視窗整理成手機上的快速控制台。安裝後照畫面完成幾個授權，就能開始找漂亮地點、安排路線、預覽不同城市畫面。</p>
-        <div class="btn-row">
-          <a class="btn btn-primary" href="#download">免費下載 Pik Flyer</a>
-          <a class="btn btn-secondary" href="#pricing">看 US$4.99 方案</a>
+        <div class="hero-actions" aria-label="Android 下載">
+          <a class="btn btn-primary" href="downloads/pikflyer-xiaochibang-android-v1.0.13.apk?v=overlay-trial-fix" download>立即下載 Android 版</a>
+          <a class="btn btn-secondary" href="#install">看安裝教學</a>
+          <div class="hero-release-card">
+            <strong>最新版 1.0.13</strong>
+            <span>更新日期 2026/07/31 · Android APK 8 MB</span>
+            <a class="micro-link" href="#pricing">7 天完整試用，之後仍可低額度使用</a>
+          </div>
         </div>
         <div class="trial-strip" aria-label="免費試用每日限制">
           <div class="trial-item"><strong>簡單</strong><span>照步驟完成設定</span></div>
@@ -729,34 +798,81 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
     <div class="wrap">
       <div class="section-head">
         <h2>Android 安裝教學</h2>
-        <p>照順序完成下載、安裝與首次設定，幾分鐘內就能開始使用。</p>
+        <p>照順序完成下載、安裝與首次設定。每個權限只要設定一次，之後打開 app 就能直接用。</p>
       </div>
       <div class="steps">
         <article class="step">
           <h3>下載 Android 版</h3>
-          <p>在 Android 手機上點「下載 Pik Flyer Android」。下載完成後開啟檔案。</p>
+          <p>在 Android 手機上點「立即下載 Android 版」。下載完成後，從瀏覽器下載通知或「我的檔案」開啟 APK。</p>
         </article>
         <article class="step">
-          <h3>依系統提示允許安裝</h3>
-          <p>Android 會請你確認安裝來源，依畫面提示開啟授權後返回安裝。</p>
+          <h3>允許這次安裝</h3>
+          <p>如果系統跳出安全提示，點進設定允許目前瀏覽器安裝 app，返回後按「安裝」。</p>
         </article>
         <article class="step">
-          <h3>完成安裝並開啟</h3>
-          <p>第一次啟動時依提示授予必要權限；設定完成後進入 app，即可開始 7 天完整免費試用。</p>
+          <h3>開啟小翅膀</h3>
+          <p>第一次開啟會進入設定流程。完成定位、模擬位置與必要權限後，app 會提示設定成功。</p>
         </article>
         <article class="step">
           <h3>啟用懸浮視窗</h3>
-          <p>如果要使用懸浮球，請在 app 內依提示開啟「顯示在其他應用程式上層」。試用期內可完整體驗；第 8 天後仍可使用，只是每日次數會降低。</p>
+          <p>要在其他 app 上直接操作，請開啟「顯示在其他應用程式上層」。完成後首頁會顯示浮窗狀態。</p>
         </article>
         <article class="step">
           <h3>開始骰地點</h3>
-          <p>從明信片骰子、飾品骰子或城市骰子開始。免費版每日有 30 次骰子，適合先測分類品質。</p>
+          <p>從明信片骰子、飾品骰子或城市散步開始。試用前 7 天每日有 30 次骰子、20 次傳送、3 次城市散步。</p>
         </article>
         <article class="step">
           <h3>需要更多就訂閱</h3>
           <p>US$4.99 / 月解鎖更高額度與進階功能。取消後仍可使用剩餘付費期；未訂閱也可保留低額度免費版。</p>
           <p><a href="https://www.creem.io/payment/prod_p43ENvAr9g7395z8mlvH" target="_blank" rel="noopener noreferrer">前往訂閱頁</a></p>
         </article>
+      </div>
+      <div class="setup-guide" aria-label="Android 首次設定圖解">
+        <div class="setup-copy">
+          <span class="pill">首次設定圖解</span>
+          <h3>看到綠色完成提示，就可以開始用。</h3>
+          <ul class="setup-list">
+            <li><b>1</b><span>先讓 app 取得定位權限，地圖才能顯示目前位置與附近地標。</span></li>
+            <li><b>2</b><span>到 Android 開發人員選項，把「選取模擬位置應用程式」設為 Pik Flyer-小翅膀。</span></li>
+            <li><b>3</b><span>需要懸浮球時，開啟「顯示在其他應用程式上層」。不想用時可在浮窗或 app 首頁關閉。</span></li>
+            <li><b>4</b><span>回到 app 後按完成設定。若每項都通過，會跳出成功提示並帶你進入主畫面。</span></li>
+          </ul>
+        </div>
+        <div class="setup-visuals">
+          <div class="phone-shot" aria-label="首頁權限狀態示意">
+            <div class="phone-bar"><span>00:38</span><span>Pik Flyer</span><span>100%</span></div>
+            <div class="phone-screen">
+              <div class="phone-title">🌍 Pik Flyer-小翅膀</div>
+              <div class="phone-row"><span>定位權限</span><strong>已允許</strong></div>
+              <div class="phone-row"><span>模擬位置</span><strong>已選取</strong></div>
+              <div class="phone-row"><span>懸浮視窗</span><span class="phone-toggle" aria-hidden="true"></span></div>
+              <a class="phone-btn" href="#download">完成設定</a>
+            </div>
+          </div>
+          <div class="phone-shot" aria-label="懸浮視窗狀態示意">
+            <div class="phone-bar"><span>00:39</span><span>Floating</span><span>Ready</span></div>
+            <div class="phone-screen dark">
+              <div class="phone-title">🎯 懸浮球已開啟</div>
+              <div class="phone-row"><span>🎲 骰地標</span><strong>快速跳點</strong></div>
+              <div class="phone-row"><span>🚶 自動散步</span><strong>18 km/h</strong></div>
+              <div class="phone-row"><span>✕ 關閉浮窗</span><strong>隨時可關</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="install-checks" aria-label="安裝前檢查">
+        <div class="install-check">
+          <strong>下載後找不到檔案？</strong>
+          <span>打開「我的檔案」或瀏覽器下載紀錄，點 APK 重新安裝。</span>
+        </div>
+        <div class="install-check">
+          <strong>按鈕不能點？</strong>
+          <span>回到設定頁確認定位、模擬位置、懸浮視窗是否都已完成。</span>
+        </div>
+        <div class="install-check">
+          <strong>浮窗沒有出現？</strong>
+          <span>確認上層顯示權限已開啟，再從首頁的浮窗開關重新啟動。</span>
+        </div>
       </div>
       <div class="safety" style="margin-top:1rem">
         <div style="font-size:2rem">✨</div>
