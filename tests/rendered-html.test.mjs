@@ -67,6 +67,15 @@ test("brand assets and Android release download are present", () => {
     "../assets/reviews/sofia.jpg",
     "../assets/reviews/yui.jpg",
     "../public/assets/reviews/emma.jpg",
+    "../assets/landmarks/giza-pyramids.jpg",
+    "../assets/landmarks/tokyo-skytree.jpg",
+    "../assets/landmarks/shibuya-crossing.jpg",
+    "../assets/landmarks/iceland-aurora.jpg",
+    "../assets/landmarks/petra-treasury.jpg",
+    "../assets/landmarks/grand-canyon-sunrise.jpg",
+    "../assets/landmarks/angkor-wat.jpg",
+    "../assets/landmarks/moraine-lake.jpg",
+    "../public/assets/landmarks/giza-pyramids.jpg",
   ];
 
   for (const relativePath of requiredFiles) {
@@ -94,6 +103,11 @@ test("page points users at the current Android release", () => {
   assert.match(rootIndex, /Omar/);
   assert.match(rootIndex, /Sofía/);
   assert.equal(rootIndex.includes("同一個 app，用不同語言快速理解"), false);
+  assert.match(rootIndex, /埃及金字塔/);
+  assert.match(rootIndex, /東京晴空塔/);
+  assert.match(rootIndex, /冰島極光/);
+  assert.match(rootIndex, /19 \/ 19/);
+  assert.match(rootIndex, /setInterval\(\(\) => showSlide\(activeIndex \+ 1\), 5000\)/);
   assert.match(rootIndex, /手動批量匯入座標/);
 });
 
