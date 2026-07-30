@@ -56,10 +56,10 @@ test("brand assets and Android release download are present", () => {
     "../assets/brand/xiaochibang-logo.png",
     "../assets/brand/xiaochibang-logo-180.png",
     "../downloads/pikflyer-xiaochibang-android-v1.0.8.apk",
-    "../downloads/pikflyer-xiaochibang-android-v1.0.11.sha256",
+    "../downloads/pikflyer-xiaochibang-android-v1.0.12.sha256",
     "../credits.html",
     "../public/credits.html",
-    "../public/downloads/pikflyer-xiaochibang-android-v1.0.11.apk",
+    "../public/downloads/pikflyer-xiaochibang-android-v1.0.12.apk",
   ];
 
   for (const relativePath of requiredFiles) {
@@ -70,9 +70,11 @@ test("brand assets and Android release download are present", () => {
 });
 
 test("page points users at the current Android release", () => {
-  assert.match(rootIndex, /downloads\/pikflyer-xiaochibang-android-v1\.0\.11\.apk/);
+  assert.match(rootIndex, /downloads\/pikflyer-xiaochibang-android-v1\.0\.12\.apk/);
   assert.match(rootIndex, /https:\/\/www\.creem\.io\/payment\/prod_p43ENvAr9g7395z8mlvH/);
-  assert.match(rootIndex, /版本 1\.0\.11/);
+  assert.match(rootIndex, /版本 1\.0\.12/);
+  assert.match(rootIndex, /7 天完整試用/);
+  assert.match(rootIndex, /第 8 天後：10 次傳送、15 次骰子、1 次城市散步/);
   assert.match(rootIndex, /手動批量匯入座標/);
 });
 

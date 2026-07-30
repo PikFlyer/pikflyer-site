@@ -65,12 +65,25 @@ const INVITE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const OWNER_DEVICE_HASHES = new Set([
   "ea56499f3e5c78465c3bccebb78a342cf37c8e73ea60760efd75b1714f95d619",
 ]);
-const TRIAL_DAYS = 5;
+const TRIAL_DAYS = 7;
 const TRIAL_DAILY_LIMITS: Record<string, number> = {
   teleport: 20,
   dice: 30,
   citywalk: 3,
+  manual_batch: 3,
 };
+const POST_TRIAL_DAILY_LIMITS: Record<string, number> = {
+  teleport: 10,
+  dice: 15,
+  citywalk: 1,
+  manual_batch: 0,
+};
+const LATEST_ANDROID_VERSION = "1.0.12";
+const MIN_ANDROID_VERSION = "1.0.0";
+const LATEST_ANDROID_RELEASED_AT = "2026-07-30T12:45:00.000Z";
+const ANDROID_UPDATE_GRACE_DAYS = 30;
+const ANDROID_DOWNLOAD_URL = "https://www.pikflyer.app/downloads/pikflyer-xiaochibang-android-v1.0.12.apk";
+const ANDROID_UPDATE_ANNOUNCEMENT_ID = "android-1.0.12-trial-update-gate";
 const PAID_POI_HOURLY_LIMIT = 300;
 const PAID_POI_DAILY_LIMIT = 2000;
 const STARTER_PACK_SIZE = 100;
@@ -249,6 +262,60 @@ function utcDateKey(now = new Date()): string {
   return now.toISOString().slice(0, 10);
 }
 
+function compareVersions(a: string, b: string): number {
+  const left = a.split(".").map((part) => Number.parseInt(part, 10) || 0);
+  const right = b.split(".").map((part) => Number.parseInt(part, 10) || 0);
+  const length = Math.max(left.length, right.length);
+  for (let i = 0; i < length; i++) {
+    const diff = (left[i] || 0) - (right[i] || 0);
+    if (diff !== 0) return diff > 0 ? 1 : -1;
+  }
+  return 0;
+}
+
+function androidUpdatePayload(body: Record<string, unknown>, now = new Date()): Record<string, unknown> {
+  const currentVersion = typeof body.app_version === "string" ? body.app_version.trim() : "";
+  const releaseMs = Date.parse(LATEST_ANDROID_RELEASED_AT);
+  const ageDays = Number.isFinite(releaseMs)
+    ? Math.floor(Math.max(0, now.getTime() - releaseMs) / (24 * 60 * 60 * 1000))
+    : 0;
+  const hasVersion = currentVersion !== "";
+  const updateAvailable = hasVersion && compareVersions(currentVersion, LATEST_ANDROID_VERSION) < 0;
+  const belowMinimum = hasVersion && compareVersions(currentVersion, MIN_ANDROID_VERSION) < 0;
+  const updateRequired = belowMinimum || (updateAvailable && ageDays >= ANDROID_UPDATE_GRACE_DAYS);
+  return {
+    success: true,
+    platform: "android",
+    current_version: currentVersion || null,
+    latest_version: LATEST_ANDROID_VERSION,
+    min_supported_version: MIN_ANDROID_VERSION,
+    latest_released_at: LATEST_ANDROID_RELEASED_AT,
+    update_available: updateAvailable,
+    update_required: updateRequired,
+    force_after_days: ANDROID_UPDATE_GRACE_DAYS,
+    days_since_latest_release: ageDays,
+    announcement_id: ANDROID_UPDATE_ANNOUNCEMENT_ID,
+    title: updateRequired ? "請更新 Pik Flyer-小翅膀" : "Pik Flyer-小翅膀 有新版",
+    message: "新增 7 天完整試用、免費低額度版、更新提醒，以及更清楚的手動批量座標限制。",
+    download_url: ANDROID_DOWNLOAD_URL,
+  };
+}
+
+function enforceAndroidUpdate(body: Record<string, unknown>): Response | null {
+  const platform = typeof body.platform === "string" ? body.platform.toLowerCase() : "";
+  const appVersion = typeof body.app_version === "string" ? body.app_version.trim() : "";
+  if (platform !== "android" && appVersion === "") return null;
+  const update = androidUpdatePayload(body);
+  if (!update.update_required) return null;
+  return jsonResponse({
+    success: false,
+    allowed: false,
+    code: "update_required",
+    error: "這個版本已超過更新寬限期，請下載最新版後再使用。",
+    update,
+  }, 426);
+}
+
 function clientIdentity(request: Request): string {
   const forwardedFor = request.headers.get("cf-connecting-ip")
     || request.headers.get("x-forwarded-for")
@@ -312,13 +379,30 @@ function trialPayload(row: TrialDeviceRow, now = new Date()): Record<string, unk
   const expiresMs = Date.parse(row.trial_expires_at);
   const remainingMs = Math.max(0, expiresMs - now.getTime());
   const dayMs = 24 * 60 * 60 * 1000;
+  const fullTrialExpired = expiresMs <= now.getTime();
   return {
     is_trial: true,
     start_at: row.trial_started_at,
     expire_at: row.trial_expires_at,
     remaining_days: remainingMs === 0 ? 0 : Math.ceil(remainingMs / dayMs),
-    is_expired: expiresMs <= now.getTime(),
+    is_expired: fullTrialExpired,
+    full_trial_active: !fullTrialExpired,
+    phase: fullTrialExpired ? "limited_free" : "full_trial",
   };
+}
+
+function trialLimitFor(feature: string, trialInfo: Record<string, unknown>): number | null {
+  const limits = trialInfo.is_expired ? POST_TRIAL_DAILY_LIMITS : TRIAL_DAILY_LIMITS;
+  return Object.prototype.hasOwnProperty.call(limits, feature) ? limits[feature] : null;
+}
+
+function featureLabel(feature: string): string {
+  return ({
+    teleport: "傳送",
+    dice: "骰子",
+    citywalk: "城市散步",
+    manual_batch: "手動批量匯入座標",
+  } as Record<string, string>)[feature] || feature;
 }
 
 async function findInviteByCodeHash(db: D1Database, codeHash: string): Promise<InviteCodeRow | null> {
@@ -564,7 +648,7 @@ async function ensureActiveTrial(body: Record<string, unknown>): Promise<boolean
     .prepare("UPDATE trial_devices SET last_seen_at = ? WHERE device_hash = ?")
     .bind(nowIso, deviceHash)
     .run();
-  return !isExpired(trial.trial_expires_at, now);
+  return true;
 }
 
 async function consumePoiUsageBudget(
@@ -674,8 +758,9 @@ async function consumeTrialQuota(
   }
   await ensureLicenseSchema(db);
 
-  const limit = TRIAL_DAILY_LIMITS[feature];
-  if (!limit) {
+  const knownFeature = Object.prototype.hasOwnProperty.call(TRIAL_DAILY_LIMITS, feature)
+    || Object.prototype.hasOwnProperty.call(POST_TRIAL_DAILY_LIMITS, feature);
+  if (!knownFeature) {
     return jsonResponse({ success: false, allowed: false, error: `unknown trial feature: ${feature}` }, 400);
   }
 
@@ -724,14 +809,15 @@ async function consumeTrialQuota(
     .first<TrialUsageRow>();
   const usedBefore = Math.max(0, Number(usageBefore?.used || 0));
   const trialInfo = trialPayload(trial, now);
+  const limit = trialLimitFor(feature, trialInfo) ?? 0;
   const remainingBefore = Math.max(0, limit - usedBefore);
 
-  if (trialInfo.is_expired) {
+  if (limit < 1) {
     return jsonResponse({
       success: true,
       allowed: false,
-      code: "trial_expired",
-      error: "免費試用已到期，請訂閱 $4.99/月解鎖全部功能。",
+      code: "post_trial_feature_locked",
+      error: `${featureLabel(feature)} 可在 7 天完整試用期內使用；試用後需訂閱 $4.99/月。`,
       feature,
       granted: 0,
       trial: trialInfo,
@@ -745,7 +831,7 @@ async function consumeTrialQuota(
       success: true,
       allowed: false,
       code: "daily_limit_reached",
-      error: `免費試用今日 ${feature} 次數已用完，訂閱 $4.99/月可解鎖無限制使用。`,
+      error: `今日 ${featureLabel(feature)} 次數已用完，訂閱 $4.99/月可解鎖更高額度。`,
       feature,
       granted: 0,
       trial: trialInfo,
@@ -765,7 +851,7 @@ async function consumeTrialQuota(
       success: true,
       allowed: false,
       code: "daily_limit_reached",
-      error: `免費試用今日 ${feature} 次數已用完，訂閱 $4.99/月可解鎖無限制使用。`,
+      error: `今日 ${featureLabel(feature)} 次數已用完，訂閱 $4.99/月可解鎖更高額度。`,
       feature,
       granted: 0,
       trial: trialInfo,
@@ -797,6 +883,9 @@ export async function authorizeFeatureUse(
   requestedCount: number,
   allowPartial = false,
 ): Promise<Response> {
+  const updateBlocked = enforceAndroidUpdate(body);
+  if (updateBlocked) return updateBlocked;
+
   const limited = await enforceRateLimit(request, `feature_${feature}`, 240, 15 * 60);
   if (limited) return limited;
 
@@ -819,6 +908,9 @@ export async function authorizePoiRoll(
   body: Record<string, unknown>,
   requestedCount: number,
 ): Promise<Response> {
+  const updateBlocked = enforceAndroidUpdate(body);
+  if (updateBlocked) return updateBlocked;
+
   const limited = await enforceRateLimit(request, "poi_roll", 60, 15 * 60);
   if (limited) return limited;
 
@@ -840,6 +932,9 @@ export async function authorizePoiPrefetch(
   body: Record<string, unknown>,
   requestedCount: number,
 ): Promise<Response> {
+  const updateBlocked = enforceAndroidUpdate(body);
+  if (updateBlocked) return updateBlocked;
+
   const limited = await enforceRateLimit(request, "poi_prefetch", 120, 15 * 60);
   if (limited) return limited;
 
@@ -955,6 +1050,8 @@ export async function health(request?: Request): Promise<Response> {
     server_trial_configured: Boolean(relayEnv.DB),
     trial_days: TRIAL_DAYS,
     trial_daily_limits: TRIAL_DAILY_LIMITS,
+    post_trial_daily_limits: POST_TRIAL_DAILY_LIMITS,
+    android_update: androidUpdatePayload({ platform: "android", app_version: LATEST_ANDROID_VERSION }),
   });
 }
 
@@ -1083,8 +1180,9 @@ export async function checkTrial(request: Request): Promise<Response> {
 
   const body = await readJson(request);
   const feature = requireString(body.feature, "feature", 32);
-  const limit = TRIAL_DAILY_LIMITS[feature];
-  if (!limit) {
+  const knownFeature = Object.prototype.hasOwnProperty.call(TRIAL_DAILY_LIMITS, feature)
+    || Object.prototype.hasOwnProperty.call(POST_TRIAL_DAILY_LIMITS, feature);
+  if (!knownFeature) {
     return jsonResponse({ success: false, allowed: false, error: `unknown trial feature: ${feature}` }, 400);
   }
 
@@ -1133,13 +1231,14 @@ export async function checkTrial(request: Request): Promise<Response> {
     .first<TrialUsageRow>();
   const usedBefore = Math.max(0, Number(usageBefore?.used || 0));
   const trialInfo = trialPayload(trial, now);
+  const limit = trialLimitFor(feature, trialInfo) ?? 0;
 
-  if (trialInfo.is_expired) {
+  if (limit < 1) {
     return jsonResponse({
       success: true,
       allowed: false,
-      code: "trial_expired",
-      error: "免費試用已到期，請訂閱 $4.99/月解鎖全部功能。",
+      code: "post_trial_feature_locked",
+      error: `${featureLabel(feature)} 可在 7 天完整試用期內使用；試用後需訂閱 $4.99/月。`,
       feature,
       trial: trialInfo,
       trial_usage: { date: today, limits: { [feature]: limit }, counts: { [feature]: usedBefore }, remaining: { [feature]: 0 } },
@@ -1151,7 +1250,7 @@ export async function checkTrial(request: Request): Promise<Response> {
       success: true,
       allowed: false,
       code: "daily_limit_reached",
-      error: `免費試用今日 ${feature} 次數已用完，訂閱 $4.99/月可解鎖無限制使用。`,
+      error: `今日 ${featureLabel(feature)} 次數已用完，訂閱 $4.99/月可解鎖更高額度。`,
       feature,
       trial: trialInfo,
       trial_usage: { date: today, limits: { [feature]: limit }, counts: { [feature]: usedBefore }, remaining: { [feature]: 0 } },
@@ -1177,7 +1276,7 @@ export async function checkTrial(request: Request): Promise<Response> {
         success: true,
         allowed: false,
         code: "daily_limit_reached",
-        error: `免費試用今日 ${feature} 次數已用完，訂閱 $4.99/月可解鎖無限制使用。`,
+        error: `今日 ${featureLabel(feature)} 次數已用完，訂閱 $4.99/月可解鎖更高額度。`,
         feature,
         trial: trialInfo,
         trial_usage: { date: today, limits: { [feature]: limit }, counts: { [feature]: usedAfter }, remaining: { [feature]: 0 } },
@@ -1257,7 +1356,17 @@ export async function trialStatus(request: Request): Promise<Response> {
     paid: false,
     code: payload.is_expired ? "trial_expired" : "trial_active",
     trial: payload,
+    trial_days: TRIAL_DAYS,
+    trial_daily_limits: TRIAL_DAILY_LIMITS,
+    post_trial_daily_limits: POST_TRIAL_DAILY_LIMITS,
   }, payload.is_expired ? 403 : 200);
+}
+
+export async function appUpdateStatus(request: Request): Promise<Response> {
+  const limited = await enforceRateLimit(request, "app_update", 120, 15 * 60);
+  if (limited) return limited;
+  const body = await readJson(request);
+  return jsonResponse(androidUpdatePayload(body));
 }
 
 export function methodNotAllowed(): Response {
