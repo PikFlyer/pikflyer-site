@@ -826,7 +826,50 @@ export async function authorizePoiRoll(
   if (await isPaidOrOwner(body)) {
     return consumePoiUsageBudget(request, body, count);
   }
-  return consumeTrialQuota(body, "dice", count, true);
+  const quota = await consumeTrialQuota(body, "dice", 1, false);
+  const quotaBody = await quota.clone().json().catch(() => null) as { allowed?: boolean; paid?: boolean } | null;
+  if (!quotaBody?.allowed) return quota;
+  return jsonResponse({
+    ...quotaBody,
+    granted: count,
+  });
+}
+
+export async function authorizePoiPrefetch(
+  request: Request,
+  body: Record<string, unknown>,
+  requestedCount: number,
+): Promise<Response> {
+  const limited = await enforceRateLimit(request, "poi_prefetch", 120, 15 * 60);
+  if (limited) return limited;
+
+  const count = Math.max(1, Math.min(Math.floor(requestedCount || 1), 8));
+  if (await isPaidOrOwner(body)) {
+    return jsonResponse({
+      success: true,
+      allowed: true,
+      paid: true,
+      feature: "dice",
+      granted: count,
+    });
+  }
+  const active = await ensureActiveTrial(body);
+  if (!active) {
+    return jsonResponse({
+      success: true,
+      allowed: false,
+      code: "trial_expired",
+      error: "免費試用已到期，請訂閱 $4.99/月解鎖全部功能。",
+      granted: 0,
+    }, 403);
+  }
+  return jsonResponse({
+    success: true,
+    allowed: true,
+    paid: false,
+    feature: "dice",
+    granted: count,
+  });
 }
 
 export async function authorizeStarterPack(request: Request): Promise<Response> {
@@ -1156,6 +1199,65 @@ export async function checkTrial(request: Request): Promise<Response> {
       remaining: { [feature]: Math.max(0, limit - usedAfter) },
     },
   });
+}
+
+export async function trialStatus(request: Request): Promise<Response> {
+  const limited = await enforceRateLimit(request, "trial_status", 120, 15 * 60);
+  if (limited) return limited;
+  const db = await getD1();
+  if (!db) {
+    return jsonResponse({ success: false, allowed: false, error: "trial database is not configured" }, 500);
+  }
+  await ensureLicenseSchema(db);
+
+  const body = await readJson(request);
+  if (await isPaidOrOwner(body)) {
+    return jsonResponse({
+      success: true,
+      allowed: true,
+      paid: true,
+      trial: null,
+    });
+  }
+
+  const deviceHash = await deviceHashFromBody(body);
+  const now = new Date();
+  const nowIso = now.toISOString();
+  let trial = await db
+    .prepare("SELECT * FROM trial_devices WHERE device_hash = ?")
+    .bind(deviceHash)
+    .first<TrialDeviceRow>();
+
+  if (!trial) {
+    const expiresAt = addDaysIso(now, TRIAL_DAYS);
+    await db
+      .prepare(`INSERT INTO trial_devices
+        (device_hash, trial_started_at, trial_expires_at, created_at, last_seen_at)
+        VALUES (?, ?, ?, ?, ?)`)
+      .bind(deviceHash, nowIso, expiresAt, nowIso, nowIso)
+      .run();
+    trial = {
+      device_hash: deviceHash,
+      trial_started_at: nowIso,
+      trial_expires_at: expiresAt,
+      created_at: nowIso,
+      last_seen_at: nowIso,
+    };
+  } else {
+    await db
+      .prepare("UPDATE trial_devices SET last_seen_at = ? WHERE device_hash = ?")
+      .bind(nowIso, deviceHash)
+      .run();
+  }
+
+  const payload = trialPayload(trial, now);
+  return jsonResponse({
+    success: true,
+    allowed: !payload.is_expired,
+    paid: false,
+    code: payload.is_expired ? "trial_expired" : "trial_active",
+    trial: payload,
+  }, payload.is_expired ? 403 : 200);
 }
 
 export function methodNotAllowed(): Response {
