@@ -71,6 +71,7 @@ test("brand assets and Android release download are present", () => {
 
 test("page points users at the current Android release", () => {
   assert.match(rootIndex, /downloads\/pikflyer-xiaochibang-android-v1\.0\.10\.apk/);
+  assert.match(rootIndex, /https:\/\/www\.creem\.io\/payment\/prod_p43ENvAr9g7395z8mlvH/);
   assert.match(rootIndex, /版本 1\.0\.10/);
   assert.match(rootIndex, /手動批量匯入座標/);
 });
