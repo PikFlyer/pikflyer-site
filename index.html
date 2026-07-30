@@ -201,6 +201,18 @@ main > section:not(.hero) .note{color:#50665b}
 .card .icon{font-size:2rem;margin-bottom:.7rem}
 .card h3{margin:.2rem 0 .45rem;font-size:1.24rem}
 .card p{margin:0;color:#50665b}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.review-card{
+  background:#ffffff;
+  border:1px solid rgba(7,18,15,.1);
+  border-radius:24px;
+  padding:1.35rem;
+  box-shadow:0 16px 42px rgba(7,18,15,.08);
+}
+.review-card blockquote{margin:0;color:#23352d;font-size:1rem}
+.review-card blockquote:before{content:"“";display:block;color:var(--mint);font-size:3rem;line-height:.7;font-weight:900}
+.review-card figcaption{margin-top:1rem;color:#0f3729;font-weight:900}
+.review-card figcaption span{display:block;color:#658075;font-size:.86rem;font-weight:700;margin-top:.15rem}
 .global-card{
   background:#fff;border:1px solid rgba(7,18,15,.1);border-radius:24px;
   padding:1.2rem;box-shadow:0 14px 34px rgba(7,18,15,.07);
@@ -319,7 +331,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
   .scene-caption{left:1rem;bottom:9.7rem}
   .scene-control-card{left:12px;right:12px;bottom:14px;width:auto}
   .scene-thumb-strip{display:none}
-  .trial-strip,.cards,.global-grid,.platforms,.steps,.faq{grid-template-columns:1fr}
+  .trial-strip,.cards,.reviews-grid,.global-grid,.platforms,.steps,.faq{grid-template-columns:1fr}
   .section-head{display:block}
   .section-head p{margin-top:.7rem}
   .btn-row .btn{width:100%}
@@ -347,6 +359,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
       <a href="#global">Languages</a>
       <a href="#usecases">適用場景</a>
       <a href="#features">特色</a>
+      <a href="#reviews">評價</a>
       <a href="#landmarks">地標</a>
       <a href="#install">安裝教學</a>
       <a href="#pricing">免費試用</a>
@@ -569,6 +582,29 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
           <h3>狀態自檢</h3>
           <p>Android 橋接、懸浮窗權限、授權、素材與常見安裝問題會集中提示，降低新手安裝卡關。</p>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>玩家怎麼說</h2>
+        <p>從找地標、骰明信片到城市散步，小翅膀把原本很麻煩的流程變成每天可以順手打開的小工具。</p>
+      </div>
+      <div class="reviews-grid" aria-label="使用者評價">
+        <figure class="review-card">
+          <blockquote>使用了 Pik Flyer 後真的方便，終於不用在台北人山人海只擠一般菇了。今天看看埃及，明天去冰島，順便看看那邊的菇長什麼樣子。</blockquote>
+          <figcaption>心如<span>台北 · 明信片與香菇玩家</span></figcaption>
+        </figure>
+        <figure class="review-card">
+          <blockquote>我最常用的是明信片骰子。以前要自己查地點、複製座標、再慢慢整理，現在直接選分類，幾秒鐘就有新的散步目標。</blockquote>
+          <figcaption>阿哲<span>新北 · 路線收藏控</span></figcaption>
+        </figure>
+        <figure class="review-card">
+          <blockquote>手機設定比想像中簡單，照提示開完權限就能用。7 天試用很夠測，試用後還能低額度繼續用，不會一到期就整個不能開。</blockquote>
+          <figcaption>Mika<span>高雄 · Android 使用者</span></figcaption>
+        </figure>
       </div>
     </div>
   </section>
