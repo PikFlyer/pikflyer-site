@@ -74,7 +74,9 @@ test("page points users at the current Android release", () => {
   assert.match(rootIndex, /https:\/\/www\.creem\.io\/payment\/prod_p43ENvAr9g7395z8mlvH/);
   assert.match(rootIndex, /版本 1\.0\.12/);
   assert.match(rootIndex, /7 天完整試用/);
-  assert.match(rootIndex, /第 8 天後：10 次傳送、15 次骰子、1 次城市散步/);
+  assert.match(rootIndex, /第 8 天後仍可用：10 次傳送、15 次骰子、1 次城市散步/);
+  assert.match(rootIndex, /設定簡單/);
+  assert.match(rootIndex, /第 8 天後仍可免費低額度使用/);
   assert.match(rootIndex, /手動批量匯入座標/);
 });
 
