@@ -60,6 +60,13 @@ test("brand assets and Android release download are present", () => {
     "../credits.html",
     "../public/credits.html",
     "../public/downloads/pikflyer-xiaochibang-android-v1.0.12.apk",
+    "../assets/reviews/emma.jpg",
+    "../assets/reviews/jack.jpg",
+    "../assets/reviews/mika.jpg",
+    "../assets/reviews/omar.jpg",
+    "../assets/reviews/sofia.jpg",
+    "../assets/reviews/yui.jpg",
+    "../public/assets/reviews/emma.jpg",
   ];
 
   for (const relativePath of requiredFiles) {
@@ -77,9 +84,16 @@ test("page points users at the current Android release", () => {
   assert.match(rootIndex, /第 8 天後仍可用：10 次傳送、15 次骰子、1 次城市散步/);
   assert.match(rootIndex, /設定簡單/);
   assert.match(rootIndex, /第 8 天後仍可免費低額度使用/);
-  assert.match(rootIndex, /玩家怎麼說/);
+  assert.match(rootIndex, /玩家會怎麼用/);
   assert.match(rootIndex, /心如/);
   assert.match(rootIndex, /冰島/);
+  assert.match(rootIndex, /data-review-carousel/);
+  assert.match(rootIndex, /assets\/reviews\/emma\.jpg/);
+  assert.match(rootIndex, /Jack/);
+  assert.match(rootIndex, /Yui/);
+  assert.match(rootIndex, /Omar/);
+  assert.match(rootIndex, /Sofía/);
+  assert.equal(rootIndex.includes("同一個 app，用不同語言快速理解"), false);
   assert.match(rootIndex, /手動批量匯入座標/);
 });
 
