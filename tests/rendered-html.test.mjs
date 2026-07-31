@@ -113,6 +113,8 @@ test("page points users at the current Android release", () => {
   assert.match(rootIndex, /在家，也能<span>行<\/span>萬里路/);
   assert.match(rootIndex, /跟朋友有連結/);
   assert.match(rootIndex, /附近的香菇看膩了/);
+  assert.match(rootIndex, /https:\/\/www\.instagram\.com\/pikflyer\.app\//);
+  assert.match(rootIndex, /https:\/\/www\.threads\.com\/@pikflyer\.app/);
 });
 
 
