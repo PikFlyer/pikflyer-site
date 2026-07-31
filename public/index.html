@@ -485,7 +485,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
         </div>
         <p class="hero-copy">附近的香菇看膩了？今天很忙忘了種花？天氣太熱不想出門？小翅膀把明信片骰子、自動散步與懸浮視窗放進手機。和朋友一起分享今天骰到的國外美景，在家也能有新的城市話題。</p>
         <div class="hero-actions" aria-label="Android 下載">
-          <a class="btn btn-primary" href="downloads/pikflyer-xiaochibang-android-v1.0.13.apk?v=overlay-trial-fix" download>免費下載 Android 版</a>
+          <a class="btn btn-primary" href="/download?file=pikflyer-xiaochibang-android-v1.0.13.apk">免費下載 Android 版</a>
           <a class="btn btn-secondary" href="#install">看安裝教學</a>
           <div class="hero-release-card">
             <strong>最新版 1.0.13</strong>
@@ -707,7 +707,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
           </ul>
         </div>
         <div>
-          <a class="btn btn-primary" href="downloads/pikflyer-xiaochibang-android-v1.0.13.apk?v=overlay-trial-fix" download>下載 Pik Flyer Android</a>
+          <a class="btn btn-primary" href="/download?file=pikflyer-xiaochibang-android-v1.0.13.apk">下載 Pik Flyer Android</a>
           <a class="btn btn-secondary" href="https://www.creem.io/payment/prod_p43ENvAr9g7395z8mlvH" target="_blank" rel="noopener noreferrer" style="margin-top:.75rem">訂閱 US$4.99 / 月</a>
           <p class="release-meta">
             版本 1.0.13 · Android 版 8 MB
@@ -1084,6 +1084,30 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
   root.addEventListener('focusout', start);
   showReview(0);
   start();
+})();
+</script>
+<script>
+(() => {
+  try {
+    const payload = JSON.stringify({
+      event: 'page_view',
+      path: window.location.pathname || '/',
+    });
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon('/stats/track', new Blob([payload], { type: 'application/json' }));
+      return;
+    }
+    fetch('/stats/track', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: payload,
+      keepalive: true,
+    }).catch((error) => {
+      console.warn('Unable to record page view.', error);
+    });
+  } catch (error) {
+    console.warn('Unable to prepare page view counter.', error);
+  }
 })();
 </script>
 </body>
