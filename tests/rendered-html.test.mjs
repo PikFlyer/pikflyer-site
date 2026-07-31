@@ -55,8 +55,8 @@ test("brand assets and Android release download are present", () => {
   const requiredFiles = [
     "../assets/brand/xiaochibang-logo.png",
     "../assets/brand/xiaochibang-logo-180.png",
-    "../downloads/pikflyer-xiaochibang-android-v1.0.8.apk",
     "../downloads/pikflyer-xiaochibang-android-v1.0.13.sha256",
+    "../downloads/pikflyer-xiaochibang-android-v1.0.13.apk",
     "../credits.html",
     "../public/credits.html",
     "../public/downloads/pikflyer-xiaochibang-android-v1.0.13.apk",
