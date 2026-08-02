@@ -78,12 +78,12 @@ const POST_TRIAL_DAILY_LIMITS: Record<string, number> = {
   citywalk: 1,
   manual_batch: 0,
 };
-const LATEST_ANDROID_VERSION = "2.0.8";
+const LATEST_ANDROID_VERSION = "2.0.9";
 const MIN_ANDROID_VERSION = "1.0.0";
-const LATEST_ANDROID_RELEASED_AT = "2026-08-02T14:44:13.000Z";
+const LATEST_ANDROID_RELEASED_AT = "2026-08-02T14:52:50.000Z";
 const ANDROID_UPDATE_GRACE_DAYS = 30;
-const ANDROID_DOWNLOAD_URL = "https://www.pikflyer.app/downloads/pikflyer-xiaochibang-android-v2.0.8.apk";
-const ANDROID_UPDATE_ANNOUNCEMENT_ID = "android-2.0.8-trial-first-use-and-copy-fixes";
+const ANDROID_DOWNLOAD_URL = "https://www.pikflyer.app/downloads/pikflyer-xiaochibang-android-v2.0.9.apk";
+const ANDROID_UPDATE_ANNOUNCEMENT_ID = "android-2.0.9-trial-status-first-use";
 const PAID_POI_HOURLY_LIMIT = 300;
 const PAID_POI_DAILY_LIMIT = 2000;
 const STARTER_PACK_SIZE = 100;
@@ -635,10 +635,38 @@ async function ensureActiveTrial(body: Record<string, unknown>): Promise<boolean
   const deviceHash = await deviceHashFromBody(body);
   const now = new Date();
   const nowIso = now.toISOString();
+  const today = taipeiDateKey(now);
+  const shouldStartTrial = body.start_trial === true;
   let trial = await db
     .prepare("SELECT * FROM trial_devices WHERE device_hash = ?")
     .bind(deviceHash)
     .first<TrialDeviceRow>();
+
+  if (!trial && !shouldStartTrial) {
+    return jsonResponse({
+      success: true,
+      allowed: true,
+      paid: false,
+      code: "trial_not_started",
+      trial: {
+        is_trial: true,
+        is_expired: false,
+        full_trial_active: false,
+        phase: "not_started",
+        remaining_days: TRIAL_DAYS,
+        starts_on_first_use: true,
+      },
+      trial_days: TRIAL_DAYS,
+      trial_daily_limits: TRIAL_DAILY_LIMITS,
+      post_trial_daily_limits: POST_TRIAL_DAILY_LIMITS,
+      trial_usage: {
+        date: today,
+        limits: TRIAL_DAILY_LIMITS,
+        counts: {},
+        remaining: TRIAL_DAILY_LIMITS,
+      },
+    });
+  }
 
   if (!trial) {
     const expiresAt = addDaysIso(now, TRIAL_DAYS);
