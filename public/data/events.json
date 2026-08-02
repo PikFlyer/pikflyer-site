@@ -1,7 +1,8 @@
 {
   "current_event": "ikea_tw_august_2026",
   "last_updated": "2026-08-02T00:00:00+08:00",
-  "source_note": "Curated from public official Pikmin Bloom news pages. Coordinates are store/venue entrance approximations for fast in-app routing.",
+  "source_index_url": "https://pikminbloom.com/zh_hant/news",
+  "source_note": "Curated from the Traditional Chinese official Pikmin Bloom news index and linked public official event pages. Coordinates are store/venue entrance approximations for fast in-app routing.",
   "events": [
     {
       "id": "ikea_tw_august_2026",

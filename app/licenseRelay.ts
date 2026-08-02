@@ -78,12 +78,12 @@ const POST_TRIAL_DAILY_LIMITS: Record<string, number> = {
   citywalk: 1,
   manual_batch: 0,
 };
-const LATEST_ANDROID_VERSION = "2.0.2";
+const LATEST_ANDROID_VERSION = "2.0.3";
 const MIN_ANDROID_VERSION = "1.0.0";
-const LATEST_ANDROID_RELEASED_AT = "2026-08-02T07:00:00.000Z";
+const LATEST_ANDROID_RELEASED_AT = "2026-08-02T07:30:00.000Z";
 const ANDROID_UPDATE_GRACE_DAYS = 30;
-const ANDROID_DOWNLOAD_URL = "https://www.pikflyer.app/downloads/pikflyer-xiaochibang-android-v2.0.2.apk";
-const ANDROID_UPDATE_ANNOUNCEMENT_ID = "android-2.0.2-events-steps";
+const ANDROID_DOWNLOAD_URL = "https://www.pikflyer.app/downloads/pikflyer-xiaochibang-android-v2.0.3.apk";
+const ANDROID_UPDATE_ANNOUNCEMENT_ID = "android-2.0.3-events-source";
 const PAID_POI_HOURLY_LIMIT = 300;
 const PAID_POI_DAILY_LIMIT = 2000;
 const STARTER_PACK_SIZE = 100;
@@ -296,7 +296,7 @@ function androidUpdatePayload(body: Record<string, unknown>, now = new Date()): 
     days_since_latest_release: ageDays,
     announcement_id: ANDROID_UPDATE_ANNOUNCEMENT_ID,
     title: updateRequired ? "請更新 Pik Flyer-小翅膀" : "Pik Flyer-小翅膀 有新版",
-    message: "新增活動專區、IKEA/Xpark 活動資料、活動時區提醒，以及散步時本機步數估算開關。",
+    message: "新增活動專區、IKEA/Xpark 活動資料、活動時區提醒，並改以 Pikmin Bloom 繁中官方 News 作為活動同步來源。",
     download_url: ANDROID_DOWNLOAD_URL,
   };
 }
