@@ -78,12 +78,12 @@ const POST_TRIAL_DAILY_LIMITS: Record<string, number> = {
   citywalk: 1,
   manual_batch: 0,
 };
-const LATEST_ANDROID_VERSION = "2.0.4";
+const LATEST_ANDROID_VERSION = "2.0.5";
 const MIN_ANDROID_VERSION = "1.0.0";
-const LATEST_ANDROID_RELEASED_AT = "2026-08-02T08:05:00.000Z";
+const LATEST_ANDROID_RELEASED_AT = "2026-08-02T08:35:00.000Z";
 const ANDROID_UPDATE_GRACE_DAYS = 30;
-const ANDROID_DOWNLOAD_URL = "https://www.pikflyer.app/downloads/pikflyer-xiaochibang-android-v2.0.4.apk";
-const ANDROID_UPDATE_ANNOUNCEMENT_ID = "android-2.0.4-event-same-day-window";
+const ANDROID_DOWNLOAD_URL = "https://www.pikflyer.app/downloads/pikflyer-xiaochibang-android-v2.0.5.apk";
+const ANDROID_UPDATE_ANNOUNCEMENT_ID = "android-2.0.5-member-only-events";
 const PAID_POI_HOURLY_LIMIT = 300;
 const PAID_POI_DAILY_LIMIT = 2000;
 const STARTER_PACK_SIZE = 100;
@@ -296,7 +296,7 @@ function androidUpdatePayload(body: Record<string, unknown>, now = new Date()): 
     days_since_latest_release: ageDays,
     announcement_id: ANDROID_UPDATE_ANNOUNCEMENT_ID,
     title: updateRequired ? "請更新 Pik Flyer-小翅膀" : "Pik Flyer-小翅膀 有新版",
-    message: "活動專區改為同日期安全窗：玩家本機日期與活動所在地同一天即可操作，但活動地 23:30 後不開放傳送或散步。",
+    message: "活動專區改為會員限定：免費玩家可查看活動地點，會員可在同日期安全窗內傳送與啟動活動散步。",
     download_url: ANDROID_DOWNLOAD_URL,
   };
 }
