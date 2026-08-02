@@ -1,0 +1,252 @@
+{
+  "current_event": "ikea_tw_august_2026",
+  "last_updated": "2026-08-02T00:00:00+08:00",
+  "source_note": "Curated from public official Pikmin Bloom news pages. Coordinates are store/venue entrance approximations for fast in-app routing.",
+  "events": [
+    {
+      "id": "ikea_tw_august_2026",
+      "name": "IKEA Taiwan × Pikmin Bloom 工具裝飾活動",
+      "name_en": "IKEA Taiwan × Pikmin Bloom Tool Decor Event",
+      "region": "台灣 IKEA 8 間門市",
+      "region_en": "8 IKEA stores in Taiwan",
+      "timezone": "Asia/Taipei",
+      "timezone_offset": 8.0,
+      "timezone_label": "UTC+8 台灣時間",
+      "locked_to_timezone": true,
+      "start_date": "2026-08-01T10:00:00+08:00",
+      "end_date": "2026-08-31T22:00:00+08:00",
+      "description": "活動期間，台灣 8 間 IKEA 會出現 Special Spot，可取得限定明信片與會長成工具裝飾皮克敏的金色花苗。",
+      "description_en": "Limited-time Special Spots appear at 8 IKEA Taiwan stores with event postcards and Tool Decor Pikmin Gold Seedlings.",
+      "source_url": "https://pikminbloom.com/news/august26-ikeatw",
+      "banner_color": "#facc15",
+      "center": { "lat": 23.9739, "lng": 120.9820 },
+      "zoom": 7,
+      "spots": [
+        {
+          "id": "NEIHU",
+          "name": "IKEA 內湖店",
+          "name_en": "IKEA Nei Hu Store",
+          "address": "台北市內湖區舊宗路一段128號",
+          "lat": 25.0627,
+          "lng": 121.5774,
+          "decor": "工具裝飾皮克敏",
+          "decor_en": "Tool Decor Pikmin",
+          "icon": "🛠️",
+          "tip": "台北內湖門市，活動期間每週可領一次限定明信片與金苗。"
+        },
+        {
+          "id": "HSINCHUANG",
+          "name": "IKEA 新莊店",
+          "name_en": "IKEA Hsin Chuang Store",
+          "address": "新北市新莊區中正路1號",
+          "lat": 25.04138,
+          "lng": 121.46409,
+          "decor": "工具裝飾皮克敏",
+          "decor_en": "Tool Decor Pikmin",
+          "icon": "🛠️",
+          "tip": "新莊門市，適合北部玩家收集活動金苗。"
+        },
+        {
+          "id": "XINDIAN",
+          "name": "IKEA 新店店",
+          "name_en": "IKEA Xin Dian Store",
+          "address": "新北市新店區中央路159號4樓",
+          "lat": 24.9738,
+          "lng": 121.5297,
+          "decor": "工具裝飾皮克敏",
+          "decor_en": "Tool Decor Pikmin",
+          "icon": "🛠️",
+          "tip": "小碧潭站旁，新店門市 Special Spot。"
+        },
+        {
+          "id": "TAIPEI_ARENA",
+          "name": "IKEA 台北城市店小巨蛋",
+          "name_en": "IKEA Taipei Arena City Store",
+          "address": "台北市松山區敦化北路100號B1",
+          "lat": 25.0519,
+          "lng": 121.5485,
+          "decor": "工具裝飾皮克敏",
+          "decor_en": "Tool Decor Pikmin",
+          "icon": "🛠️",
+          "tip": "台北小巨蛋旁，城市店 Special Spot。"
+        },
+        {
+          "id": "TAOYUAN",
+          "name": "IKEA 桃園店",
+          "name_en": "IKEA Tao Yuan Store",
+          "address": "桃園市中壢區高鐵站前東路一段1號",
+          "lat": 25.0147,
+          "lng": 121.2142,
+          "decor": "工具裝飾皮克敏",
+          "decor_en": "Tool Decor Pikmin",
+          "icon": "🛠️",
+          "tip": "桃園高鐵附近，活動期間可收工具裝飾金苗。"
+        },
+        {
+          "id": "TAICHUNG",
+          "name": "IKEA 台中店",
+          "name_en": "IKEA Tai Chung Store",
+          "address": "台中市南屯區向上路二段168號",
+          "lat": 24.1478,
+          "lng": 120.6408,
+          "decor": "工具裝飾皮克敏",
+          "decor_en": "Tool Decor Pikmin",
+          "icon": "🛠️",
+          "tip": "台中南屯門市，活動 Special Spot。"
+        },
+        {
+          "id": "CHIAYI",
+          "name": "IKEA 嘉義城市店",
+          "name_en": "IKEA Chia Yi City Shop",
+          "address": "嘉義市西區博愛路二段281號1樓",
+          "lat": 23.4824,
+          "lng": 120.4415,
+          "decor": "工具裝飾皮克敏",
+          "decor_en": "Tool Decor Pikmin",
+          "icon": "🛠️",
+          "tip": "嘉義大潤發 1F 城市店。"
+        },
+        {
+          "id": "KAOHSIUNG",
+          "name": "IKEA 高雄店",
+          "name_en": "IKEA Kao Hsiung Store",
+          "address": "高雄市前鎮區中華五路1201號",
+          "lat": 22.6042,
+          "lng": 120.3060,
+          "decor": "工具裝飾皮克敏",
+          "decor_en": "Tool Decor Pikmin",
+          "icon": "🛠️",
+          "tip": "高雄前鎮門市，南部玩家可收活動明信片。"
+        }
+      ],
+      "routes": [
+        {
+          "id": "north_tw_ikea",
+          "name": "北部 IKEA 快收路線",
+          "name_en": "Northern Taiwan IKEA Route",
+          "description": "內湖、新莊、新店、小巨蛋、桃園，一次排成活動散步路線。",
+          "order": ["NEIHU", "TAIPEI_ARENA", "HSINCHUANG", "XINDIAN", "TAOYUAN"],
+          "estimated_time_min": 180,
+          "distance_km": 75.0,
+          "transport": "活動點位長距離串聯"
+        },
+        {
+          "id": "all_tw_ikea",
+          "name": "全台 IKEA 活動點位",
+          "name_en": "All Taiwan IKEA Spots",
+          "description": "全台 8 間活動門市，適合想一次看完整活動地圖的玩家。",
+          "order": ["NEIHU", "TAIPEI_ARENA", "HSINCHUANG", "XINDIAN", "TAOYUAN", "TAICHUNG", "CHIAYI", "KAOHSIUNG"],
+          "estimated_time_min": 360,
+          "distance_km": 360.0,
+          "transport": "長距離點位預覽"
+        }
+      ],
+      "gifts": {
+        "description": "限定活動明信片與工具裝飾金苗",
+        "waves": [
+          {
+            "dates": "8/1 ～ 8/31",
+            "time": "每週每店一次",
+            "location": "台灣 8 間 IKEA 活動門市",
+            "lat": 23.9739,
+            "lng": 120.9820
+          }
+        ],
+        "note": "官方活動內容可能變動；實際 Special Spot 顯示以遊戲內為準。"
+      },
+      "challenge": {
+        "name": "Spot Challenge",
+        "description": "接近活動門市時，遊戲內可能出現步行 2,000 步挑戰。",
+        "reward": "紅色照片鈕扣徽章皮克敏金苗"
+      }
+    },
+    {
+      "id": "xpark_tw_july_sep_2026",
+      "name": "Xpark × Pikmin Bloom 珊瑚裝飾活動",
+      "name_en": "Xpark × Pikmin Bloom Coral Decor Event",
+      "region": "台灣 桃園 Xpark",
+      "region_en": "Xpark Aquarium, Taoyuan, Taiwan",
+      "timezone": "Asia/Taipei",
+      "timezone_offset": 8.0,
+      "timezone_label": "UTC+8 台灣時間",
+      "locked_to_timezone": true,
+      "start_date": "2026-07-01T10:00:00+08:00",
+      "end_date": "2026-09-30T18:00:00+08:00",
+      "description": "Xpark 水族館內會出現 Special Spot，可取得會長成紅、黃、藍珊瑚裝飾皮克敏的金色花苗。",
+      "description_en": "A Special Spot appears at Xpark Aquarium with Gold Seedlings for Red, Yellow, or Blue Coral Decor Pikmin.",
+      "source_url": "https://pikminbloom.com/news/july26-twaquarium",
+      "banner_color": "#38bdf8",
+      "center": { "lat": 25.0145, "lng": 121.2141 },
+      "zoom": 17,
+      "spots": [
+        {
+          "id": "XPARK",
+          "name": "Xpark 水族館",
+          "name_en": "Xpark Aquarium",
+          "address": "桃園市中壢區春德路105號",
+          "lat": 25.0145,
+          "lng": 121.2141,
+          "decor": "珊瑚裝飾皮克敏",
+          "decor_en": "Coral Decor Pikmin",
+          "icon": "🪸",
+          "tip": "每月期間限制領取一次，實際領取狀態以遊戲內為準。"
+        }
+      ],
+      "routes": [
+        {
+          "id": "xpark_spot",
+          "name": "Xpark 周邊短散步",
+          "name_en": "Xpark Short Walk",
+          "description": "Xpark 與高鐵桃園站周邊短路線，適合定位後暖機。",
+          "order": ["XPARK", "TAOYUAN_HSR", "GLORIA_OUTLETS", "XPARK"],
+          "estimated_time_min": 18,
+          "distance_km": 1.5,
+          "transport": "周邊短散步"
+        }
+      ],
+      "extra_route_spots": [
+        {
+          "id": "TAOYUAN_HSR",
+          "name": "高鐵桃園站",
+          "lat": 25.0139,
+          "lng": 121.2147,
+          "icon": "🚄"
+        },
+        {
+          "id": "GLORIA_OUTLETS",
+          "name": "華泰名品城",
+          "lat": 25.0161,
+          "lng": 121.2132,
+          "icon": "🛍️"
+        }
+      ],
+      "gifts": {
+        "description": "珊瑚裝飾皮克敏金苗",
+        "waves": [
+          {
+            "dates": "7/1 ～ 7/31",
+            "time": "每位玩家一次",
+            "location": "Xpark 水族館",
+            "lat": 25.0145,
+            "lng": 121.2141
+          },
+          {
+            "dates": "8/1 ～ 8/31",
+            "time": "每位玩家一次",
+            "location": "Xpark 水族館",
+            "lat": 25.0145,
+            "lng": 121.2141
+          },
+          {
+            "dates": "9/1 ～ 9/30",
+            "time": "每位玩家一次",
+            "location": "Xpark 水族館",
+            "lat": 25.0145,
+            "lng": 121.2141
+          }
+        ],
+        "note": "官方要求 Pikmin Bloom v147 或以上；實際活動顯示以遊戲內為準。"
+      }
+    }
+  ]
+}
