@@ -296,7 +296,7 @@ function androidUpdatePayload(body: Record<string, unknown>, now = new Date()): 
     days_since_latest_release: ageDays,
     announcement_id: ANDROID_UPDATE_ANNOUNCEMENT_ID,
     title: updateRequired ? "請更新 Pik Flyer-小翅膀" : "Pik Flyer-小翅膀 有新版",
-    message: "修正更新提示，並把搜尋欄與座標欄位改成更直覺的中文顯示。",
+    message: "新增活動專區、IKEA/Xpark 活動資料、活動時區提醒，以及散步時本機步數估算開關。",
     download_url: ANDROID_DOWNLOAD_URL,
   };
 }
