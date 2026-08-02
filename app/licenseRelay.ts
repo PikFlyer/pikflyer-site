@@ -635,38 +635,10 @@ async function ensureActiveTrial(body: Record<string, unknown>): Promise<boolean
   const deviceHash = await deviceHashFromBody(body);
   const now = new Date();
   const nowIso = now.toISOString();
-  const today = taipeiDateKey(now);
-  const shouldStartTrial = body.start_trial === true;
   let trial = await db
     .prepare("SELECT * FROM trial_devices WHERE device_hash = ?")
     .bind(deviceHash)
     .first<TrialDeviceRow>();
-
-  if (!trial && !shouldStartTrial) {
-    return jsonResponse({
-      success: true,
-      allowed: true,
-      paid: false,
-      code: "trial_not_started",
-      trial: {
-        is_trial: true,
-        is_expired: false,
-        full_trial_active: false,
-        phase: "not_started",
-        remaining_days: TRIAL_DAYS,
-        starts_on_first_use: true,
-      },
-      trial_days: TRIAL_DAYS,
-      trial_daily_limits: TRIAL_DAILY_LIMITS,
-      post_trial_daily_limits: POST_TRIAL_DAILY_LIMITS,
-      trial_usage: {
-        date: today,
-        limits: TRIAL_DAILY_LIMITS,
-        counts: {},
-        remaining: TRIAL_DAILY_LIMITS,
-      },
-    });
-  }
 
   if (!trial) {
     const expiresAt = addDaysIso(now, TRIAL_DAYS);
@@ -1231,33 +1203,6 @@ export async function checkTrial(request: Request): Promise<Response> {
     .bind(deviceHash)
     .first<TrialDeviceRow>();
 
-  const shouldStartTrial = body.start_trial === true;
-  if (!trial && !shouldStartTrial) {
-    return jsonResponse({
-      success: true,
-      allowed: true,
-      paid: false,
-      code: "trial_not_started",
-      trial: {
-        is_trial: true,
-        is_expired: false,
-        full_trial_active: false,
-        phase: "not_started",
-        remaining_days: TRIAL_DAYS,
-        starts_on_first_use: true,
-      },
-      trial_days: TRIAL_DAYS,
-      trial_daily_limits: TRIAL_DAILY_LIMITS,
-      post_trial_daily_limits: POST_TRIAL_DAILY_LIMITS,
-      trial_usage: {
-        date: taipeiDateKey(now),
-        limits: TRIAL_DAILY_LIMITS,
-        counts: {},
-        remaining: TRIAL_DAILY_LIMITS,
-      },
-    });
-  }
-
   if (!trial) {
     const expiresAt = addDaysIso(now, TRIAL_DAYS);
     await db
@@ -1384,10 +1329,38 @@ export async function trialStatus(request: Request): Promise<Response> {
   const deviceHash = await deviceHashFromBody(body);
   const now = new Date();
   const nowIso = now.toISOString();
+  const today = taipeiDateKey(now);
+  const shouldStartTrial = body.start_trial === true;
   let trial = await db
     .prepare("SELECT * FROM trial_devices WHERE device_hash = ?")
     .bind(deviceHash)
     .first<TrialDeviceRow>();
+
+  if (!trial && !shouldStartTrial) {
+    return jsonResponse({
+      success: true,
+      allowed: true,
+      paid: false,
+      code: "trial_not_started",
+      trial: {
+        is_trial: true,
+        is_expired: false,
+        full_trial_active: false,
+        phase: "not_started",
+        remaining_days: TRIAL_DAYS,
+        starts_on_first_use: true,
+      },
+      trial_days: TRIAL_DAYS,
+      trial_daily_limits: TRIAL_DAILY_LIMITS,
+      post_trial_daily_limits: POST_TRIAL_DAILY_LIMITS,
+      trial_usage: {
+        date: today,
+        limits: TRIAL_DAILY_LIMITS,
+        counts: {},
+        remaining: TRIAL_DAILY_LIMITS,
+      },
+    });
+  }
 
   if (!trial) {
     const expiresAt = addDaysIso(now, TRIAL_DAYS);

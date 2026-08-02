@@ -133,6 +133,21 @@ test("stats report is not public when the report token is missing", () => {
   assert.match(statsStore, /return false;/);
 });
 
+test("trial status does not start trials from read-only status checks", () => {
+  const licenseRelay = readFileSync(new URL("../app/licenseRelay.ts", import.meta.url), "utf8");
+  const statusStart = licenseRelay.indexOf("export async function trialStatus");
+  const nextExport = licenseRelay.indexOf("export async function appUpdateStatus", statusStart);
+  const statusBlock = licenseRelay.slice(statusStart, nextExport);
+  const activeTrialStart = licenseRelay.indexOf("async function ensureActiveTrial");
+  const activeTrialEnd = licenseRelay.indexOf("async function consumePoiUsageBudget", activeTrialStart);
+  const activeTrialBlock = licenseRelay.slice(activeTrialStart, activeTrialEnd);
+
+  assert.match(statusBlock, /body\.start_trial === true/);
+  assert.match(statusBlock, /trial_not_started/);
+  assert.equal(activeTrialBlock.includes("trial_not_started"), false);
+  assert.equal(activeTrialBlock.includes("jsonResponse"), false);
+});
+
 
 test("page explains Pik Flyer for international visitors", () => {
   assert.match(rootIndex, /Pik Flyer - 小翅膀/);
