@@ -78,12 +78,12 @@ const POST_TRIAL_DAILY_LIMITS: Record<string, number> = {
   citywalk: 1,
   manual_batch: 0,
 };
-const LATEST_ANDROID_VERSION = "2.0.5";
+const LATEST_ANDROID_VERSION = "2.0.6";
 const MIN_ANDROID_VERSION = "1.0.0";
-const LATEST_ANDROID_RELEASED_AT = "2026-08-02T08:35:00.000Z";
+const LATEST_ANDROID_RELEASED_AT = "2026-08-02T08:50:00.000Z";
 const ANDROID_UPDATE_GRACE_DAYS = 30;
-const ANDROID_DOWNLOAD_URL = "https://www.pikflyer.app/downloads/pikflyer-xiaochibang-android-v2.0.5.apk";
-const ANDROID_UPDATE_ANNOUNCEMENT_ID = "android-2.0.5-member-only-events";
+const ANDROID_DOWNLOAD_URL = "https://www.pikflyer.app/downloads/pikflyer-xiaochibang-android-v2.0.6.apk";
+const ANDROID_UPDATE_ANNOUNCEMENT_ID = "android-2.0.6-legacy-debug-cleanup";
 const PAID_POI_HOURLY_LIMIT = 300;
 const PAID_POI_DAILY_LIMIT = 2000;
 const STARTER_PACK_SIZE = 100;
@@ -296,7 +296,7 @@ function androidUpdatePayload(body: Record<string, unknown>, now = new Date()): 
     days_since_latest_release: ageDays,
     announcement_id: ANDROID_UPDATE_ANNOUNCEMENT_ID,
     title: updateRequired ? "請更新 Pik Flyer-小翅膀" : "Pik Flyer-小翅膀 有新版",
-    message: "活動專區改為會員限定：免費玩家可查看活動地點，會員可在同日期安全窗內傳送與啟動活動散步。",
+    message: "更新流程改善：正式版會偵測舊測試版並引導移除，避免手機桌面同時出現兩個小翅膀。",
     download_url: ANDROID_DOWNLOAD_URL,
   };
 }
