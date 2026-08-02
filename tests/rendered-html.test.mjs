@@ -55,11 +55,11 @@ test("brand assets and Android release download are present", () => {
   const requiredFiles = [
     "../assets/brand/xiaochibang-logo.png",
     "../assets/brand/xiaochibang-logo-180.png",
-    "../downloads/pikflyer-xiaochibang-android-v1.0.13.sha256",
-    "../downloads/pikflyer-xiaochibang-android-v1.0.13.apk",
+    "../downloads/pikflyer-xiaochibang-android-v1.0.14.sha256",
+    "../downloads/pikflyer-xiaochibang-android-v1.0.14.apk",
     "../credits.html",
     "../public/credits.html",
-    "../public/downloads/pikflyer-xiaochibang-android-v1.0.13.apk",
+    "../public/downloads/pikflyer-xiaochibang-android-v1.0.14.apk",
     "../assets/reviews/emma.jpg",
     "../assets/reviews/jack.jpg",
     "../assets/reviews/mika.jpg",
@@ -86,10 +86,10 @@ test("brand assets and Android release download are present", () => {
 });
 
 test("page points users at the current Android release", () => {
-  assert.match(rootIndex, /\/download\?file=pikflyer-xiaochibang-android-v1\.0\.13\.apk/);
+  assert.match(rootIndex, /\/download\?file=pikflyer-xiaochibang-android-v1\.0\.14\.apk/);
   assert.match(rootIndex, /\/stats\/track/);
   assert.match(rootIndex, /https:\/\/www\.creem\.io\/payment\/prod_p43ENvAr9g7395z8mlvH/);
-  assert.match(rootIndex, /版本 1\.0\.13/);
+  assert.match(rootIndex, /版本 1\.0\.14/);
   assert.match(rootIndex, /7 天完整試用/);
   assert.match(rootIndex, /第 8 天後仍可用：10 次傳送、15 次骰子、1 次城市散步/);
   assert.match(rootIndex, /設定簡單/);
