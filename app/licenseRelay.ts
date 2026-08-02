@@ -78,12 +78,12 @@ const POST_TRIAL_DAILY_LIMITS: Record<string, number> = {
   citywalk: 1,
   manual_batch: 0,
 };
-const LATEST_ANDROID_VERSION = "1.0.14";
+const LATEST_ANDROID_VERSION = "2.0.1";
 const MIN_ANDROID_VERSION = "1.0.0";
-const LATEST_ANDROID_RELEASED_AT = "2026-08-02T06:05:32.000Z";
+const LATEST_ANDROID_RELEASED_AT = "2026-08-02T06:45:00.000Z";
 const ANDROID_UPDATE_GRACE_DAYS = 30;
-const ANDROID_DOWNLOAD_URL = "https://www.pikflyer.app/downloads/pikflyer-xiaochibang-android-v1.0.14.apk";
-const ANDROID_UPDATE_ANNOUNCEMENT_ID = "android-1.0.14-overseas-dice";
+const ANDROID_DOWNLOAD_URL = "https://www.pikflyer.app/downloads/pikflyer-xiaochibang-android-v2.0.1.apk";
+const ANDROID_UPDATE_ANNOUNCEMENT_ID = "android-2.0.1-ui-update-fix";
 const PAID_POI_HOURLY_LIMIT = 300;
 const PAID_POI_DAILY_LIMIT = 2000;
 const STARTER_PACK_SIZE = 100;
@@ -296,7 +296,7 @@ function androidUpdatePayload(body: Record<string, unknown>, now = new Date()): 
     days_since_latest_release: ageDays,
     announcement_id: ANDROID_UPDATE_ANNOUNCEMENT_ID,
     title: updateRequired ? "請更新 Pik Flyer-小翅膀" : "Pik Flyer-小翅膀 有新版",
-    message: "新增 7 天完整試用、免費低額度版、更新提醒，以及更清楚的手動批量座標限制。",
+    message: "修正更新提示，並把搜尋欄與座標欄位改成更直覺的中文顯示。",
     download_url: ANDROID_DOWNLOAD_URL,
   };
 }
