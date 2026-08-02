@@ -1,5 +1,5 @@
 Place the public Android release APK here:
 
-downloads/pikflyer-xiaochibang-android-v2.0.7.apk
+downloads/pikflyer-xiaochibang-android-v2.0.8.apk
 
 Only use a release-signed APK. Do not publish debug APKs.

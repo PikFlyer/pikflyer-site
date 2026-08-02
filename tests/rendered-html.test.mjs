@@ -4,6 +4,7 @@ import { test } from "node:test";
 
 const rootIndex = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const publicIndex = readFileSync(new URL("../public/index.html", import.meta.url), "utf8");
+const statsStore = readFileSync(new URL("../app/statsStore.ts", import.meta.url), "utf8");
 
 const forbiddenCopy = [
   "非 Google Play",
@@ -39,6 +40,10 @@ const forbiddenCopy = [
   "More than one workflow",
   "Real photo landmarks",
   "Android first",
+  "5-day free trial",
+  "5 天免費試用",
+  "5 天免费试用",
+  "示意頭像",
 ];
 
 test("public HTML is synchronized with the source HTML", () => {
@@ -55,18 +60,11 @@ test("brand assets and Android release download are present", () => {
   const requiredFiles = [
     "../assets/brand/xiaochibang-logo.png",
     "../assets/brand/xiaochibang-logo-180.png",
-    "../downloads/pikflyer-xiaochibang-android-v2.0.7.sha256",
-    "../downloads/pikflyer-xiaochibang-android-v2.0.7.apk",
+    "../downloads/pikflyer-xiaochibang-android-v2.0.8.sha256",
+    "../downloads/pikflyer-xiaochibang-android-v2.0.8.apk",
     "../credits.html",
     "../public/credits.html",
-    "../public/downloads/pikflyer-xiaochibang-android-v2.0.7.apk",
-    "../assets/reviews/emma.jpg",
-    "../assets/reviews/jack.jpg",
-    "../assets/reviews/mika.jpg",
-    "../assets/reviews/omar.jpg",
-    "../assets/reviews/sofia.jpg",
-    "../assets/reviews/yui.jpg",
-    "../public/assets/reviews/emma.jpg",
+    "../public/downloads/pikflyer-xiaochibang-android-v2.0.8.apk",
     "../assets/landmarks/giza-pyramids.jpg",
     "../assets/landmarks/tokyo-skytree.jpg",
     "../assets/landmarks/shibuya-crossing.jpg",
@@ -86,23 +84,20 @@ test("brand assets and Android release download are present", () => {
 });
 
 test("page points users at the current Android release", () => {
-  assert.match(rootIndex, /\/download\?file=pikflyer-xiaochibang-android-v2\.0\.7\.apk/);
+  assert.match(rootIndex, /\/download\?file=pikflyer-xiaochibang-android-v2\.0\.8\.apk/);
   assert.match(rootIndex, /\/stats\/track/);
   assert.match(rootIndex, /https:\/\/www\.creem\.io\/payment\/prod_p43ENvAr9g7395z8mlvH/);
-  assert.match(rootIndex, /版本 2\.0\.7/);
+  assert.match(rootIndex, /版本 2\.0\.8/);
   assert.match(rootIndex, /7 天完整試用/);
   assert.match(rootIndex, /第 8 天後仍可用：10 次傳送、15 次骰子、1 次城市散步/);
   assert.match(rootIndex, /設定簡單/);
   assert.match(rootIndex, /第 8 天後仍可免費低額度使用/);
-  assert.match(rootIndex, /玩家會怎麼用/);
-  assert.match(rootIndex, /心如/);
+  assert.match(rootIndex, /常見使用情境/);
+  assert.match(rootIndex, /情境 01/);
   assert.match(rootIndex, /冰島/);
   assert.match(rootIndex, /data-review-carousel/);
-  assert.match(rootIndex, /assets\/reviews\/emma\.jpg/);
-  assert.match(rootIndex, /Jack/);
-  assert.match(rootIndex, /Yui/);
-  assert.match(rootIndex, /Omar/);
-  assert.match(rootIndex, /Sofía/);
+  assert.equal(rootIndex.includes("review-avatar"), false);
+  assert.equal(rootIndex.includes("示意頭像"), false);
   assert.equal(rootIndex.includes("同一個 app，用不同語言快速理解"), false);
   assert.match(rootIndex, /埃及金字塔/);
   assert.match(rootIndex, /東京晴空塔/);
@@ -115,6 +110,27 @@ test("page points users at the current Android release", () => {
   assert.match(rootIndex, /附近的香菇看膩了/);
   assert.match(rootIndex, /https:\/\/www\.instagram\.com\/pikflyer\.app\//);
   assert.match(rootIndex, /https:\/\/www\.threads\.com\/@pikflyer\.app/);
+});
+
+test("public policy copy is aligned with current trial promise", () => {
+  const terms = readFileSync(new URL("../terms.html", import.meta.url), "utf8");
+  const refund = readFileSync(new URL("../refund.html", import.meta.url), "utf8");
+  const publicTerms = readFileSync(new URL("../public/terms.html", import.meta.url), "utf8");
+  const publicRefund = readFileSync(new URL("../public/refund.html", import.meta.url), "utf8");
+
+  for (const document of [terms, refund, publicTerms, publicRefund]) {
+    assert.equal(document.includes("5-day free trial"), false);
+    assert.equal(document.includes("5 天免費試用"), false);
+    assert.equal(document.includes("5 天免费试用"), false);
+    assert.match(document, /7/);
+  }
+});
+
+test("stats report is not public when the report token is missing", () => {
+  assert.match(statsStore, /STATS_REPORT_TOKEN/);
+  assert.equal(statsStore.includes("if (!env.STATS_REPORT_TOKEN) return true"), false);
+  assert.match(statsStore, /if \(!env\.STATS_REPORT_TOKEN\) \{/);
+  assert.match(statsStore, /return false;/);
 });
 
 

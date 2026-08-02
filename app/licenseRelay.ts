@@ -78,12 +78,12 @@ const POST_TRIAL_DAILY_LIMITS: Record<string, number> = {
   citywalk: 1,
   manual_batch: 0,
 };
-const LATEST_ANDROID_VERSION = "2.0.7";
+const LATEST_ANDROID_VERSION = "2.0.8";
 const MIN_ANDROID_VERSION = "1.0.0";
-const LATEST_ANDROID_RELEASED_AT = "2026-08-02T14:14:21.000Z";
+const LATEST_ANDROID_RELEASED_AT = "2026-08-02T14:44:13.000Z";
 const ANDROID_UPDATE_GRACE_DAYS = 30;
-const ANDROID_DOWNLOAD_URL = "https://www.pikflyer.app/downloads/pikflyer-xiaochibang-android-v2.0.7.apk";
-const ANDROID_UPDATE_ANNOUNCEMENT_ID = "android-2.0.7-server-trial-enforcement";
+const ANDROID_DOWNLOAD_URL = "https://www.pikflyer.app/downloads/pikflyer-xiaochibang-android-v2.0.8.apk";
+const ANDROID_UPDATE_ANNOUNCEMENT_ID = "android-2.0.8-trial-first-use-and-copy-fixes";
 const PAID_POI_HOURLY_LIMIT = 300;
 const PAID_POI_DAILY_LIMIT = 2000;
 const STARTER_PACK_SIZE = 100;
@@ -258,8 +258,15 @@ function isExpired(expiresAt: string | null, now = new Date()): boolean {
   return Boolean(expiresAt && Date.parse(expiresAt) <= now.getTime());
 }
 
-function utcDateKey(now = new Date()): string {
-  return now.toISOString().slice(0, 10);
+function taipeiDateKey(now = new Date()): string {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Taipei",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(now);
+  const map = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  return `${map.year}-${map.month}-${map.day}`;
 }
 
 function compareVersions(a: string, b: string): number {
@@ -678,7 +685,7 @@ async function consumePoiUsageBudget(
     {
       subject: deviceHash,
       scope: "paid_device_day",
-      bucket: utcDateKey(new Date(now * 1000)),
+      bucket: taipeiDateKey(new Date(now * 1000)),
       max: PAID_POI_DAILY_LIMIT,
       resetAt: now + 24 * 60 * 60,
     },
@@ -768,7 +775,7 @@ async function consumeTrialQuota(
   const deviceHash = await deviceHashFromBody(body);
   const now = new Date();
   const nowIso = now.toISOString();
-  const today = utcDateKey(now);
+  const today = taipeiDateKey(now);
   let trial = await db
     .prepare("SELECT * FROM trial_devices WHERE device_hash = ?")
     .bind(deviceHash)
@@ -1190,11 +1197,38 @@ export async function checkTrial(request: Request): Promise<Response> {
   const deviceHash = await deviceHashFromBody(body);
   const now = new Date();
   const nowIso = now.toISOString();
-  const today = utcDateKey(now);
+  const today = taipeiDateKey(now);
   let trial = await db
     .prepare("SELECT * FROM trial_devices WHERE device_hash = ?")
     .bind(deviceHash)
     .first<TrialDeviceRow>();
+
+  const shouldStartTrial = body.start_trial === true;
+  if (!trial && !shouldStartTrial) {
+    return jsonResponse({
+      success: true,
+      allowed: true,
+      paid: false,
+      code: "trial_not_started",
+      trial: {
+        is_trial: true,
+        is_expired: false,
+        full_trial_active: false,
+        phase: "not_started",
+        remaining_days: TRIAL_DAYS,
+        starts_on_first_use: true,
+      },
+      trial_days: TRIAL_DAYS,
+      trial_daily_limits: TRIAL_DAILY_LIMITS,
+      post_trial_daily_limits: POST_TRIAL_DAILY_LIMITS,
+      trial_usage: {
+        date: taipeiDateKey(now),
+        limits: TRIAL_DAILY_LIMITS,
+        counts: {},
+        remaining: TRIAL_DAILY_LIMITS,
+      },
+    });
+  }
 
   if (!trial) {
     const expiresAt = addDaysIso(now, TRIAL_DAYS);

@@ -4,3 +4,15 @@ dist/
 .wrangler/
 qa/
 npm-debug.log*
+.DS_Store
+.openai/*.tar.gz
+.openai/dist-backup-*/
+dist-backup-*/
+*.tar.gz
+*.jks
+*.keystore
+keystore.properties
+release.properties
+.env
+.env.local
+.env.*.local

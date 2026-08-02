@@ -233,10 +233,6 @@ main > section:not(.hero) .note{color:#50665b}
   box-shadow:0 16px 42px rgba(7,18,15,.08);
 }
 .review-person{display:flex;align-items:center;gap:.8rem;margin-top:1rem}
-.review-avatar{
-  width:54px;height:54px;border-radius:18px;object-fit:cover;
-  border:2px solid rgba(67,240,168,.42);box-shadow:0 10px 24px rgba(7,18,15,.12);
-}
 .review-card blockquote{margin:0;color:#23352d;font-size:1rem}
 .review-card blockquote:before{content:"“";display:block;color:var(--mint);font-size:3rem;line-height:.7;font-weight:900}
 .review-card figcaption{color:#0f3729;font-weight:900}
@@ -464,7 +460,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
       <a href="#life">日常情境</a>
       <a href="#usecases">玩法</a>
       <a href="#features">特色</a>
-      <a href="#reviews">玩家情境</a>
+      <a href="#reviews">使用情境</a>
       <a href="#landmarks">地標</a>
       <a href="#install">安裝教學</a>
       <a href="#pricing">免費試用</a>
@@ -485,10 +481,10 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
         </div>
         <p class="hero-copy">附近的香菇看膩了？今天很忙忘了種花？天氣太熱不想出門？小翅膀把明信片骰子、自動散步與懸浮視窗放進手機。和朋友一起分享今天骰到的國外美景，在家也能有新的城市話題。</p>
         <div class="hero-actions" aria-label="Android 下載">
-          <a class="btn btn-primary" href="/download?file=pikflyer-xiaochibang-android-v2.0.7.apk">免費下載 Android 版</a>
+          <a class="btn btn-primary" href="/download?file=pikflyer-xiaochibang-android-v2.0.8.apk">免費下載 Android 版</a>
           <a class="btn btn-secondary" href="#install">看安裝教學</a>
           <div class="hero-release-card">
-            <strong>最新版 2.0.7</strong>
+            <strong>最新版 2.0.8</strong>
             <span>更新日期 2026/08/02 · Android APK 6.3 MB</span>
             <a class="micro-link" href="#pricing">不是只能用 7 天：之後仍有免費基本次數</a>
           </div>
@@ -602,51 +598,45 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
   <section id="reviews">
     <div class="wrap">
       <div class="section-head">
-        <h2>玩家會怎麼用</h2>
+        <h2>常見使用情境</h2>
         <p>不是只有重度玩家才會用。忙碌、下雨、天氣太熱、想跟朋友交換漂亮地點時，小翅膀都能派上用場。</p>
       </div>
       <div class="reviews-shell" data-review-carousel>
         <div class="reviews-grid" aria-label="玩家情境輪播">
           <figure class="review-card">
-            <blockquote>使用了 Pik Flyer 後真的方便，終於不用在台北人山人海只擠一般菇了。今天看看埃及，明天去冰島，順便看看那邊的菇長什麼樣子。</blockquote>
+            <blockquote>附近的點看膩了？可以先骰一個國外地標，收藏喜歡的明信片地點，晚上再排一段短短的城市散步。</blockquote>
             <div class="review-person">
-              <img class="review-avatar" src="assets/reviews/emma.jpg" alt="心如示意頭像">
-              <figcaption>心如<span>台北 · 明信片與香菇玩家</span></figcaption>
+              <figcaption>情境 01<span>想和朋友交換漂亮地點</span></figcaption>
             </div>
           </figure>
           <figure class="review-card">
-            <blockquote>I use Pik Flyer when friends share nice postcard spots. I can save them, roll a nearby category, and turn it into a short walk later.</blockquote>
+            <blockquote>朋友丟來一整串座標時，不用一個一個複製。整段貼上、預覽路線，確認後就能用 18 km/h 開始走。</blockquote>
             <div class="review-person">
-              <img class="review-avatar" src="assets/reviews/jack.jpg" alt="Jack示意頭像">
-              <figcaption>Jack<span>London · postcard route planner</span></figcaption>
+              <figcaption>情境 02<span>手動批量匯入座標</span></figcaption>
             </div>
           </figure>
           <figure class="review-card">
-            <blockquote>忙しい日でも、きれいなポストカード場所を友達に送れるのが便利です。近所だけで遊ぶ感じから少し抜け出せます。</blockquote>
+            <blockquote>今天上班上課太忙忘了種花？打開小翅膀規劃路線，一鍵按下後讓手機自己走一段。</blockquote>
             <div class="review-person">
-              <img class="review-avatar" src="assets/reviews/yui.jpg" alt="Yui示意頭像">
-              <figcaption>Yui<span>Tokyo · postcard collector</span></figcaption>
+              <figcaption>情境 03<span>忙碌日補一段散步</span></figcaption>
             </div>
           </figure>
           <figure class="review-card">
-            <blockquote>أحب أن أبحث عن أماكن جميلة خارج منطقتي. أرسل المواقع للأصدقاء، ثم نختار أفضل بطاقة بريدية لليوم.</blockquote>
+            <blockquote>天氣太熱或下雨不想出門時，先在家找城市、花園、夜景、港灣，挑一個今晚想去的方向。</blockquote>
             <div class="review-person">
-              <img class="review-avatar" src="assets/reviews/omar.jpg" alt="Omar示意頭像">
-              <figcaption>Omar<span>Cairo · city explorer</span></figcaption>
+              <figcaption>情境 04<span>在家挑今晚的城市</span></figcaption>
             </div>
           </figure>
           <figure class="review-card">
-            <blockquote>白天事情很多，晚上只想輕鬆補一段。小翅膀幫我把路線排好，還能跟朋友分享今天骰到哪個城市。</blockquote>
+            <blockquote>想看國外地標但不想滑很久？用分類骰子挑花園、古蹟、夜景或海邊，喜歡的點直接加入收藏。</blockquote>
             <div class="review-person">
-              <img class="review-avatar" src="assets/reviews/mika.jpg" alt="Mika示意頭像">
-              <figcaption>Mika<span>Kaohsiung · Android 使用者</span></figcaption>
+              <figcaption>情境 05<span>快速累積收藏地標</span></figcaption>
             </div>
           </figure>
           <figure class="review-card">
-            <blockquote>Cuando hace demasiado calor, elijo una ciudad bonita, guardo algunos lugares y los comparto con amigas. Se siente como un viaje pequeño.</blockquote>
+            <blockquote>常常忘記自己去過哪裡？移動日誌會留下紀錄；免費版保留 10 組，訂閱後最多可看 100 組。</blockquote>
             <div class="review-person">
-              <img class="review-avatar" src="assets/reviews/sofia.jpg" alt="Sofía示意頭像">
-              <figcaption>Sofía<span>Madrid · landmark hunter</span></figcaption>
+              <figcaption>情境 06<span>回頭整理移動紀錄</span></figcaption>
             </div>
           </figure>
         </div>
@@ -707,10 +697,10 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
           </ul>
         </div>
         <div>
-          <a class="btn btn-primary" href="/download?file=pikflyer-xiaochibang-android-v2.0.7.apk">下載 Pik Flyer Android</a>
+          <a class="btn btn-primary" href="/download?file=pikflyer-xiaochibang-android-v2.0.8.apk">下載 Pik Flyer Android</a>
           <a class="btn btn-secondary" href="https://www.creem.io/payment/prod_p43ENvAr9g7395z8mlvH" target="_blank" rel="noopener noreferrer" style="margin-top:.75rem">訂閱 US$4.99 / 月</a>
           <p class="release-meta">
-            版本 2.0.7 · Android 版 6.3 MB
+            版本 2.0.8 · Android 版 6.3 MB
           </p>
           <p class="note" style="color:#cce6bf;margin-bottom:0">完整試用 7 天；第 8 天後仍可免費低額度使用，需要更多額度時再升級 US$4.99 / 月。</p>
         </div>
@@ -791,7 +781,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
         <article class="card">
           <div class="icon">🗓️</div>
           <h3>活動專區</h3>
-          <p>IKEA、Xpark 這類期間活動會標好時間與地點；免費版可查看，會員可在同日期安全窗內快速傳送或排路線。</p>
+          <p>期間活動會整理時間、地點與路線提示；免費版可查看，會員可在同日期安全窗內快速傳送或排路線。</p>
         </article>
         <article class="card">
           <div class="icon">📋</div>

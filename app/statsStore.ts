@@ -173,7 +173,10 @@ export async function getStatsReport(days = 14): Promise<{
 
 export async function authorizeStatsReport(request: Request): Promise<boolean> {
   const env = await readStatsEnv();
-  if (!env.STATS_REPORT_TOKEN) return true;
+  if (!env.STATS_REPORT_TOKEN) {
+    console.warn("Stats report denied because STATS_REPORT_TOKEN is not configured.");
+    return false;
+  }
 
   const url = new URL(request.url);
   const queryToken = url.searchParams.get("token") || "";
