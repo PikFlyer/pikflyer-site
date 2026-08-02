@@ -17,9 +17,44 @@ type RollParams = {
   tz?: unknown;
   lat?: unknown;
   lng?: unknown;
+  exclude_tw?: unknown;
 };
 
 const MAX_DISTANCE_FROM_CURRENT_M = 300;
+const TAIWAN_TEXT_MARKERS = [
+  "台灣",
+  "臺灣",
+  "Taiwan",
+  "Taipei",
+  "Taichung",
+  "Tainan",
+  "Kaohsiung",
+  "台北",
+  "臺北",
+  "新北",
+  "桃園",
+  "新竹",
+  "苗栗",
+  "台中",
+  "臺中",
+  "彰化",
+  "南投",
+  "雲林",
+  "嘉義",
+  "台南",
+  "臺南",
+  "高雄",
+  "屏東",
+  "宜蘭",
+  "花蓮",
+  "台東",
+  "臺東",
+  "澎湖",
+  "金門",
+  "連江",
+  "馬祖",
+];
+const TAIWAN_NAME_MARKERS = ["台灣", "臺灣", "Taiwan"];
 
 const groups: Record<string, PoiRecord[]> = {
   postcard: postcardPois as PoiRecord[],
@@ -60,6 +95,23 @@ function haversineMeters(aLat: number, aLng: number, bLat: number, bLng: number)
     Math.sin(dLat / 2) ** 2 +
     Math.cos(toRad(aLat)) * Math.cos(toRad(bLat)) * Math.sin(dLng / 2) ** 2;
   return 2 * r * Math.atan2(Math.sqrt(x), Math.sqrt(1 - x));
+}
+
+function containsTaiwanMarker(value: unknown): boolean {
+  if (typeof value !== "string" || value.length < 1) return false;
+  return TAIWAN_TEXT_MARKERS.some((marker) => value.toLowerCase().includes(marker.toLowerCase()));
+}
+
+function isTaiwanCoordinate(lat: number, lng: number): boolean {
+  return Number.isFinite(lat) && Number.isFinite(lng) && lat >= 21.5 && lat <= 25.6 && lng >= 119 && lng <= 122.3;
+}
+
+function isTaiwanPoi(row: PoiRecord): boolean {
+  if (containsTaiwanMarker(row.city)) return true;
+  if (typeof row.name === "string" && TAIWAN_NAME_MARKERS.some((marker) => row.name.toLowerCase().includes(marker.toLowerCase()))) {
+    return true;
+  }
+  return isTaiwanCoordinate(numberOrNaN(row.lat), numberOrNaN(row.lng));
 }
 
 function tagName(group: string, tag: string): string {
@@ -106,7 +158,12 @@ export function rollServerPois(params: RollParams, count: number): { results: Re
   const userTz = numberOrNaN(params.tz);
   const curLat = numberOrNaN(params.lat);
   const curLng = numberOrNaN(params.lng);
-  const pool = tagIndex.get(groupTagKey(group, tag)) || [];
+  const excludeTaiwan = params.exclude_tw === true || params.exclude_tw === "true" || params.exclude_tw === 1;
+  const indexedPool = tagIndex.get(groupTagKey(group, tag)) || [];
+  const groupPool = tagIndex.get(groupTagKey(group, "")) || indexedPool;
+  const overseasPool = excludeTaiwan ? indexedPool.filter((row) => !isTaiwanPoi(row)) : indexedPool;
+  const overseasGroupPool = excludeTaiwan ? groupPool.filter((row) => !isTaiwanPoi(row)) : groupPool;
+  const pool = overseasPool.length > 0 ? overseasPool : overseasGroupPool.length > 0 ? overseasGroupPool : indexedPool;
   const picked = new Set<number>();
   const results: Record<string, unknown>[] = [];
   const attemptsMax = Math.max(200, Math.min(pool.length, count * 80));
@@ -133,9 +190,11 @@ export function rollServerPois(params: RollParams, count: number): { results: Re
 
 export function starterServerPois(seed: string, count: number): Record<string, unknown>[] {
   const rng = seededRandom(seed);
+  const postcardRows = groups.postcard.filter((row) => !isTaiwanPoi(row));
+  const decorRows = groups.decor.filter((row) => !isTaiwanPoi(row));
   const pools = [
-    { group: "postcard", rows: groups.postcard, weight: 70 },
-    { group: "decor", rows: groups.decor, weight: 30 },
+    { group: "postcard", rows: postcardRows.length > 0 ? postcardRows : groups.postcard, weight: 70 },
+    { group: "decor", rows: decorRows.length > 0 ? decorRows : groups.decor, weight: 30 },
   ];
   const picked = new Set<string>();
   const results: Record<string, unknown>[] = [];
