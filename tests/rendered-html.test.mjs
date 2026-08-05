@@ -5,6 +5,7 @@ import { test } from "node:test";
 const rootIndex = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const publicIndex = readFileSync(new URL("../public/index.html", import.meta.url), "utf8");
 const statsStore = readFileSync(new URL("../app/statsStore.ts", import.meta.url), "utf8");
+const i18nScript = readFileSync(new URL("../public/i18n.js", import.meta.url), "utf8");
 
 const forbiddenCopy = [
   "非 Google Play",
@@ -158,9 +159,32 @@ test("trial status does not start trials from read-only status checks", () => {
 });
 
 
-test("page explains Pik Flyer for international visitors", () => {
+test("page provides complete localized copy for international visitors", () => {
   assert.match(rootIndex, /Pik Flyer - 小翅膀/);
-  assert.match(rootIndex, /Pik Flyer helps you find postcard-worthy spots/);
-  assert.match(rootIndex, /友達とのスポット共有/);
-  assert.match(rootIndex, /친구와 공유하기 쉽게/);
+  assert.match(i18nScript, /60,000\+ curated POIs/);
+  assert.match(i18nScript, /6万件以上の独自POIデータ/);
+  assert.match(i18nScript, /6만 개 이상의 자체 POI 데이터/);
+});
+
+test("homepage uses one full-page language picker instead of the multilingual card section", () => {
+  assert.equal(rootIndex.includes('<section id="global">'), false);
+  assert.match(rootIndex, /id="language-select"/);
+  assert.match(rootIndex, /<option value="zh-TW">繁體中文<\/option>/);
+  assert.match(rootIndex, /<option value="en">English<\/option>/);
+  assert.match(rootIndex, /<option value="ja">日本語<\/option>/);
+  assert.match(rootIndex, /<option value="ko">한국어<\/option>/);
+  assert.match(rootIndex, /<script src="i18n\.js"/);
+});
+
+test("language system detects, persists, and applies every supported locale", () => {
+  for (const locale of ["zh-TW", "en", "ja", "ko"]) {
+    assert.ok(i18nScript.includes(locale), `Missing locale: ${locale}`);
+  }
+  assert.match(i18nScript, /navigator\.languages/);
+  assert.match(i18nScript, /localStorage\.setItem\(STORAGE_KEY, language\)/);
+  assert.match(i18nScript, /document\.documentElement\.lang = HTML_LANG\[safeLanguage\]/);
+  assert.match(i18nScript, /url\.searchParams\.set\("lang", language\)/);
+  assert.match(i18nScript, /translateTextNodes\(safeLanguage\)/);
+  assert.match(i18nScript, /translateAttributes\(safeLanguage\)/);
+  assert.match(i18nScript, /updateMetadata\(safeLanguage\)/);
 });
