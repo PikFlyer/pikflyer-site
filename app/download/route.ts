@@ -2,11 +2,12 @@ import { jsonResponse, methodNotAllowed, relayError } from "../licenseRelay";
 import { recordSiteStat } from "../statsStore";
 
 const DOWNLOAD_FILES = new Set([
+  "pikflyer-xiaochibang-android-v2.0.11.apk",
   "pikflyer-xiaochibang-android-v2.0.10.apk",
   "pikflyer-xiaochibang-android-v2.0.8.apk",
   "pikflyer-xiaochibang-android-v2.0.7.apk",
 ]);
-const DEFAULT_DOWNLOAD_FILE = "pikflyer-xiaochibang-android-v2.0.10.apk";
+const DEFAULT_DOWNLOAD_FILE = "pikflyer-xiaochibang-android-v2.0.11.apk";
 
 function getDownloadFile(request: Request): Response | string {
   const url = new URL(request.url);

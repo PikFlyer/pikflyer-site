@@ -6,8 +6,9 @@ export const metadata: Metadata = {
   description:
     "Pik Flyer Android 免費試用版。用明信片骰子、城市散步、地標分類與懸浮視窗探索真實世界地標。",
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: "/assets/brand/pikflyer-favicon-180.png",
+    shortcut: "/assets/brand/pikflyer-favicon-180.png",
+    apple: "/assets/brand/pikflyer-favicon-180.png",
   },
 };
 

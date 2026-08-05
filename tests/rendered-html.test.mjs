@@ -58,13 +58,16 @@ test("sales page does not expose risk-heavy or unwanted launch copy", () => {
 
 test("brand assets and Android release download are present", () => {
   const requiredFiles = [
-    "../assets/brand/xiaochibang-logo.png",
-    "../assets/brand/xiaochibang-logo-180.png",
-    "../downloads/pikflyer-xiaochibang-android-v2.0.10.sha256",
-    "../downloads/pikflyer-xiaochibang-android-v2.0.10.apk",
+    "../assets/brand/pikflyer-logo-main-transparent.png",
+    "../assets/brand/pikflyer-logo-wordmark-horizontal.png",
+    "../assets/brand/pikflyer-logo-wordmark-light.png",
+    "../assets/brand/pikflyer-app-icon-main.png",
+    "../public/assets/brand/pikflyer-favicon-180.png",
+    "../downloads/pikflyer-xiaochibang-android-v2.0.11.sha256",
+    "../downloads/pikflyer-xiaochibang-android-v2.0.11.apk",
     "../credits.html",
     "../public/credits.html",
-    "../public/downloads/pikflyer-xiaochibang-android-v2.0.10.apk",
+    "../public/downloads/pikflyer-xiaochibang-android-v2.0.11.apk",
     "../assets/landmarks/giza-pyramids.jpg",
     "../assets/landmarks/tokyo-skytree.jpg",
     "../assets/landmarks/shibuya-crossing.jpg",
@@ -83,11 +86,17 @@ test("brand assets and Android release download are present", () => {
   }
 });
 
+test("page uses the approved Pikflyer logo assets", () => {
+  assert.match(rootIndex, /pikflyer-logo-wordmark-light\.png/);
+  assert.match(rootIndex, /pikflyer-favicon-180\.png/);
+  assert.equal(rootIndex.includes("xiaochibang-logo-180.png"), false);
+});
+
 test("page points users at the current Android release", () => {
-  assert.match(rootIndex, /\/download\?file=pikflyer-xiaochibang-android-v2\.0\.10\.apk/);
+  assert.match(rootIndex, /\/download\?file=pikflyer-xiaochibang-android-v2\.0\.11\.apk/);
   assert.match(rootIndex, /\/stats\/track/);
   assert.match(rootIndex, /https:\/\/www\.creem\.io\/payment\/prod_p43ENvAr9g7395z8mlvH/);
-  assert.match(rootIndex, /版本 2\.0\.10/);
+  assert.match(rootIndex, /版本 2\.0\.11/);
   assert.match(rootIndex, /7 天完整試用/);
   assert.match(rootIndex, /第 8 天後仍可用：10 次傳送、15 次骰子、1 次城市散步/);
   assert.match(rootIndex, /設定簡單/);

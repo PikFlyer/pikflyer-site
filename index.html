@@ -9,7 +9,8 @@
 <meta property="og:description" content="和朋友一起骰明信片、找國外美景、安排城市散步。前 7 天完整體驗；第 8 天後仍有免費基本次數。">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#07120f">
-<link rel="icon" href="assets/brand/xiaochibang-logo-180.png" type="image/png">
+<link rel="icon" href="assets/brand/pikflyer-favicon-180.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/brand/pikflyer-favicon-180.png">
 <style>
 :root{
   --bg:#07120f;
@@ -77,15 +78,8 @@ header{
   backdrop-filter:blur(18px);
 }
 .nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;font-weight:900}
-.brand-mark{
-  width:42px;height:42px;border-radius:14px;
-  background:url("assets/brand/xiaochibang-logo-180.png") center/cover;
-  box-shadow:inset 0 -10px 18px rgba(0,0,0,.34),0 0 24px rgba(67,240,168,.34);
-  position:relative;
-}
-.brand span:last-child{color:#f5fff4}
-.brand small{display:block;color:#8efac5;font-weight:800;line-height:1}
+.brand{display:flex;align-items:center;text-decoration:none}
+.brand-logo{display:block;width:154px;height:auto;max-height:54px;object-fit:contain}
 .nav-links{display:flex;align-items:center;gap:1rem}
 .nav-links a{font-size:.92rem;color:#cdeede;text-decoration:none;font-weight:800}
 .nav-links a:hover{text-decoration:underline}
@@ -382,6 +376,7 @@ main > section:not(.hero) .note{color:#50665b}
 }
 .phone-screen.dark{background:linear-gradient(180deg,#101d29,#0b1511);color:#f4fff6}
 .phone-title{display:flex;align-items:center;gap:.5rem;font-weight:900;margin-bottom:.9rem}
+.phone-title-logo{width:28px;height:28px;object-fit:contain;flex:0 0 auto}
 .phone-row{
   display:flex;align-items:center;justify-content:space-between;gap:.8rem;
   background:rgba(7,18,15,.06);border:1px solid rgba(7,18,15,.08);
@@ -438,7 +433,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
   .download-box{min-height:auto}
 }
 @media(max-width:420px){
-  .brand small{display:none}
+  .brand-logo{width:136px}
   .hero h1{font-size:2.25rem}
   .scene-stage{min-height:390px}
   .scene-slideshow{min-height:390px;border-radius:28px}
@@ -452,8 +447,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
 <header>
   <div class="wrap nav">
     <a class="brand" href="#top" aria-label="Pik Flyer home">
-      <span class="brand-mark" aria-hidden="true"></span>
-      <span>Pik Flyer <small>小翅膀 Android</small></span>
+      <img class="brand-logo" src="assets/brand/pikflyer-logo-wordmark-light.png" alt="Pikflyer">
     </a>
     <nav class="nav-links" aria-label="主選單">
       <a href="#global">Languages</a>
@@ -481,11 +475,11 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
         </div>
         <p class="hero-copy">附近的香菇看膩了？今天很忙忘了種花？天氣太熱不想出門？小翅膀把明信片骰子、自動散步與懸浮視窗放進手機。和朋友一起分享今天骰到的國外美景，在家也能有新的城市話題。</p>
         <div class="hero-actions" aria-label="Android 下載">
-          <a class="btn btn-primary" href="/download?file=pikflyer-xiaochibang-android-v2.0.10.apk">免費下載 Android 版</a>
+          <a class="btn btn-primary" href="/download?file=pikflyer-xiaochibang-android-v2.0.11.apk">免費下載 Android 版</a>
           <a class="btn btn-secondary" href="#install">看安裝教學</a>
           <div class="hero-release-card">
-            <strong>最新版 2.0.10</strong>
-            <span>更新日期 2026/08/02 · Android APK 6.3 MB</span>
+            <strong>最新版 2.0.11</strong>
+            <span>更新日期 2026/08/06 · Android APK 6.4 MB</span>
             <a class="micro-link" href="#pricing">不是只能用 7 天：之後仍有免費基本次數</a>
           </div>
         </div>
@@ -697,10 +691,10 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
           </ul>
         </div>
         <div>
-          <a class="btn btn-primary" href="/download?file=pikflyer-xiaochibang-android-v2.0.10.apk">下載 Pik Flyer Android</a>
+          <a class="btn btn-primary" href="/download?file=pikflyer-xiaochibang-android-v2.0.11.apk">下載 Pik Flyer Android</a>
           <a class="btn btn-secondary" href="https://www.creem.io/payment/prod_p43ENvAr9g7395z8mlvH" target="_blank" rel="noopener noreferrer" style="margin-top:.75rem">訂閱 US$4.99 / 月</a>
           <p class="release-meta">
-            版本 2.0.10 · Android 版 6.3 MB
+            版本 2.0.11 · Android 版 6.4 MB
           </p>
           <p class="note" style="color:#cce6bf;margin-bottom:0">完整試用 7 天；第 8 天後仍可免費低額度使用，需要更多額度時再升級 US$4.99 / 月。</p>
         </div>
@@ -882,7 +876,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
           <div class="phone-shot" aria-label="首頁權限狀態示意">
             <div class="phone-bar"><span>00:38</span><span>Pik Flyer</span><span>100%</span></div>
             <div class="phone-screen">
-              <div class="phone-title">🌍 Pik Flyer-小翅膀</div>
+              <div class="phone-title"><img class="phone-title-logo" src="assets/brand/pikflyer-favicon-180.png" alt="">Pik Flyer-小翅膀</div>
               <div class="phone-row"><span>定位權限</span><strong>已允許</strong></div>
               <div class="phone-row"><span>模擬位置</span><strong>已選取</strong></div>
               <div class="phone-row"><span>懸浮視窗</span><span class="phone-toggle" aria-hidden="true"></span></div>
@@ -892,7 +886,7 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(7,18,15,.12);color:#50665b;bac
           <div class="phone-shot" aria-label="懸浮視窗狀態示意">
             <div class="phone-bar"><span>00:39</span><span>Floating</span><span>Ready</span></div>
             <div class="phone-screen dark">
-              <div class="phone-title">🎯 懸浮球已開啟</div>
+              <div class="phone-title"><img class="phone-title-logo" src="assets/brand/pikflyer-favicon-180.png" alt="">懸浮球已開啟</div>
               <div class="phone-row"><span>🎲 骰地標</span><strong>快速跳點</strong></div>
               <div class="phone-row"><span>🚶 自動散步</span><strong>18 km/h</strong></div>
               <div class="phone-row"><span>✕ 關閉浮窗</span><strong>隨時可關</strong></div>
