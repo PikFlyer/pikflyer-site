@@ -173,7 +173,7 @@ test("homepage uses one full-page language picker instead of the multilingual ca
   assert.match(rootIndex, /<option value="en">English<\/option>/);
   assert.match(rootIndex, /<option value="ja">日本語<\/option>/);
   assert.match(rootIndex, /<option value="ko">한국어<\/option>/);
-  assert.match(rootIndex, /<script src="i18n\.js"/);
+  assert.match(rootIndex, /<script src="i18n\.js\?v=\d+"/);
 });
 
 test("language system detects, persists, and applies every supported locale", () => {
