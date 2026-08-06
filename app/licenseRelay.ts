@@ -78,12 +78,12 @@ const POST_TRIAL_DAILY_LIMITS: Record<string, number> = {
   citywalk: 1,
   manual_batch: 0,
 };
-const LATEST_ANDROID_VERSION = "2.0.11";
+const LATEST_ANDROID_VERSION = "2.0.12";
 const MIN_ANDROID_VERSION = "1.0.0";
 const LATEST_ANDROID_RELEASED_AT = "2026-08-05T16:03:21.000Z";
 const ANDROID_UPDATE_GRACE_DAYS = 30;
-const ANDROID_DOWNLOAD_URL = "https://www.pikflyer.app/downloads/pikflyer-xiaochibang-android-v2.0.11.apk";
-const ANDROID_UPDATE_ANNOUNCEMENT_ID = "android-2.0.11-brand-refresh";
+const ANDROID_DOWNLOAD_URL = "https://pikflyer.github.io/pikflyer-site/downloads/pikflyer-xiaochibang-android-v2.0.12.apk";
+const ANDROID_UPDATE_ANNOUNCEMENT_ID = "android-2.0.12-launcher-icon-fix";
 const PAID_POI_HOURLY_LIMIT = 300;
 const PAID_POI_DAILY_LIMIT = 2000;
 const STARTER_PACK_SIZE = 100;

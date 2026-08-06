@@ -491,10 +491,10 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(16,38,42,.12);color:#557372;ba
         </div>
         <p class="hero-copy">附近的香菇看膩了？今天很忙忘了種花？天氣太熱不想出門？小翅膀把超過 6 萬筆自建 POI 地標庫、明信片骰子、自動散步與懸浮視窗放進手機。和朋友一起分享今天骰到的國外美景，在家也能有新的城市話題。</p>
         <div class="hero-actions" aria-label="Android 下載">
-          <a class="btn btn-primary" href="/download?file=pikflyer-xiaochibang-android-v2.0.11.apk">免費下載 Android 版</a>
+          <a class="btn btn-primary" href="/download?file=pikflyer-xiaochibang-android-v2.0.12.apk">免費下載 Android 版</a>
           <a class="btn btn-secondary" href="#install">看安裝教學</a>
           <div class="hero-release-card">
-            <strong>最新版 2.0.11</strong>
+            <strong>最新版 2.0.12</strong>
             <span>更新日期 2026/08/06 · Android APK 6.4 MB</span>
             <a class="micro-link" href="#pricing">不是只能用 7 天：之後仍有免費基本次數</a>
           </div>
@@ -681,10 +681,10 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(16,38,42,.12);color:#557372;ba
           </ul>
         </div>
         <div>
-          <a class="btn btn-primary" href="/download?file=pikflyer-xiaochibang-android-v2.0.11.apk">下載 Pik Flyer Android</a>
+          <a class="btn btn-primary" href="/download?file=pikflyer-xiaochibang-android-v2.0.12.apk">下載 Pik Flyer Android</a>
           <a class="btn btn-secondary" href="https://www.creem.io/payment/prod_p43ENvAr9g7395z8mlvH" target="_blank" rel="noopener noreferrer" style="margin-top:.75rem">訂閱 US$4.99 / 月</a>
           <p class="release-meta">
-            版本 2.0.11 · Android 版 6.4 MB
+            版本 2.0.12 · Android 版 6.4 MB
           </p>
           <p class="note" style="color:#c7dcd9;margin-bottom:0">完整試用 7 天；第 8 天後仍可免費低額度使用，需要更多額度時再升級 US$4.99 / 月。</p>
         </div>
@@ -1068,6 +1068,16 @@ footer{padding:2.5rem 0;border-top:1px solid rgba(16,38,42,.12);color:#557372;ba
   root.addEventListener('focusout', start);
   showReview(0);
   start();
+})();
+</script>
+<script>
+(() => {
+  if (window.location.hostname !== 'pikflyer.github.io') return;
+
+  const apkUrl = 'https://pikflyer.github.io/pikflyer-site/downloads/pikflyer-xiaochibang-android-v2.0.12.apk';
+  document.querySelectorAll('a[href^="/download"]').forEach((link) => {
+    link.href = apkUrl;
+  });
 })();
 </script>
 <script src="i18n.js?v=20260806" onerror="document.documentElement.classList.remove('i18n-pending')"></script>
